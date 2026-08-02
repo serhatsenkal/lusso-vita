@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="tr">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Proje | Lusso Vita</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
+        [class*="fixed"] a, [class*="fixed"] button { white-space: nowrap; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#ebe8e0", "inverse-on-surface": "#f3f1e9", "surface": "#fcf9f1",
+                        "error-container": "#ffdad6", "primary-fixed": "#d2e4fb", "on-error-container": "#93000a",
+                        "background": "#fcf9f1", "surface-bright": "#fcf9f1", "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e5e2da", "on-background": "#1c1c17", "secondary-fixed": "#f6decc",
+                        "charcoal-steel": "#2C2C2C", "surface-variant": "#e5e2da", "primary": "#041627", "walnut": "#4B3D33",
+                        "on-secondary-container": "#715f51", "on-tertiary-fixed": "#2c160e", "on-primary-container": "#8192a7",
+                        "on-surface-variant": "#44474c", "outline": "#74777d", "on-primary-fixed-variant": "#38485a",
+                        "on-primary-fixed": "#0b1d2d", "brushed-bronze": "#8E7966", "on-error": "#ffffff",
+                        "tertiary-container": "#3c231b", "on-surface": "#1c1c17", "primary-fixed-dim": "#b7c8de",
+                        "error": "#ba1a1a", "secondary-container": "#f3dbc9", "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5d4037", "tertiary-fixed-dim": "#e7bdb1", "outline-variant": "#c4c6cd",
+                        "on-secondary-fixed": "#25190e", "travertine": "#E3D9C6", "secondary": "#6d5b4d",
+                        "surface-container": "#f1eee6", "on-secondary-fixed-variant": "#544437", "primary-container": "#1a2b3c",
+                        "inverse-surface": "#31312b", "secondary-fixed-dim": "#d9c2b1", "tertiary": "#240f08",
+                        "surface-container-low": "#f6f3eb", "tertiary-fixed": "#ffdbd0", "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b7c8de", "surface-dim": "#dcdad2", "surface-tint": "#4f6073",
+                        "on-tertiary": "#ffffff", "on-tertiary-container": "#ad887d"
+                    },
+                    "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    "spacing": { "unit": "8px", "gutter": "32px", "margin-desktop": "80px", "margin-mobile": "20px", "section-padding": "120px" },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display"], "body-md": ["Manrope"], "headline-lg": ["Playfair Display"],
+                        "headline-sm": ["Playfair Display"], "body-lg": ["Manrope"], "label-caps": ["Manrope"],
+                        "headline-lg-mobile": ["Playfair Display"], "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-brushed-bronze selection:text-white overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant/30">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<a class="flex items-center" href="index.html"><img src="assets/logo/lusso-vita-logo-160.png" alt="Lusso Vita" class="h-14 w-14 shrink-0"></a>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="index.html">Ana Sayfa</a>
+<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1" href="proje.html">Proje</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="teknik-ozellikler.html">Teknik Özellikler</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="daire-tipleri.html">Daire Tipleri</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="galeri.html">Galeri</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
+</div>
+<a href="hakkimizda.html#iletisim" class="bg-primary text-white font-label-caps text-label-caps px-6 py-3 hover:bg-brushed-bronze transition-colors duration-300">Randevu Al</a>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative h-[921px] w-full overflow-hidden flex items-start pt-40 pb-32">
+<div class="absolute inset-0 z-0">
+<img alt="Lusso Vita gece dış cephe render" class="w-full h-full object-cover" src="assets/images/dis/dis-06-gece.jpg">
+<div class="absolute inset-0 bg-gradient-to-b from-primary/50 via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto w-full flex justify-end">
+<div class="max-w-xl text-right">
+<span class="font-label-caps text-[14px] text-travertine block mb-4 uppercase tracking-[0.3em]">Ankara'ya Yeni Bir Mimari İmza</span>
+<h1 class="font-display-lg text-display-lg text-white leading-tight">Gökyüzünde Modern Bir Yaşam Sanatı.</h1>
+</div>
+</div>
+</header>
+<!-- Project Overview -->
+<section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5 reveal-on-scroll active"><span class="font-label-caps text-label-caps text-brushed-bronze block mb-6">MİMARİ KONSEPT</span><h2 class="font-headline-lg text-headline-lg mb-8 text-primary">LUSSO VITA: Zamansız Bir Estetik</h2><p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-6">LUSSO VITA, Alacaatlı'nın değerli konumunda modern mimari anlayışı, seçkin yaşam detayları ve güçlü proje kimliğiyle buluşturur. Dış cephede kullanılan yalın, dengeli ve çağdaş mimari dil; projeye prestijli bir silüet kazandırırken, yaşam alanlarında konfor ve estetik arasında güçlü bir uyum sunar.</p><p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-8">Konut, ticari alan ve sosyal yaşam unsurlarını aynı mimari bütünlük içinde bir araya getiren LUSSO VITA; yalnızca bugünün ihtiyaçlarına değil, geleceğin yaşam beklentilerine de cevap veren nitelikli bir proje anlayışını yansıtır.</p><div class="border-l border-brushed-bronze pl-8 py-2"><p class="font-body-md text-body-md italic text-on-surface">"LUSSO VITA, mimariyi yalnızca bir yapı değil; değer, konfor ve yaşam kalitesi üreten bütüncül bir deneyim olarak ele alır."</p></div></div>
+<div class="md:col-start-7 md:col-span-6 reveal-on-scroll active">
+<div class="relative aspect-[4/5] w-full bg-travertine overflow-hidden">
+<img class="w-full h-full object-cover" alt="Lusso Vita dış cephe gündüz görünümü" src="assets/images/dis/dikey/dikey-04.jpg">
+</div>
+</div>
+</div>
+</section>
+<!-- Amenities Bento Grid -->
+<section class="py-section-padding bg-surface-container-low">
+<div class="px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="text-center mb-20 reveal-on-scroll active">
+<span class="font-label-caps text-label-caps text-brushed-bronze block mb-4">AYRICALIKLAR</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Rafine Bir Yaşam İçin Her Şey</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-2 group relative overflow-hidden bg-white aspect-[16/9] reveal-on-scroll active">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita geniş dış cephe görünümü" src="assets/images/dis/dis-09.jpg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-12">
+<h3 class="font-headline-sm text-headline-sm text-white mb-2">Prestijli Silüet</h3>
+<p class="text-white/80 font-body-md">Ankara skyline'ına yeni bir mimari imza.</p>
+</div>
+</div>
+<div class="group relative overflow-hidden bg-white aspect-[4/5] reveal-on-scroll active">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita dış cephe görünümü" src="assets/images/dis/dis-12.jpg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-8">
+<h3 class="font-headline-sm text-headline-sm text-white mb-2">Huzurun Merkezi</h3>
+<p class="text-white/80 font-body-md">Şehrin gürültüsünden uzaklaşın.</p>
+</div>
+</div>
+<div class="group relative overflow-hidden bg-white aspect-[4/5] reveal-on-scroll active">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita salon" src="assets/images/ic/salon-4.jpg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-8">
+<h3 class="font-headline-sm text-headline-sm text-white mb-2">Konforlu Yaşam Alanları</h3>
+<p class="text-white/80 font-body-md">Geniş ve ferah yaşam alanları.</p>
+</div>
+</div>
+<div class="md:col-span-2 group relative overflow-hidden bg-white aspect-[16/9] reveal-on-scroll active">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita dış cephe görünümü" src="assets/images/dis/dis-07.jpg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-12">
+<h3 class="font-headline-sm text-headline-sm text-white mb-2">Cadde Mağazaları</h3>
+<p class="text-white/80 font-body-md">Günlük ihtiyaçlarınız hemen alt katınızda.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tower Details & Stats -->
+<section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto border-b border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between gap-16">
+<div class="md:w-1/2 reveal-on-scroll active">
+<span class="font-label-caps text-label-caps text-brushed-bronze block mb-6">TEKNİK DETAYLAR</span>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-12">Detaylarda Kalite, Yaşamda Konfor</h2>
+<div class="space-y-12">
+<div class="flex items-start gap-6">
+<span class="material-symbols-outlined text-brushed-bronze text-3xl">apartment</span>
+<div><h4 class="font-headline-sm text-headline-sm text-primary mb-2">Seçkin İç Mekân Detayları</h4><p class="text-on-surface-variant font-body-md">Alüminyum doğrama ve ısıcamlı pencereler, mobilya iç kapılar, lamine parke ve premium seramik kaplamalarla konforlu ve uzun ömürlü yaşam alanları.</p></div>
+</div>
+<div class="flex items-start gap-6">
+<span class="material-symbols-outlined text-brushed-bronze text-3xl">home_work</span>
+<div><h4 class="font-headline-sm text-headline-sm text-primary mb-2">Konforlu</h4><p class="text-on-surface-variant font-body-md">Merkezi sistem yerden ısıtma, salon için klima altyapısı, görüntülü diafon, uydu ve internet hattı altyapısı.</p></div>
+</div>
+<div class="flex items-start gap-6">
+<span class="material-symbols-outlined text-brushed-bronze text-3xl">eco</span>
+<div><h4 class="font-headline-sm text-headline-sm text-primary mb-2">Güçlü Proje Donatıları</h4><p class="text-on-surface-variant font-body-md">Her daire için kapalı otopark, hidrofor sistemi, modüler su deposu, jeneratör, çatı tipi güneş enerjisi paneli, elektrikli araç şarj altyapısı ve 2 adet asansör bağlantısı.</p></div>
+</div>
+</div>
+</div>
+<div class="md:w-1/3 reveal-on-scroll active">
+<div class="bg-surface-container-highest p-12 border border-outline-variant/30 relative">
+<div class="absolute -top-10 -left-4 bg-primary text-white w-20 h-20 flex items-center justify-center font-headline-md">01</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6">Konum Avantajı</h3>
+<p class="font-body-md text-on-surface-variant mb-8 leading-relaxed">Park Caddesi'nde yer alan LUSSO VITA; Eskişehir Yolu'na 6 dk, Arcadium AVM'ye 8 dk, Başkent Üniversitesi'ne 7 dk ve Koru Metro'ya 10 dk mesafedeki konumuyla şehir yaşamına güçlü bir erişim avantajı sunar.</p>
+<div class="aspect-square bg-travertine relative overflow-hidden flex items-center justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant/60 text-center px-6">Konum haritası yakında eklenecek</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-highest w-full py-section-padding border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="flex flex-col gap-6">
+<img src="assets/logo/lusso-vita-logo-160.png" alt="Lusso Vita" class="h-16 w-16">
+<p class="font-body-md text-body-md text-on-surface-variant">Lusso Vita projesi, modern yaşamın tüm gereksinimlerini lüks ve estetikle birleştiriyor.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-caps text-label-caps text-primary mb-4">İLETİŞİM</h4>
+<p class="font-body-md text-on-surface-variant">Alacaatlı Mahallesi, Park Caddesi No:48 Çankaya/Ankara</p>
+<p class="font-body-md text-on-surface-variant">+90 312 000 00 00</p>
+</div>
+<div class="flex flex-col gap-4"><h4 class="font-label-caps text-label-caps text-primary mb-4">SOSYAL MEDYA</h4>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Instagram</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">YouTube</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">TikTok</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">X</a></div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-caps text-label-caps text-primary mb-4">KURUMSAL</h4>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">KVKK</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Yasal Uyarı</a>
+</div>
+</div>
+<div class="mt-20 border-t border-outline-variant/30 pt-8 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">© 2026 Methaş Mühendislik İnş. Ltd. Şti. Bütün hakları saklıdır.</p>
+<a href="https://serhatsenkal.com" target="_blank" rel="noopener" class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest hover:text-brushed-bronze transition-colors">Web tasarım: serhatsenkal.com</a>
+</div>
+</footer>
+<script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, observerOptions);
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
+        });
+    </script>
+</body>
+</html>

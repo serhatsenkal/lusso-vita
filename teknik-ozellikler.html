@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="tr">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Teknik Özellikler | Lusso Vita</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#2c160e", "on-surface": "#1c1c17", "error": "#ba1a1a",
+                        "on-error-container": "#93000a", "on-secondary-container": "#715f51", "primary": "#041627",
+                        "on-secondary-fixed-variant": "#544437", "on-background": "#1c1c17", "primary-fixed-dim": "#b7c8de",
+                        "inverse-primary": "#b7c8de", "surface-dim": "#dcdad2", "primary-container": "#1a2b3c",
+                        "on-primary": "#ffffff", "secondary-fixed-dim": "#d9c2b1", "on-tertiary-container": "#ad887d",
+                        "on-error": "#ffffff", "surface-variant": "#e5e2da", "on-secondary": "#ffffff",
+                        "surface-container-low": "#f6f3eb", "walnut": "#4B3D33", "outline": "#74777d",
+                        "tertiary-fixed-dim": "#e7bdb1", "on-surface-variant": "#44474c", "charcoal-steel": "#2C2C2C",
+                        "on-primary-container": "#8192a7", "on-primary-fixed": "#0b1d2d", "primary-fixed": "#d2e4fb",
+                        "surface-container-highest": "#e5e2da", "on-secondary-fixed": "#25190e", "tertiary-fixed": "#ffdbd0",
+                        "inverse-on-surface": "#f3f1e9", "tertiary": "#240f08", "surface-tint": "#4f6073",
+                        "surface-container-lowest": "#ffffff", "tertiary-container": "#3c231b", "inverse-surface": "#31312b",
+                        "background": "#fcf9f1", "secondary-container": "#f3dbc9", "brushed-bronze": "#8E7966",
+                        "on-tertiary-fixed-variant": "#5d4037", "travertine": "#E3D9C6", "secondary": "#6d5b4d",
+                        "on-primary-fixed-variant": "#38485a", "error-container": "#ffdad6", "surface": "#fcf9f1",
+                        "surface-container-high": "#ebe8e0", "surface-container": "#f1eee6", "on-tertiary": "#ffffff",
+                        "surface-bright": "#fcf9f1", "secondary-fixed": "#f6decc", "outline-variant": "#c4c6cd"
+                    },
+                    "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    "spacing": { "unit": "8px", "gutter": "32px", "section-padding": "120px", "margin-mobile": "20px", "margin-desktop": "80px" },
+                    "fontFamily": {
+                        "label-caps": ["Manrope"], "headline-lg-mobile": ["Playfair Display"], "headline-lg": ["Playfair Display"],
+                        "headline-sm": ["Playfair Display"], "headline-md": ["Playfair Display"], "body-lg": ["Manrope"],
+                        "body-md": ["Manrope"], "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; font-size: 2rem; }
+        .tab-active { border-bottom: 2px solid #041627; color: #041627; }
+        .spec-card { transition: transform 0.3s ease, border-color 0.3s ease; }
+        .spec-card:hover { transform: translateY(-4px); border-color: #8E7966; }
+        [class*="fixed"] a, [class*="fixed"] button { white-space: nowrap; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant/30">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<a class="flex items-center" href="index.html"><img src="assets/logo/lusso-vita-logo-160.png" alt="Lusso Vita" class="h-14 w-14 shrink-0"></a>
+<div class="hidden md:flex gap-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="index.html">Ana Sayfa</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="proje.html">Proje</a>
+<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1" href="teknik-ozellikler.html">Teknik Özellikler</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="daire-tipleri.html">Daire Tipleri</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="galeri.html">Galeri</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
+</div>
+<a href="hakkimizda.html#iletisim" class="bg-primary text-on-primary px-6 py-3 font-label-caps text-label-caps hover:opacity-80 transition-opacity">
+                Randevu Al
+            </a>
+</div>
+</nav>
+<main class="pt-32">
+<!-- Hero / Section Header -->
+<header class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop mb-16 text-center">
+<span class="font-label-caps text-label-caps text-brushed-bronze mb-4 block">AYRICALIKLI YAŞAM</span>
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg text-primary mb-6">Teknik Özellikler</h1>
+<div class="w-24 h-px bg-brushed-bronze mx-auto opacity-50"></div>
+<p class="mt-8 text-on-surface-variant max-w-2xl mx-auto font-body-lg text-body-lg">
+                Modern mimari ve mühendisliğin en üst seviyesiyle tasarlanan Lusso Vita, her detayda sürdürülebilir kalite ve yüksek konfor sunar.
+            </p>
+</header>
+<!-- Technical Specs Component -->
+<section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop pb-section-padding">
+<!-- Tab Switcher -->
+<div class="flex justify-center border-b border-outline-variant mb-12 overflow-x-auto no-scrollbar">
+<div class="flex gap-8 md:gap-16">
+<button class="font-label-caps text-label-caps py-4 transition-all tab-active whitespace-nowrap" id="tab-ic-mekan-btn" onclick="switchTab('ic-mekan')">İÇ MEKAN</button>
+<button class="font-label-caps text-label-caps py-4 transition-all text-on-surface-variant hover:text-primary whitespace-nowrap" id="tab-muhendislik-btn" onclick="switchTab('muhendislik')">MÜHENDİSLİK &amp; ALTYAPI</button>
+<button class="font-label-caps text-label-caps py-4 transition-all text-on-surface-variant hover:text-primary whitespace-nowrap" id="tab-dis-cephe-btn" onclick="switchTab('dis-cephe')">DIŞ CEPHE &amp; OTOPARK</button>
+</div>
+</div>
+<!-- Tab Contents -->
+<div id="tab-container">
+<!-- İç Mekan -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter" id="tab-ic-mekan">
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center"><span class="material-symbols-outlined text-primary-fixed-dim">kitchen</span></div>
+<span class="border border-brushed-bronze text-brushed-bronze text-[10px] px-2 py-1 font-label-caps tracking-widest rounded-sm">PREMIUM MARKA</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Ankastre Mutfak Seti</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Mutfaklarımızda üst segment fırın, ocak, bulaşık makinesi ve davlumbaz sistemleri kullanılmaktadır.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">smartphone</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Akıllı Ev Otomasyonu</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Aydınlatma, iklimlendirme ve güvenlik sistemlerini tek bir noktadan yönetebileceğiniz entegre otomasyon altyapısı.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">texture</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Premium Seramik ve Porselen Yüzeyler</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Islak hacimlerde ve mutfak tezgahlarında zarafeti ve dayanıklılığı simgeleyen premium seramik ve porselen tercih edilmiştir.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">bathtub</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Geniş Hacimli Ebeveyn Banyosu</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Dinlendirici bir atmosfer sunan, lüks armatürlerle donatılmış geniş hacimli ebeveyn banyosu tasarımı.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">forest</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Lamine Parke</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Tüm yaşam alanlarında doğal dokusu ve sıcaklığıyla öne çıkan, yüksek dayanımlı lamine parke uygulaması.</p>
+</div>
+</div>
+<!-- Mühendislik & Altyapı -->
+<div class="hidden grid grid-cols-1 md:grid-cols-3 gap-gutter" id="tab-muhendislik">
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">device_thermostat</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Merkezi Yerden Isıtma</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Tüm dairelerde merkezi sistem yerden ısıtma ile mevsim boyunca dengeli ve konforlu bir sıcaklık.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">ac_unit</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Klima Altyapısı</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Salonda hazır klima tesisat altyapısı ile yaz aylarında da ideal konfor.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">videocam</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Görüntülü Diafon Sistemi</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Giriş güvenliğini artıran görüntülü diafon sistemi, her dairede standart olarak sunulur.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">water_drop</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Hidrofor ve Modüler Su Deposu</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Kesintisiz su basıncı için hidrofor sistemi ve yüksek kapasiteli modüler su deposu.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">ev_station</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Elektrikli Araç Şarj Altyapısı</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Kapalı otoparkta elektrikli araçlar için şarj istasyonu altyapısı hazır bulunur.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">elevator</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Çift Asansör Sistemi</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Bloklarda 2 adet yüksek hızlı asansör ile konforlu ve hızlı ulaşım.</p>
+</div>
+</div>
+<!-- Dış Cephe & Otopark -->
+<div class="hidden grid grid-cols-1 md:grid-cols-3 gap-gutter" id="tab-dis-cephe">
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">window</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Alüminyum Doğrama ve Isıcam</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Cephede kullanılan alüminyum doğrama ve çift camlı ısıcam sistemleri ile yüksek yalıtım.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">grid_view</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Mekanik Seramik Cephe Kaplaması</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Bina dış cephesi, uzun ömürlü dayanıklılığı ve zamansız estetiğiyle öne çıkan mekanik sabitlemeli seramik cephe kaplama sistemi ile giydirilmiştir.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">directions_car</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Kapalı Otopark</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Her daire için ayrılmış kapalı otopark alanı, güvenli ve konforlu araç park imkanı sunar.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">shield</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">7/24 Kamera Güvenliği</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Ortak alanlar ve giriş noktaları, kesintisiz kamera kayıt sistemi ile izlenir.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">local_fire_department</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Yangın Algılama ve Söndürme</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Bina genelinde yönetmeliklere uygun yangın algılama ve alarm sistemlerinin yanı sıra, kapalı otoparkta sprinkler söndürme sistemi de bulunmaktadır.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">park</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Peyzaj Düzenlemesi</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Ortak yaşam alanlarında özenle tasarlanmış peyzaj ve yeşil alan düzenlemesi.</p>
+</div>
+<div class="spec-card bg-primary p-8 border border-outline-variant/20 rounded-xl">
+<div class="w-12 h-12 bg-primary-container border border-outline-variant/30 rounded-lg flex items-center justify-center mb-6"><span class="material-symbols-outlined text-primary-fixed-dim">sensor_door</span></div>
+<h3 class="font-headline-sm text-headline-sm text-white mb-3">Kartlı Geçiş Sistemi</h3>
+<p class="text-primary-fixed-dim/70 text-body-md">Bina giriş kapılarında ve otoparkta kartlı/şifreli geçiş kontrol sistemi.</p>
+</div>
+</div>
+</div>
+<!-- Descriptive Image Section -->
+<div class="mt-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="relative aspect-square md:aspect-video overflow-hidden">
+<img class="w-full h-full object-cover" alt="Lusso Vita salon" src="assets/images/ic/salon-2.jpg">
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary mb-6">Mükemmellik Detaylarda Gizlidir</h2>
+<p class="text-on-surface-variant text-body-lg mb-8">
+                        Lusso Vita'da kullanılan her malzeme, sadece estetik kaygılarla değil, ömür boyu konfor ve dayanıklılık vaadiyle seçilmiştir. Sektörün öncü markalarıyla iş birliği yaparak, yaşam kalitenizi standartların ötesine taşıyoruz.
+                    </p>
+<div class="grid grid-cols-2 gap-8 border-t border-outline-variant pt-8">
+<div>
+<span class="block font-headline-sm text-headline-sm text-primary mb-1">%100</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">KESİNTİSİZ ENERJİ</span>
+</div>
+<div>
+<span class="block font-headline-sm text-headline-sm text-primary mb-1">A+</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">ENERJİ VERİMLİLİĞİ</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest w-full py-section-padding border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="flex flex-col gap-6">
+<img src="assets/logo/lusso-vita-logo-160.png" alt="Lusso Vita" class="h-16 w-16">
+<p class="font-body-md text-body-md text-on-surface-variant">Şehrin kalbinde, zamansız bir yaşam ve kusursuz detaylar.</p>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-primary">İLETİŞİM</span>
+<p class="font-body-md text-body-md text-on-surface-variant">Alacaatlı Mahallesi, Park Caddesi No:48 Çankaya/Ankara</p>
+<p class="font-body-md text-body-md text-on-surface-variant">+90 312 000 00 00</p>
+</div>
+<div class="flex flex-col gap-4"><span class="font-label-caps text-label-caps text-primary">SOSYAL MEDYA</span>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors" href="#">Instagram</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors" href="#">Youtube</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors" href="#">Tiktok</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors" href="#">X</a></div>
+<div class="flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-primary">KURUMSAL</span>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors" href="#">KVKK</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors" href="#">Yasal Uyarı</a>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop mt-16 pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row gap-4 justify-between items-center">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">© 2026 Methaş Mühendislik İnş. Ltd. Şti. Bütün hakları saklıdır.</p>
+<a href="https://serhatsenkal.com" target="_blank" rel="noopener" class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest hover:text-brushed-bronze transition-colors">Web tasarım: serhatsenkal.com</a>
+</div>
+</footer>
+<script>
+        function switchTab(tabId) {
+            const tabs = ['ic-mekan', 'muhendislik', 'dis-cephe'];
+            tabs.forEach(id => {
+                document.getElementById(`tab-${id}`).classList.add('hidden');
+                const btn = document.getElementById(`tab-${id}-btn`);
+                btn.classList.remove('tab-active', 'text-primary');
+                btn.classList.add('text-on-surface-variant');
+            });
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}-btn`);
+            activeBtn.classList.add('tab-active', 'text-primary');
+            activeBtn.classList.remove('text-on-surface-variant');
+        }
+    </script>
+</body>
+</html>

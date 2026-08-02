@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html class="light" lang="tr">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Galeri &amp; Malzemeler | Lusso Vita</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#ebe8e0", "inverse-on-surface": "#f3f1e9", "surface": "#fcf9f1",
+                        "error-container": "#ffdad6", "primary-fixed": "#d2e4fb", "on-error-container": "#93000a",
+                        "background": "#fcf9f1", "surface-bright": "#fcf9f1", "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e5e2da", "on-background": "#1c1c17", "secondary-fixed": "#f6decc",
+                        "charcoal-steel": "#2C2C2C", "surface-variant": "#e5e2da", "primary": "#041627", "walnut": "#4B3D33",
+                        "on-secondary-container": "#715f51", "on-tertiary-fixed": "#2c160e", "on-primary-container": "#8192a7",
+                        "on-surface-variant": "#44474c", "outline": "#74777d", "on-primary-fixed-variant": "#38485a",
+                        "on-primary-fixed": "#0b1d2d", "brushed-bronze": "#8E7966", "on-error": "#ffffff",
+                        "tertiary-container": "#3c231b", "on-surface": "#1c1c17", "primary-fixed-dim": "#b7c8de",
+                        "error": "#ba1a1a", "secondary-container": "#f3dbc9", "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5d4037", "tertiary-fixed-dim": "#e7bdb1", "outline-variant": "#c4c6cd",
+                        "on-secondary-fixed": "#25190e", "travertine": "#E3D9C6", "secondary": "#6d5b4d",
+                        "surface-container": "#f1eee6", "on-secondary-fixed-variant": "#544437", "primary-container": "#1a2b3c",
+                        "inverse-surface": "#31312b", "secondary-fixed-dim": "#d9c2b1", "tertiary": "#240f08",
+                        "surface-container-low": "#f6f3eb", "tertiary-fixed": "#ffdbd0", "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b7c8de", "surface-dim": "#dcdad2", "surface-tint": "#4f6073",
+                        "on-tertiary": "#ffffff", "on-tertiary-container": "#ad887d"
+                    },
+                    "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    "spacing": { "unit": "8px", "gutter": "32px", "margin-desktop": "80px", "margin-mobile": "20px", "section-padding": "120px" },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display"], "body-md": ["Manrope"], "headline-lg": ["Playfair Display"],
+                        "headline-sm": ["Playfair Display"], "body-lg": ["Manrope"], "label-caps": ["Manrope"],
+                        "headline-lg-mobile": ["Playfair Display"], "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #fcf9f1; color: #1c1c17; overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .gallery-item { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .gallery-item:hover { transform: scale(1.02); }
+        .filter-btn.active { color: #041627; border-bottom: 1px solid #041627; }
+        [class*="fixed"] a, [class*="fixed"] button { white-space: nowrap; }
+    </style>
+</head>
+<body class="font-body-md text-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant/30">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<a href="index.html" class="flex items-center"><img src="assets/logo/lusso-vita-logo-160.png" alt="Lusso Vita" class="h-14 w-14 shrink-0"></a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="index.html">Ana Sayfa</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="proje.html">Proje</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="teknik-ozellikler.html">Teknik Özellikler</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="daire-tipleri.html">Daire Tipleri</a>
+<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1" href="galeri.html">Galeri</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
+</nav>
+<div class="flex items-center gap-6">
+<a href="hakkimizda.html#iletisim" class="hidden md:block font-label-caps text-label-caps px-6 py-3 bg-primary text-on-primary hover:opacity-90 transition-opacity">
+                    Randevu Al
+                </a>
+</div>
+</div>
+</header>
+<main class="pt-32">
+<!-- Interior Gallery Section -->
+<section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-section-padding">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter mb-16">
+<div class="max-w-2xl">
+<span class="font-label-caps text-label-caps text-brushed-bronze mb-4 block">Yaşam Alanları</span>
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg mb-6">İç Mekan Galerisi</h1>
+<p class="text-on-surface-variant max-w-xl">
+                        Lusso Vita'nın her köşesi, modern estetiğin ve işlevselliğin mükemmel uyumuyla tasarlandı. Doğal ışığın ve seçkin malzemelerin dansına tanıklık edin.
+                    </p>
+</div>
+<div class="flex flex-wrap gap-6 mt-8 md:mt-0">
+<button class="filter-btn active font-label-caps text-label-caps pb-1 transition-all" onclick="filterGallery('all')">Tümü</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('salon')">Salon</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('mutfak')">Mutfak</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('yatak')">Yatak Odası</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('cocuk')">Çocuk Odası</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('banyo')">Banyo</button>
+</div>
+</div>
+<!-- Bento Grid Style Gallery -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:auto-rows-[300px]" id="gallery-grid">
+<div class="md:col-span-8 md:row-span-2 overflow-hidden gallery-item cursor-pointer" data-category="salon" onclick="openLightbox('assets/images/ic/salon-1.jpg', 'Geniş Salon ve Sosyal Alan')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita geniş salon" src="assets/images/ic/salon-1.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Geniş Salon ve Sosyal Alan</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="mutfak" onclick="openLightbox('assets/images/ic/mutfak-1.jpg', 'Mutfak Detayları')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita mutfak" src="assets/images/ic/mutfak-1.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Mutfak Detayları</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-2 overflow-hidden gallery-item cursor-pointer" data-category="banyo" onclick="openLightbox('assets/images/ic/misafir-banyo-1.jpg', '2+1 Misafir Banyo')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita misafir banyosu" src="assets/images/ic/misafir-banyo-1.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">2+1 Misafir Banyo</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="yatak" onclick="openLightbox('assets/images/ic/ebeveyn-yatak-odasi-1.jpg', 'Ebeveyn Yatak Odası')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn yatak odası" src="assets/images/ic/ebeveyn-yatak-odasi-1.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Ebeveyn Yatak Odası</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="mutfak" onclick="openLightbox('assets/images/ic/mutfak-2.jpg', 'Zanaatkarlık ve Fonksiyon')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita mutfak detay" src="assets/images/ic/mutfak-2.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Zanaatkarlık ve Fonksiyon</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="mutfak" onclick="openLightbox('assets/images/ic/mutfak-3.jpg', 'İşlevsel Mutfak Tasarımı')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita mutfak" src="assets/images/ic/mutfak-3.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">İşlevsel Mutfak Tasarımı</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="salon" onclick="openLightbox('assets/images/ic/salon-4.jpg', 'Sıcak ve Davetkar Bir Salon')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita salon detay" src="assets/images/ic/salon-4.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Sıcak ve Davetkar Bir Salon</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="salon" onclick="openLightbox('assets/images/ic/salon-3.jpg', 'Geniş Yaşam Alanı')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita salon" src="assets/images/ic/salon-3.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Geniş Yaşam Alanı</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="cocuk" onclick="openLightbox('assets/images/ic/genc-odasi-1.jpg', 'Çocuk Odası')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita çocuk odası" src="assets/images/ic/genc-odasi-1.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Çocuk Odası</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="cocuk" onclick="openLightbox('assets/images/ic/genc-odasi-2.jpg', 'Çocuk Odası')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita çocuk odası" src="assets/images/ic/genc-odasi-2.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Çocuk Odası</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="banyo" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-1.jpg', '2+1 Ebeveyn Banyo')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn banyosu" src="assets/images/ic/ebeveyn-banyo-1.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">2+1 Ebeveyn Banyo</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="banyo" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-2.jpg', '2+1 Ebeveyn Banyo')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn banyosu" src="assets/images/ic/ebeveyn-banyo-2.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">2+1 Ebeveyn Banyo</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="banyo" onclick="openLightbox('assets/images/ic/misafir-banyo-2.jpg', '2+1 Misafir Banyo')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita misafir banyosu" src="assets/images/ic/misafir-banyo-2.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">2+1 Misafir Banyo</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="yatak" onclick="openLightbox('assets/images/ic/ebeveyn-yatak-odasi-3.jpg', 'Ebeveyn Yatak Odası')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn yatak odası" src="assets/images/ic/ebeveyn-yatak-odasi-3.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Ebeveyn Yatak Odası</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="yatak" onclick="openLightbox('assets/images/ic/ebeveyn-yatak-odasi-2.jpg', 'Ebeveyn Yatak Odası')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn yatak odası" src="assets/images/ic/ebeveyn-yatak-odasi-2.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Ebeveyn Yatak Odası</span></div>
+</div>
+</div>
+<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="salon" onclick="openLightbox('assets/images/ic/giris-1.jpg', 'Giriş Holü')">
+<div class="w-full h-full relative group">
+<img class="w-full h-full object-cover" alt="Lusso Vita giriş holü" src="assets/images/ic/giris-1.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Giriş Holü</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Fullscreen Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-6" onclick="closeLightbox(event)">
+<button class="absolute top-6 right-6 text-white/80 hover:text-white transition-colors" onclick="closeLightbox(event)" aria-label="Kapat">
+<span class="material-symbols-outlined text-4xl">close</span>
+</button>
+<figure class="max-w-5xl w-full" onclick="event.stopPropagation()">
+<img id="lightbox-img" src="" alt="" class="w-full h-auto max-h-[85vh] object-contain">
+<figcaption id="lightbox-caption" class="text-white/80 font-label-caps text-label-caps text-center mt-4"></figcaption>
+</figure>
+</div>
+<!-- CTA Section -->
+<section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-section-padding text-center">
+<div class="bg-primary py-24 px-8 text-on-primary overflow-hidden relative group">
+<h2 class="font-headline-lg text-headline-lg mb-8 relative z-10">Kişisel Bir Deneyim İçin</h2>
+<p class="max-w-xl mx-auto mb-12 text-on-primary-container relative z-10">Örnek dairemizi ziyaret ederek malzeme kalitesini ve tasarım detaylarını yerinde inceleyebilirsiniz.</p>
+<a href="hakkimizda.html#iletisim" class="font-label-caps text-label-caps px-10 py-5 bg-travertine text-primary hover:bg-white transition-colors relative z-10 inline-block">
+                    RANDEVU OLUŞTUR
+                </a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-padding bg-surface-container-highest border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto text-on-surface">
+<div class="col-span-1 md:col-span-1">
+<img src="assets/logo/lusso-vita-logo-160.png" alt="Lusso Vita" class="h-16 w-16 mb-6">
+<p class="text-on-surface-variant font-body-md text-body-md mb-8">Hayallerinizi zamansız mimari ve üstün konfor ile buluşturuyoruz.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-caps text-label-caps text-primary">İletişim</h4>
+<span class="text-on-surface-variant">Alacaatlı Mahallesi, Park Caddesi No:48 Çankaya/Ankara</span>
+<a class="text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="tel:+903120000000">+90 312 000 00 00</a>
+</div>
+<div class="flex flex-col gap-4"><h4 class="font-label-caps text-label-caps text-primary">Sosyal Medya</h4>
+<a class="text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Instagram</a>
+<a class="text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Youtube</a>
+<a class="text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Tiktok</a>
+<a class="text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">X</a></div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-caps text-label-caps text-primary">Yasal</h4>
+<a class="text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">KVKK</a>
+<a class="text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Yasal Uyarı</a>
+</div>
+</div>
+<div class="mt-20 border-t border-outline-variant/30 pt-8 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">© 2026 Methaş Mühendislik İnş. Ltd. Şti. Bütün hakları saklıdır.</p>
+<a href="https://serhatsenkal.com" target="_blank" rel="noopener" class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest hover:text-brushed-bronze transition-colors">Web tasarım: serhatsenkal.com</a>
+</div>
+</footer>
+<script>
+        function openLightbox(src, caption) {
+            const lightbox = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').textContent = caption || '';
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox(event) {
+            if (event) event.stopPropagation();
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'text-primary');
+                btn.classList.add('text-on-surface-variant');
+                if (btn.innerText.toLowerCase() === category || (category === 'all' && btn.innerText === 'Tümü')) {
+                    btn.classList.add('active', 'text-primary');
+                    btn.classList.remove('text-on-surface-variant');
+                }
+            });
+            items.forEach(item => {
+                item.style.transition = 'all 0.5s ease-in-out';
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => { item.style.display = 'none'; }, 500);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
