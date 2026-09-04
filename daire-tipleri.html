@@ -56,6 +56,7 @@
                 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="proje.html">Proje</a>
                 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="teknik-ozellikler.html">Teknik Özellikler</a>
                 <a class="font-label-caps text-label-caps text-brushed-bronze border-b border-brushed-bronze pb-1" href="daire-tipleri.html">Daire Tipleri</a>
+                <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="villalar.html">Villalar</a>
                 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="galeri.html">Galeri</a>
                 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
             </div>
@@ -99,7 +100,10 @@
             <!-- Left: Render Image -->
             <div class="lg:col-span-8 bg-surface-container-lowest/50 rounded-2xl p-6 md:p-12 border border-outline-variant/10 shadow-sm overflow-hidden">
                 <div class="floor-plan-transition opacity-100 transform scale-100 flex justify-center" id="image-viewport">
-                    <img alt="Kat planı görseli" class="w-full h-auto drop-shadow-xl hover:scale-[1.03] transition-transform duration-700 cursor-zoom-in" id="main-plan-img" src="assets/images/kat-planlari/1-plus-1.jpg">
+                    <div class="relative inline-block">
+                        <img alt="Kat planı görseli" class="w-full h-auto drop-shadow-xl hover:scale-[1.03] transition-transform duration-700 cursor-zoom-in" id="main-plan-img" src="assets/images/kat-planlari/1-plus-1.jpg">
+                        <div class="absolute inset-0 pointer-events-none" id="plan-pins"></div>
+                    </div>
                 </div>
             </div>
 
@@ -125,13 +129,16 @@
 
                     <!-- Room List -->
                     <div class="space-y-1">
-                        <span class="font-label-caps text-[11px] text-brushed-bronze mb-4 block tracking-widest">ODA DETAYLARI</span>
+                        <span class="font-label-caps text-[11px] text-brushed-bronze mb-4 block tracking-widest">DAİRE DETAYLARI</span>
                         <div class="divide-y divide-outline-variant/10 border border-outline-variant/20 rounded-xl overflow-hidden bg-surface-container-lowest shadow-sm" id="room-list-container"></div>
                     </div>
 
                     <div class="mt-12 flex flex-col gap-4">
                         <a href="hakkimizda.html#iletisim" class="w-full bg-primary text-on-primary py-4 font-label-caps text-label-caps hover:bg-primary/90 transition-all text-center block">
                             SATIŞ EKİBİYLE GÖRÜŞ
+                        </a>
+                        <a href="assets/katalog/Lusso-Vita-Katalog.pdf" download class="w-full border border-primary text-primary py-4 font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-all text-center block">
+                            KATALOĞU İNDİR (PDF)
                         </a>
                     </div>
                 </div>
@@ -159,12 +166,13 @@
             </div>
             <div class="flex flex-col gap-4">
                 <h4 class="font-label-caps text-label-caps text-primary mb-2">İLETİŞİM</h4>
-                <div class="font-body-md text-on-surface-variant">Alacaatlı Mahallesi, Park Caddesi No:48 Çankaya/Ankara</div>
-                <div class="font-body-md text-on-surface-variant">+90 312 000 00 00</div>
+                <div class="font-body-md text-on-surface-variant">Yaşamkent Mah. Park Caddesi No:48 Çankaya/Ankara</div>
+                <div class="font-body-md text-on-surface-variant">+90 312 911 88 83</div>
             </div>
             <div class="flex flex-col gap-4"><h4 class="font-label-caps text-label-caps text-primary mb-2">SOSYAL MEDYA</h4><a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Instagram</a><a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Youtube</a><a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Tiktok</a><a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">X</a></div>
             <div class="flex flex-col gap-4">
                 <h4 class="font-label-caps text-label-caps text-primary mb-2">YASAL</h4>
+                <a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="assets/katalog/Lusso-Vita-Katalog.pdf" download>Kataloğu İndir (PDF)</a>
                 <a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">KVKK</a>
                 <a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Yasal Uyarı</a>
             </div>
@@ -179,32 +187,32 @@
         const floorPlanData = {
             "1+1": { title: "1+1 Residence", net: "38.17 m²", brut: "48.75 m²", image: "assets/images/kat-planlari/1-plus-1.jpg",
                 rooms: [
-                    { name: "Giriş Holü", area: "4.47 m²" }, { name: "Yaşam Alanı", area: "16.19 m²" },
-                    { name: "Yatak Odası", area: "11.58 m²" }, { name: "Banyo", area: "3.30 m²" }, { name: "Balkon", area: "2.63 m²" }
+                    { name: "Giriş Holü", area: "4.47 m²", x: "65.6%", y: "72.2%" }, { name: "Yaşam Alanı", area: "16.19 m²", x: "40.6%", y: "72.2%" },
+                    { name: "Yatak Odası", area: "11.58 m²", x: "31.3%", y: "37%" }, { name: "Banyo", area: "3.30 m²", x: "59.9%", y: "24.1%" }, { name: "Balkon", area: "2.63 m²", x: "22.4%", y: "64.8%" }
                 ] },
             "2+1 B1": { title: "2+1 Tip B1", net: "103.11 m²", brut: "124.30 m²", image: "assets/images/kat-planlari/2-plus-1-b1.jpg",
                 rooms: [
-                    { name: "Giriş Holü", area: "9.06 m²" }, { name: "Salon", area: "31.55 m²" }, { name: "Mutfak", area: "14.23 m²" },
-                    { name: "Yatak Odası", area: "11.50 m²" }, { name: "E.Y. Odası", area: "16.23 m²" }, { name: "E.Banyo", area: "4.42 m²" },
-                    { name: "Banyo", area: "4.25 m²" }, { name: "Koridor", area: "4.14 m²" }, { name: "Balkon", area: "7.73 m²" }
+                    { name: "Giriş Holü", area: "9.06 m²", x: "46.9%", y: "22.2%" }, { name: "Salon", area: "31.55 m²", x: "56.3%", y: "44.4%" }, { name: "Mutfak", area: "14.23 m²", x: "55%", y: "25.6%" },
+                    { name: "Yatak Odası", area: "11.50 m²", x: "34.4%", y: "72.2%" }, { name: "Ebeveyn Yatak Odası", area: "16.23 m²", x: "12.5%", y: "75.6%" }, { name: "Ebeveyn Banyosu", area: "4.42 m²", x: "13%", y: "23.1%" },
+                    { name: "Banyo", area: "4.25 m²", x: "26.3%", y: "14.4%" }, { name: "Koridor", area: "4.14 m²", x: "28%", y: "38%" }, { name: "Balkon", area: "7.73 m²", x: "83.8%", y: "33.3%" }
                 ] },
             "2+1 B2": { title: "2+1 Tip B2", net: "103.90 m²", brut: "125.00 m²", image: "assets/images/kat-planlari/2-plus-1-b2.jpg",
                 rooms: [
-                    { name: "Giriş Holü", area: "8.32 m²" }, { name: "Salon", area: "28.89 m²" }, { name: "Mutfak", area: "12.54 m²" },
-                    { name: "Yatak Odası", area: "11.22 m²" }, { name: "E.Y. Odası", area: "17.83 m²" }, { name: "E.G. Odası (Giyinme)", area: "5.57 m²" },
-                    { name: "E.Banyo", area: "4.02 m²" }, { name: "Banyo", area: "3.78 m²" }, { name: "Koridor", area: "3.66 m²" }, { name: "Balkon", area: "8.07 m²" }
+                    { name: "Giriş Holü", area: "8.32 m²", x: "40%", y: "20%" }, { name: "Salon", area: "28.89 m²", x: "17%", y: "46%" }, { name: "Mutfak", area: "12.54 m²", x: "44%", y: "69%" },
+                    { name: "Yatak Odası", area: "11.22 m²", x: "67.5%", y: "75.6%" }, { name: "Ebeveyn Yatak Odası", area: "17.83 m²", x: "85%", y: "75.6%" }, { name: "Ebeveyn Giyinme Odası", area: "5.57 m²", x: "87%", y: "18%" },
+                    { name: "Ebeveyn Banyosu", area: "4.02 m²", x: "71%", y: "20%" }, { name: "Banyo", area: "3.78 m²", x: "58%", y: "17%" }, { name: "Koridor", area: "3.66 m²", x: "54%", y: "39%" }, { name: "Balkon", area: "8.07 m²", x: "20.6%", y: "85.6%" }
                 ] },
             "2+1 K1": { title: "2+1 Tip K1", net: "71.78 m²", brut: "88.07 m²", image: "assets/images/kat-planlari/2-plus-1-k1.jpg",
                 rooms: [
-                    { name: "Giriş Holü", area: "6.17 m²" }, { name: "Yaşam Alanı", area: "23.84 m²" }, { name: "Yatak Odası", area: "10.62 m²" },
-                    { name: "E.Y. Odası", area: "12.90 m²" }, { name: "E.Banyo", area: "4.05 m²" }, { name: "Banyo", area: "3.97 m²" },
-                    { name: "Koridor", area: "3.51 m²" }, { name: "Balkon", area: "6.72 m²" }
+                    { name: "Giriş Holü", area: "6.17 m²", x: "53.1%", y: "27.8%" }, { name: "Yaşam Alanı", area: "23.84 m²", x: "59.4%", y: "61.1%" }, { name: "Yatak Odası", area: "10.62 m²", x: "48.8%", y: "83.3%" },
+                    { name: "Ebeveyn Yatak Odası", area: "12.90 m²", x: "31.3%", y: "83.3%" }, { name: "Ebeveyn Banyosu", area: "4.05 m²", x: "21.3%", y: "38.9%" }, { name: "Banyo", area: "3.97 m²", x: "39.4%", y: "35.6%" },
+                    { name: "Koridor", area: "3.51 m²", x: "40.6%", y: "51.1%" }, { name: "Balkon", area: "6.72 m²", x: "68.1%", y: "86.3%" }
                 ] },
             "2+1 K2": { title: "2+1 Tip K2", net: "73.37 m²", brut: "88.67 m²", image: "assets/images/kat-planlari/2-plus-1-k2.jpg",
                 rooms: [
-                    { name: "Giriş Holü", area: "4.36 m²" }, { name: "Yaşam Alanı", area: "27.92 m²" }, { name: "Yatak Odası", area: "10.62 m²" },
-                    { name: "E.Y. Odası", area: "12.58 m²" }, { name: "E.Banyo", area: "4.05 m²" }, { name: "Banyo", area: "3.97 m²" },
-                    { name: "Koridor", area: "3.57 m²" }, { name: "Balkon", area: "6.30 m²" }
+                    { name: "Giriş Holü", area: "4.36 m²", x: "56.3%", y: "77.8%" }, { name: "Yaşam Alanı", area: "27.92 m²", x: "65.6%", y: "50%" }, { name: "Yatak Odası", area: "10.62 m²", x: "51.9%", y: "27.8%" },
+                    { name: "Ebeveyn Yatak Odası", area: "12.58 m²", x: "32.5%", y: "34.4%" }, { name: "Ebeveyn Banyosu", area: "4.05 m²", x: "21.2%", y: "86.7%" }, { name: "Banyo", area: "3.97 m²", x: "37.5%", y: "75.6%" },
+                    { name: "Koridor", area: "3.57 m²", x: "40.6%", y: "64.4%" }, { name: "Balkon", area: "6.30 m²", x: "65.6%", y: "8.9%" }
                 ] }
         };
 
@@ -234,9 +242,11 @@
                 document.getElementById('display-title').textContent = data.title;
                 document.getElementById('val-net').textContent = data.net;
                 document.getElementById('val-brut').textContent = data.brut;
-                roomContainer.innerHTML = data.rooms.map(room => `
-                    <div class="flex justify-between items-center py-4 px-6 room-row">
-                        <span class="font-body-md text-on-surface">${room.name}</span>
+                document.getElementById('plan-pins').innerHTML = data.rooms.map((room, i) => `<span class="kat-pin" style="left:${room.x}; top:${room.y};">${i + 1}</span>`).join('');
+                roomContainer.innerHTML = data.rooms.map((room, i) => `
+                    <div class="flex items-center gap-3 py-4 px-6 room-row">
+                        <span class="w-6 h-6 shrink-0 rounded-full bg-primary text-surface flex items-center justify-center font-label-caps text-[10px] font-bold">${i + 1}</span>
+                        <span class="font-body-md text-on-surface flex-1">${room.name}</span>
                         <span class="font-body-md font-semibold text-primary">${room.area}</span>
                     </div>
                 `).join('');
@@ -255,5 +265,14 @@
         .tab-inactive { color: #74777d; border-bottom: 2px solid transparent; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .kat-pin {
+            position: absolute; transform: translate(-50%, -50%);
+            width: 26px; height: 26px; border-radius: 9999px;
+            background: #041627; color: #fcf9f1; border: 2px solid #E3D9C6;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 700;
+            box-shadow: 0 2px 8px rgba(4,22,39,.35);
+        }
+        @media (max-width: 767px) { .kat-pin { width: 20px; height: 20px; font-size: 10px; } }
     </style>
 </body></html>

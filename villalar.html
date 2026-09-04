@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="tr">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Villalar | Lusso Vita</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
+        [class*="fixed"] a, [class*="fixed"] button { white-space: nowrap; }
+        .kat-tab-active { color: #041627; border-bottom: 2px solid #041627; }
+        .kat-tab-inactive { color: #74777d; border-bottom: 2px solid transparent; }
+        .kat-plan-transition { transition: opacity 0.4s ease, transform 0.4s ease; }
+        .kat-pin {
+            position: absolute; transform: translate(-50%, -50%);
+            width: 26px; height: 26px; border-radius: 9999px;
+            background: #041627; color: #fcf9f1; border: 2px solid #E3D9C6;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 700;
+            box-shadow: 0 2px 8px rgba(4,22,39,.35);
+        }
+        @media (max-width: 767px) { .kat-pin { width: 20px; height: 20px; font-size: 10px; } }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#ebe8e0", "inverse-on-surface": "#f3f1e9", "surface": "#fcf9f1",
+                        "error-container": "#ffdad6", "primary-fixed": "#d2e4fb", "on-error-container": "#93000a",
+                        "background": "#fcf9f1", "surface-bright": "#fcf9f1", "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e5e2da", "on-background": "#1c1c17", "secondary-fixed": "#f6decc",
+                        "charcoal-steel": "#2C2C2C", "surface-variant": "#e5e2da", "primary": "#041627", "walnut": "#4B3D33",
+                        "on-secondary-container": "#715f51", "on-tertiary-fixed": "#2c160e", "on-primary-container": "#8192a7",
+                        "on-surface-variant": "#44474c", "outline": "#74777d", "on-primary-fixed-variant": "#38485a",
+                        "on-primary-fixed": "#0b1d2d", "brushed-bronze": "#8E7966", "on-error": "#ffffff",
+                        "tertiary-container": "#3c231b", "on-surface": "#1c1c17", "primary-fixed-dim": "#b7c8de",
+                        "error": "#ba1a1a", "secondary-container": "#f3dbc9", "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5d4037", "tertiary-fixed-dim": "#e7bdb1", "outline-variant": "#c4c6cd",
+                        "on-secondary-fixed": "#25190e", "travertine": "#E3D9C6", "secondary": "#6d5b4d",
+                        "surface-container": "#f1eee6", "on-secondary-fixed-variant": "#544437", "primary-container": "#1a2b3c",
+                        "inverse-surface": "#31312b", "secondary-fixed-dim": "#d9c2b1", "tertiary": "#240f08",
+                        "surface-container-low": "#f6f3eb", "tertiary-fixed": "#ffdbd0", "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b7c8de", "surface-dim": "#dcdad2", "surface-tint": "#4f6073",
+                        "on-tertiary": "#ffffff", "on-tertiary-container": "#ad887d"
+                    },
+                    "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    "spacing": { "unit": "8px", "gutter": "32px", "margin-desktop": "80px", "margin-mobile": "20px", "section-padding": "120px" },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display"], "body-md": ["Manrope"], "headline-lg": ["Playfair Display"],
+                        "headline-sm": ["Playfair Display"], "body-lg": ["Manrope"], "label-caps": ["Manrope"],
+                        "headline-lg-mobile": ["Playfair Display"], "display-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-brushed-bronze selection:text-white overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant/30">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<a class="flex items-center" href="index.html"><img src="assets/logo/lusso-vita-logo-160.png" alt="Lusso Vita" class="h-14 w-14 shrink-0"></a>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="index.html">Ana Sayfa</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="proje.html">Proje</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="teknik-ozellikler.html">Teknik Özellikler</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="daire-tipleri.html">Daire Tipleri</a>
+<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1" href="villalar.html">Villalar</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="galeri.html">Galeri</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
+</div>
+<a href="hakkimizda.html#iletisim" class="bg-primary text-white font-label-caps text-label-caps px-6 py-3 hover:bg-brushed-bronze transition-colors duration-300">Randevu Al</a>
+</div>
+</nav>
+
+<!-- Hero -->
+<header class="relative h-[820px] w-full overflow-hidden flex items-end pb-24">
+<div class="absolute inset-0 z-0">
+<img alt="Lusso Vita villalar bahçe ve havuz" class="w-full h-full object-cover" src="assets/images/villa/dis/villa-havuz-bahce.jpg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/10 to-transparent"></div>
+</div>
+<div class="absolute top-28 md:top-32 left-0 right-0 z-10 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto reveal-on-scroll active">
+<span class="font-label-caps text-label-caps text-travertine block uppercase tracking-[0.3em]" style="text-shadow: 0 1px 8px rgba(4,22,39,0.5);">Lusso Vita Villaları</span>
+</div>
+<div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto w-full reveal-on-scroll active">
+<h1 class="font-display-lg text-headline-lg md:text-display-lg text-white leading-tight max-w-3xl">Villa Yaşamında<br>Modern Bir Dokunuş</h1>
+<p class="font-body-lg text-body-lg text-white/80 max-w-xl mt-6">Özel bahçeleri, geniş yaşam alanları ve mimari zarafetiyle Lusso Vita Villa serisini keşfedin.</p>
+</div>
+</header>
+
+<!-- Genel Bakış -->
+<section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5 reveal-on-scroll active">
+<span class="font-label-caps text-label-caps text-brushed-bronze block mb-6">GENEL BAKIŞ</span>
+<h2 class="font-headline-lg text-headline-lg mb-8 text-primary">Kendi Bahçenizde, Ayrı Bir Yaşam</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-6">Lusso Vita'nın ortak yeşil alanı içinde konumlanan villalar; bodrum, zemin ve birinci kat olmak üzere üç kattan oluşan, geniş yaşam alanlarına sahip müstakil bir yaşam biçimi sunar.</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-8">İç ve dış mekan sınırlarını ortadan kaldıran, aile odaklı bir tasarım anlayışı: her detay, modern mimarinin zarafetini doğal çevrenin dinginliğiyle birleştirmek üzere özenle kurgulandı.</p>
+<div class="grid grid-cols-3 gap-6 border-t border-outline-variant pt-8">
+<div><span class="block font-headline-sm text-headline-sm text-primary mb-1">4</span><span class="font-label-caps text-[10px] text-on-surface-variant">VİLLA</span></div>
+<div><span class="block font-headline-sm text-headline-sm text-primary mb-1">3</span><span class="font-label-caps text-[10px] text-on-surface-variant">KAT</span></div>
+<div><span class="block font-headline-sm text-headline-sm text-primary mb-1">1</span><span class="font-label-caps text-[10px] text-on-surface-variant">TİP</span></div>
+</div>
+</div>
+<div class="md:col-start-7 md:col-span-6 reveal-on-scroll active">
+<div class="relative aspect-[4/5] w-full bg-travertine overflow-hidden group cursor-pointer" onclick="openLightbox('assets/images/villa/dis/villa-cadde-cephe.jpg', 'Villa Cadde Cephesi')">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita villalar cadde cephesi" src="assets/images/villa/dis/villa-cadde-cephe.jpg">
+</div>
+</div>
+</div>
+</section>
+
+<!-- Exterior Bento -->
+<section class="pb-section-padding px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-2 group relative overflow-hidden bg-white aspect-[16/9] reveal-on-scroll active cursor-pointer" onclick="openLightbox('assets/images/villa/dis/villa-havadan.jpg', 'Yeşilin İçinde Konumlanmış')">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita villalar havadan görünüm" src="assets/images/villa/dis/villa-havadan.jpg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-12">
+<h3 class="font-headline-sm text-headline-sm text-white mb-2">Yeşilin İçinde Konumlanmış</h3>
+<p class="text-white/80 font-body-md">Ortak bahçe ve havuz alanına cepheli, dört villalık ayrıcalıklı sıra.</p>
+</div>
+</div>
+<div class="group relative overflow-hidden bg-white aspect-[4/5] reveal-on-scroll active cursor-pointer" onclick="openLightbox('assets/images/villa/dis/villa-genel-gorunum.jpg', 'Projenin Bir Parçası')">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita villalar genel görünüm" src="assets/images/villa/dis/villa-genel-gorunum.jpg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-8">
+<h3 class="font-headline-sm text-headline-sm text-white mb-2">Projenin Bir Parçası</h3>
+<p class="text-white/80 font-body-md">Lusso Vita'nın mimari kimliğiyle bütünleşik tasarım.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Kat Planları -->
+<section class="py-section-padding bg-surface-container-low">
+<div class="px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="text-center mb-16 reveal-on-scroll active">
+<span class="font-label-caps text-label-caps text-brushed-bronze block mb-4">KAT PLANLARI</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Üç Kat, Tek Zarif Kurgu</h2>
+</div>
+
+<div class="flex justify-center border-b border-outline-variant/30 mb-12 overflow-x-auto no-scrollbar">
+<div class="flex gap-8 md:gap-16">
+<button class="kat-tab-btn px-6 py-4 font-label-caps text-label-caps transition-all duration-300 kat-tab-active" data-kat="bodrum" onclick="switchKat('bodrum')">BODRUM KAT</button>
+<button class="kat-tab-btn px-6 py-4 font-label-caps text-label-caps transition-all duration-300 kat-tab-inactive hover:opacity-100" data-kat="zemin" onclick="switchKat('zemin')">ZEMİN KAT</button>
+<button class="kat-tab-btn px-6 py-4 font-label-caps text-label-caps transition-all duration-300 kat-tab-inactive hover:opacity-100" data-kat="1kat" onclick="switchKat('1kat')">1. KAT</button>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<div class="lg:col-span-7 lg:mt-[28px] bg-white rounded-2xl p-4 md:p-10 border border-outline-variant/10 shadow-sm overflow-hidden">
+<div class="kat-plan-transition opacity-100 transform scale-100 flex justify-center overflow-hidden" id="kat-plan-viewport">
+<div class="relative inline-block cursor-pointer group" onclick="openLightbox(document.getElementById('kat-plan-img').src, document.getElementById('kat-plan-title').textContent)">
+<img alt="Villa kat planı" class="w-full h-auto max-w-4xl drop-shadow-xl transition-transform duration-700 group-hover:scale-105" id="kat-plan-img" src="assets/images/villa/kat-planlari/bodrum-kat.jpg">
+<div class="absolute inset-0" id="kat-plan-pins"></div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 kat-plan-transition opacity-100 transform translate-x-0" id="kat-plan-desc">
+<h4 class="font-headline-md text-headline-md text-primary mb-4" id="kat-plan-title">Bodrum Kat</h4>
+<div class="divide-y divide-outline-variant/20 border-t border-b border-outline-variant/20" id="kat-plan-rooms"></div>
+<div class="grid grid-cols-2 gap-4 mt-6">
+<div class="bg-primary p-6 rounded-xl text-on-primary shadow-lg">
+<span class="font-label-caps text-[10px] opacity-70 block mb-2">BRÜT ALAN</span>
+<span class="font-headline-sm text-headline-sm block" id="kat-plan-brut">0 m²</span>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl border border-outline-variant/20">
+<span class="font-label-caps text-[10px] text-on-surface-variant block mb-2">NET ALAN</span>
+<span class="font-headline-sm text-headline-sm text-primary block" id="kat-plan-total-net">0 m²</span>
+</div>
+</div>
+<div class="mt-8 flex flex-col gap-4">
+<a href="hakkimizda.html#iletisim" class="w-full bg-primary text-on-primary py-4 font-label-caps text-label-caps hover:bg-primary/90 transition-all text-center block">SATIŞ EKİBİYLE GÖRÜŞ</a>
+<a href="assets/katalog/Lusso-Vita-Katalog.pdf" download class="w-full border border-primary text-primary py-4 font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-all text-center block">KATALOĞU İNDİR (PDF)</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- İç Mekan Galeri -->
+<section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="text-center mb-16 reveal-on-scroll active">
+<span class="font-label-caps text-label-caps text-brushed-bronze block mb-4">İÇ MEKAN</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Her Kat, Kendi Karakterinde</h2>
+</div>
+
+<!-- Bodrum Kat -->
+<div class="mb-16 reveal-on-scroll active">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6">Bodrum Kat - Oturma ve Çalışma Alanı</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="md:col-span-2 aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-1.jpg', 'Bodrum Kat Oturma Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa bodrum kat oturma odası" src="assets/images/villa/ic/oturma-odasi-1.jpg"></div>
+<div class="flex flex-col gap-4">
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/calisma-odasi-1.jpg', 'Bodrum Kat Çalışma Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa bodrum kat çalışma odası" src="assets/images/villa/ic/calisma-odasi-1.jpg"></div>
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/calisma-odasi-2.jpg', 'Bodrum Kat Çalışma Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa bodrum kat çalışma odası ikinci görsel" src="assets/images/villa/ic/calisma-odasi-2.jpg"></div>
+</div>
+</div>
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer mt-4" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-2.jpg', 'Bodrum Kat Oturma Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa bodrum kat oturma odası ikinci görsel" src="assets/images/villa/ic/oturma-odasi-2.jpg"></div>
+<div class="aspect-[1600/498] overflow-hidden bg-travertine group cursor-pointer mt-4" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-3.jpg', 'Bodrum Kat Oturma Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa bodrum kat oturma odası panoramik görsel" src="assets/images/villa/ic/oturma-odasi-3.jpg"></div>
+</div>
+
+<!-- Zemin Kat -->
+<div class="mb-16 reveal-on-scroll active">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6">Zemin Kat — Salon ve Mutfak</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="aspect-[4/5] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/salon-1.jpg', 'Zemin Kat Salon')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat salon" src="assets/images/villa/ic/salon-1.jpg"></div>
+<div class="md:col-span-2 aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/mutfak-1.jpg', 'Zemin Kat Mutfak')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat mutfak" src="assets/images/villa/ic/mutfak-1.jpg"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/salon-3.jpg', 'Zemin Kat Salon')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat salon detay" src="assets/images/villa/ic/salon-3.jpg"></div>
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/mutfak-2.jpg', 'Zemin Kat Mutfak')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat mutfak detay" src="assets/images/villa/ic/mutfak-2.jpg"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/salon-2.jpg', 'Zemin Kat Salon')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat salon üçüncü görsel" src="assets/images/villa/ic/salon-2.jpg"></div>
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/koridor-1.jpg', 'Zemin Kat Koridor')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat koridor" src="assets/images/villa/ic/koridor-1.jpg"></div>
+</div>
+<div class="aspect-[1600/677] overflow-hidden bg-travertine group cursor-pointer mt-4" onclick="openLightbox('assets/images/villa/ic/salon-4.jpg', 'Zemin Kat Salon')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat salon panoramik görsel" src="assets/images/villa/ic/salon-4.jpg"></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+<div class="aspect-[1181/1600] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/zemin-banyo-1.jpg', 'Zemin Kat Banyo')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat banyo" src="assets/images/villa/ic/zemin-banyo-1.jpg"></div>
+<div class="aspect-[1187/1600] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/zemin-banyo-2.jpg', 'Zemin Kat Banyo')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat banyo ikinci görsel" src="assets/images/villa/ic/zemin-banyo-2.jpg"></div>
+<div class="aspect-[1184/1600] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/zemin-banyo-3.jpg', 'Zemin Kat Banyo')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa zemin kat banyo üçüncü görsel" src="assets/images/villa/ic/zemin-banyo-3.jpg"></div>
+</div>
+</div>
+
+<!-- 1. Kat -->
+<div class="reveal-on-scroll active">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6">1. Kat — Yatak Odaları ve Banyolar</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="md:col-span-2 aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/ebeveyn-yatak-odasi-1.jpg', 'Ebeveyn Yatak Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa ebeveyn yatak odası" src="assets/images/villa/ic/ebeveyn-yatak-odasi-1.jpg"></div>
+<div class="aspect-[4/5] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-1.jpg', 'Ebeveyn Banyo')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa ebeveyn banyo" src="assets/images/villa/ic/ebeveyn-banyo-1.jpg"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/yatak-odasi-1.jpg', 'Yatak Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa yatak odası" src="assets/images/villa/ic/yatak-odasi-1.jpg"></div>
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/ebeveyn-giyinme-1.jpg', 'Ebeveyn Giyinme Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa ebeveyn giyinme odası" src="assets/images/villa/ic/ebeveyn-giyinme-1.jpg"></div>
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/1kat-banyo-1.jpg', 'Banyo')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa banyo" src="assets/images/villa/ic/1kat-banyo-1.jpg"></div>
+</div>
+<div class="aspect-[1600/875] overflow-hidden bg-travertine group cursor-pointer mt-4" onclick="openLightbox('assets/images/villa/ic/ebeveyn-yatak-odasi-2.jpg', 'Ebeveyn Yatak Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa ebeveyn yatak odası ikinci görsel" src="assets/images/villa/ic/ebeveyn-yatak-odasi-2.jpg"></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/ebeveyn-yatak-odasi-3.jpg', 'Ebeveyn Yatak Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa ebeveyn yatak odası üçüncü görsel" src="assets/images/villa/ic/ebeveyn-yatak-odasi-3.jpg"></div>
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/yatak-odasi-2.jpg', 'Yatak Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa yatak odası ikinci görsel" src="assets/images/villa/ic/yatak-odasi-2.jpg"></div>
+<div class="aspect-[16/10] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/ebeveyn-giyinme-2.jpg', 'Ebeveyn Giyinme Odası')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa ebeveyn giyinme odası ikinci görsel" src="assets/images/villa/ic/ebeveyn-giyinme-2.jpg"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<div class="aspect-[1046/1600] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-2.jpg', 'Ebeveyn Banyo')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa ebeveyn banyo ikinci görsel" src="assets/images/villa/ic/ebeveyn-banyo-2.jpg"></div>
+<div class="aspect-[1046/1600] overflow-hidden bg-travertine group cursor-pointer" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-3.jpg', 'Ebeveyn Banyo')"><img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Villa ebeveyn banyo üçüncü görsel" src="assets/images/villa/ic/ebeveyn-banyo-3.jpg"></div>
+</div>
+</div>
+</section>
+
+<!-- Fullscreen Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-6" onclick="closeLightbox(event)">
+<button class="absolute top-6 right-6 text-white/80 hover:text-white transition-colors" onclick="closeLightbox(event)" aria-label="Kapat">
+<span class="material-symbols-outlined text-4xl">close</span>
+</button>
+<figure class="max-w-5xl w-full" onclick="event.stopPropagation()">
+<img id="lightbox-img" src="" alt="" class="w-full h-auto max-h-[85vh] object-contain">
+<figcaption id="lightbox-caption" class="text-white/80 font-label-caps text-label-caps text-center mt-4"></figcaption>
+</figure>
+</div>
+
+<!-- CTA -->
+<section class="bg-primary text-on-primary py-section-padding">
+<div class="px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto text-center">
+<h2 class="font-headline-lg text-headline-lg mb-8">Villalar Hakkında Detaylı Bilgi Alın</h2>
+<div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+<a href="hakkimizda.html#iletisim" class="bg-on-primary text-primary px-10 py-4 font-label-caps text-label-caps hover:bg-surface-container-highest transition-colors">SATIŞ EKİBİYLE GÖRÜŞ</a>
+<a href="assets/katalog/Lusso-Vita-Katalog.pdf" download class="border border-on-primary/30 px-10 py-4 font-label-caps text-label-caps hover:bg-white/10 transition-colors">KATALOĞU İNDİR (PDF)</a>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-surface-container-highest w-full py-section-padding border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+<div class="flex flex-col gap-6">
+<img src="assets/logo/lusso-vita-logo-160.png" alt="Lusso Vita" class="h-16 w-16">
+<p class="font-body-md text-body-md text-on-surface-variant">Lusso Vita projesi, modern yaşamın tüm gereksinimlerini lüks ve estetikle birleştiriyor.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-caps text-label-caps text-primary mb-4">İLETİŞİM</h4>
+<p class="font-body-md text-on-surface-variant">Yaşamkent Mah. Park Caddesi No:48 Çankaya/Ankara</p>
+<p class="font-body-md text-on-surface-variant">+90 312 911 88 83</p>
+</div>
+<div class="flex flex-col gap-4"><h4 class="font-label-caps text-label-caps text-primary mb-4">SOSYAL MEDYA</h4>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Instagram</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">YouTube</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">TikTok</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">X</a></div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-caps text-label-caps text-primary mb-4">KURUMSAL</h4>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="assets/katalog/Lusso-Vita-Katalog.pdf" download>Kataloğu İndir (PDF)</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">KVKK</a>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Yasal Uyarı</a>
+</div>
+</div>
+<div class="mt-20 border-t border-outline-variant/30 pt-8 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">© 2026 Methaş Mühendislik İnş. Ltd. Şti. Bütün hakları saklıdır.</p>
+<a href="https://serhatsenkal.com" target="_blank" rel="noopener" class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest hover:text-brushed-bronze transition-colors">Web tasarım: serhatsenkal.com</a>
+</div>
+</footer>
+
+<script>
+        function openLightbox(src, caption) {
+            const lightbox = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').textContent = caption || '';
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox(event) {
+            if (event) event.stopPropagation();
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        const katPlanData = {
+            "bodrum": {
+                image: "assets/images/villa/kat-planlari/bodrum-kat.jpg",
+                title: "Bodrum Kat",
+                brut: "116.03 m²",
+                rooms: [
+                    { name: "Rüzgarlık", area: "2.47 m²", x: "12.25%", y: "56.3%" },
+                    { name: "Koridor", area: "4.35 m²", x: "22.5%", y: "61.9%" },
+                    { name: "Merdiven", area: "9.01 m²", x: "30%", y: "31.1%" },
+                    { name: "Çalışma Odası", area: "14 m²", x: "15.6%", y: "41.3%" },
+                    { name: "Oturma Odası", area: "26.23 m²", x: "50.9%", y: "44.6%" },
+                    { name: "Yatak Odası", area: "17 m²", x: "81.2%", y: "32.8%" },
+                    { name: "Banyo", area: "9.1 m²", x: "85%", y: "54.4%" },
+                    { name: "Kiler", area: "9.68 m²", x: "70%", y: "68.5%" },
+                    { name: "Çamaşır Odası", area: "6.65 m²", x: "46.6%", y: "67.5%" },
+                    { name: "Kazan Dairesi", area: "7.37 m²", x: "31.5%", y: "61.9%" }
+                ]
+            },
+            "zemin": {
+                image: "assets/images/villa/kat-planlari/zemin-kat.jpg",
+                title: "Zemin Kat",
+                brut: "116.03 m²",
+                rooms: [
+                    { name: "Koridor", area: "15 m²", x: "34.4%", y: "37.1%" },
+                    { name: "Merdiven", area: "7.13 m²", x: "25%", y: "37.1%" },
+                    { name: "Salon", area: "40 m²", x: "73.8%", y: "44.2%" },
+                    { name: "Mutfak", area: "23.8 m²", x: "18.8%", y: "53%" },
+                    { name: "Yatak Odası", area: "13.2 m²", x: "76.8%", y: "34.4%" },
+                    { name: "Banyo", area: "4.64 m²", x: "16.9%", y: "20.3%" }
+                ]
+            },
+            "1kat": {
+                image: "assets/images/villa/kat-planlari/1-kat.jpg",
+                title: "1. Kat",
+                brut: "123.63 m²",
+                rooms: [
+                    { name: "Merdiven", area: "6.16 m²", x: "43.8%", y: "14.6%" },
+                    { name: "Koridor", area: "8.8 m²", x: "43.8%", y: "31.2%" },
+                    { name: "Ebeveyn Giyinme Odası", area: "9.32 m²", x: "24.25%", y: "35.1%" },
+                    { name: "Ebeveyn Banyosu", area: "4.18 m²", x: "33.5%", y: "27.1%" },
+                    { name: "Ebeveyn Yatak Odası", area: "22.3 m²", x: "28.1%", y: "58.5%" },
+                    { name: "Balkon", area: "7.60 m²", x: "6.2%", y: "58.5%" },
+                    { name: "Banyo", area: "3.5 m²", x: "53%", y: "44.6%" },
+                    { name: "Yatak Odası", area: "14.06 m²", x: "57.5%", y: "58.5%" },
+                    { name: "Teras", area: "37.20 m²", x: "82.6%", y: "47.2%" }
+                ]
+            }
+        };
+
+        function renderKatPlan(kat) {
+            const data = katPlanData[kat];
+            const img = document.getElementById('kat-plan-img');
+            const title = document.getElementById('kat-plan-title');
+            const pins = document.getElementById('kat-plan-pins');
+            const roomsList = document.getElementById('kat-plan-rooms');
+
+            img.src = data.image;
+            title.textContent = data.title;
+
+            pins.innerHTML = data.rooms.map((r, i) => `<span class="kat-pin" style="left:${r.x}; top:${r.y};">${i + 1}</span>`).join('');
+
+            roomsList.innerHTML = data.rooms.map((r, i) => `
+                <div class="flex items-center gap-4 py-3">
+                    <span class="w-7 h-7 shrink-0 rounded-full bg-primary text-surface flex items-center justify-center font-label-caps text-[11px] font-bold">${i + 1}</span>
+                    <span class="font-body-md text-on-surface flex-1">${r.name}</span>
+                    <span class="font-body-md font-semibold text-primary">${r.area}</span>
+                </div>
+            `).join('');
+
+            const totalNet = data.rooms.reduce((sum, r) => sum + parseFloat(String(r.area).replace(',', '.')), 0);
+            document.getElementById('kat-plan-total-net').textContent = totalNet.toFixed(2).replace(/\.00$/, '') + ' m²';
+            document.getElementById('kat-plan-brut').textContent = data.brut;
+        }
+
+        function switchKat(kat) {
+            const viewport = document.getElementById('kat-plan-viewport');
+            const desc = document.getElementById('kat-plan-desc');
+
+            viewport.classList.remove('opacity-100', 'scale-100');
+            viewport.classList.add('opacity-0', 'scale-95');
+            desc.classList.remove('opacity-100', 'translate-x-0');
+            desc.classList.add('opacity-0', 'translate-x-4');
+
+            document.querySelectorAll('.kat-tab-btn').forEach(btn => {
+                if (btn.getAttribute('data-kat') === kat) {
+                    btn.classList.add('kat-tab-active'); btn.classList.remove('kat-tab-inactive');
+                } else {
+                    btn.classList.remove('kat-tab-active'); btn.classList.add('kat-tab-inactive');
+                }
+            });
+
+            setTimeout(() => {
+                renderKatPlan(kat);
+                viewport.classList.remove('opacity-0', 'scale-95');
+                viewport.classList.add('opacity-100', 'scale-100');
+                desc.classList.remove('opacity-0', 'translate-x-4');
+                desc.classList.add('opacity-100', 'translate-x-0');
+            }, 250);
+        }
+
+        renderKatPlan('bodrum');
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, observerOptions);
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
+        });
+    </script>
+</body>
+</html>
