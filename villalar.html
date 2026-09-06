@@ -386,14 +386,13 @@
             }
         };
 
-        function renderKatPlan(kat) {
+        function renderKatPlan(kat, onReady) {
             const data = katPlanData[kat];
             const img = document.getElementById('kat-plan-img');
             const title = document.getElementById('kat-plan-title');
             const pins = document.getElementById('kat-plan-pins');
             const roomsList = document.getElementById('kat-plan-rooms');
 
-            img.src = data.image;
             title.textContent = data.title;
 
             pins.innerHTML = data.pinsBaked ? '' : data.rooms.map((r, i) => `<span class="kat-pin" style="left:${r.x}; top:${r.y};">${i + 1}</span>`).join('');
@@ -409,6 +408,14 @@
             const totalNet = data.rooms.reduce((sum, r) => sum + parseFloat(String(r.area).replace(',', '.')), 0);
             document.getElementById('kat-plan-total-net').textContent = totalNet.toFixed(2).replace(/\.00$/, '') + ' m²';
             document.getElementById('kat-plan-brut').textContent = data.brut;
+
+            // Preload the image fully before swapping src, so the previous
+            // render never lingers on screen while the new one downloads.
+            const preloader = new Image();
+            const finish = () => { img.src = data.image; if (onReady) onReady(); };
+            preloader.onload = finish;
+            preloader.onerror = finish;
+            preloader.src = data.image;
         }
 
         function switchKat(kat) {
@@ -429,11 +436,12 @@
             });
 
             setTimeout(() => {
-                renderKatPlan(kat);
-                viewport.classList.remove('opacity-0', 'scale-95');
-                viewport.classList.add('opacity-100', 'scale-100');
-                desc.classList.remove('opacity-0', 'translate-x-4');
-                desc.classList.add('opacity-100', 'translate-x-0');
+                renderKatPlan(kat, () => {
+                    viewport.classList.remove('opacity-0', 'scale-95');
+                    viewport.classList.add('opacity-100', 'scale-100');
+                    desc.classList.remove('opacity-0', 'translate-x-4');
+                    desc.classList.add('opacity-100', 'translate-x-0');
+                });
             }, 250);
         }
 
