@@ -292,13 +292,14 @@
                 preloader.onload = () => { mainImg.src = data.image; reveal(); };
                 preloader.onerror = () => { mainImg.src = data.image; reveal(); };
                 preloader.src = data.image;
-            }, 300);
+            }, 250);
         }
 
         document.addEventListener('DOMContentLoaded', () => { switchFloorPlan('1+1'); });
     </script>
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .floor-plan-transition { transition: opacity 0.4s ease, transform 0.4s ease; }
         [class*="fixed"] a, [class*="fixed"] button { white-space: nowrap; }
         .tab-active { color: #041627; border-bottom: 2px solid #041627; }
         .tab-inactive { color: #74777d; border-bottom: 2px solid transparent; }
