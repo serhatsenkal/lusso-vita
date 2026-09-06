@@ -336,9 +336,10 @@
 
         const katPlanData = {
             "bodrum": {
-                image: "assets/images/villa/kat-planlari/bodrum-kat.jpg",
+                image: "assets/images/villa/kat-planlari/bodrum-kat-final.png",
                 title: "Bodrum Kat",
                 brut: "116.03 m²",
+                pinsBaked: true,
                 rooms: [
                     { name: "Rüzgarlık", area: "2.47 m²", x: "12.25%", y: "56.3%" },
                     { name: "Koridor", area: "4.35 m²", x: "22.5%", y: "61.9%" },
@@ -366,9 +367,10 @@
                 ]
             },
             "1kat": {
-                image: "assets/images/villa/kat-planlari/1-kat.jpg",
+                image: "assets/images/villa/kat-planlari/1-kat-final.png",
                 title: "1. Kat",
                 brut: "123.63 m²",
+                pinsBaked: true,
                 rooms: [
                     { name: "Merdiven", area: "6.16 m²", x: "43.8%", y: "14.6%" },
                     { name: "Koridor", area: "8.8 m²", x: "43.8%", y: "31.2%" },
@@ -393,7 +395,7 @@
             img.src = data.image;
             title.textContent = data.title;
 
-            pins.innerHTML = data.rooms.map((r, i) => `<span class="kat-pin" style="left:${r.x}; top:${r.y};">${i + 1}</span>`).join('');
+            pins.innerHTML = data.pinsBaked ? '' : data.rooms.map((r, i) => `<span class="kat-pin" style="left:${r.x}; top:${r.y};">${i + 1}</span>`).join('');
 
             roomsList.innerHTML = data.rooms.map((r, i) => `
                 <div class="flex items-center gap-4 py-3">
