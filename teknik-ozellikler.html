@@ -74,11 +74,36 @@
 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="galeri.html">Galeri</a>
 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
 </div>
+<div class="flex items-center gap-3">
 <a href="hakkimizda.html#iletisim" class="bg-primary text-on-primary px-6 py-3 font-label-caps text-label-caps hover:opacity-80 transition-opacity">
                 Randevu Al
             </a>
+<button aria-label="Menüyü Aç" class="md:hidden text-primary shrink-0" onclick="openMobileMenu()"><span class="material-symbols-outlined text-4xl">menu</span></button>
+</div>
 </div>
 </nav>
+<!-- Mobile Menu Overlay -->
+<div class="hidden md:hidden fixed inset-0 z-[100] bg-surface flex-col" id="mobile-menu">
+<div class="flex justify-between items-center h-36 px-margin-mobile border-b border-outline-variant/30">
+<a class="flex items-center" href="index.html"><img alt="Lusso Vita" class="h-28 w-28 shrink-0" src="assets/logo/lusso-vita-logo-160.png"></a>
+<button aria-label="Menüyü Kapat" class="text-primary" onclick="closeMobileMenu()"><span class="material-symbols-outlined text-4xl">close</span></button>
+</div>
+<div class="flex flex-col items-center justify-center gap-8 flex-1 px-margin-mobile">
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="index.html" onclick="closeMobileMenu()">Ana Sayfa</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="proje.html" onclick="closeMobileMenu()">Proje</a>
+<a class="font-label-caps text-label-caps text-2xl text-primary" href="teknik-ozellikler.html" onclick="closeMobileMenu()">Teknik Özellikler</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="daire-tipleri.html" onclick="closeMobileMenu()">Daire Tipleri</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="villalar.html" onclick="closeMobileMenu()">Villalar</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="galeri.html" onclick="closeMobileMenu()">Galeri</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="hakkimizda.html" onclick="closeMobileMenu()">Hakkımızda</a>
+<a class="mt-4 bg-primary text-on-primary px-10 py-4 font-label-caps text-label-caps" href="hakkimizda.html#iletisim" onclick="closeMobileMenu()">Randevu Al</a>
+</div>
+</div>
+<script>
+    function openMobileMenu(){var m=document.getElementById('mobile-menu');m.classList.remove('hidden');m.classList.add('flex');document.body.style.overflow='hidden';}
+    function closeMobileMenu(){var m=document.getElementById('mobile-menu');m.classList.add('hidden');m.classList.remove('flex');document.body.style.overflow='';}
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobileMenu();});
+</script>
 <main class="pt-32">
 <!-- Hero / Section Header -->
 <header class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop mb-16 text-center">
@@ -92,7 +117,7 @@
 <!-- Technical Specs Component -->
 <section class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop pb-section-padding">
 <!-- Tab Switcher -->
-<div class="flex justify-center border-b border-outline-variant mb-12 overflow-x-auto no-scrollbar">
+<div class="flex justify-start md:justify-center border-b border-outline-variant mb-12 overflow-x-auto no-scrollbar">
 <div class="flex gap-8 md:gap-16">
 <button class="font-label-caps text-label-caps py-4 transition-all tab-active whitespace-nowrap" id="tab-ic-mekan-btn" onclick="switchTab('ic-mekan')">İÇ MEKAN</button>
 <button class="font-label-caps text-label-caps py-4 transition-all text-on-surface-variant hover:text-primary whitespace-nowrap" id="tab-muhendislik-btn" onclick="switchTab('muhendislik')">MÜHENDİSLİK &amp; ALTYAPI</button>
@@ -234,6 +259,7 @@
 <span class="font-label-caps text-label-caps text-primary">İLETİŞİM</span>
 <p class="font-body-md text-body-md text-on-surface-variant">Yaşamkent Mah. Park Caddesi No:48 Çankaya/Ankara</p>
 <p class="font-body-md text-body-md text-on-surface-variant">+90 312 911 88 83</p>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors" href="mailto:bilgi@lussovita.com.tr">bilgi@lussovita.com.tr</a>
 </div>
 <div class="flex flex-col gap-4"><span class="font-label-caps text-label-caps text-primary">SOSYAL MEDYA</span>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors" href="#">Instagram</a>

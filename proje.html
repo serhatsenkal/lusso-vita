@@ -73,13 +73,38 @@
 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="galeri.html">Galeri</a>
 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
 </div>
+<div class="flex items-center gap-3">
 <a href="hakkimizda.html#iletisim" class="bg-primary text-white font-label-caps text-label-caps px-6 py-3 hover:bg-brushed-bronze transition-colors duration-300">Randevu Al</a>
+<button aria-label="Menüyü Aç" class="md:hidden text-primary shrink-0" onclick="openMobileMenu()"><span class="material-symbols-outlined text-4xl">menu</span></button>
+</div>
 </div>
 </nav>
+<!-- Mobile Menu Overlay -->
+<div class="hidden md:hidden fixed inset-0 z-[100] bg-surface flex-col" id="mobile-menu">
+<div class="flex justify-between items-center h-36 px-margin-mobile border-b border-outline-variant/30">
+<a class="flex items-center" href="index.html"><img alt="Lusso Vita" class="h-28 w-28 shrink-0" src="assets/logo/lusso-vita-logo-160.png"></a>
+<button aria-label="Menüyü Kapat" class="text-primary" onclick="closeMobileMenu()"><span class="material-symbols-outlined text-4xl">close</span></button>
+</div>
+<div class="flex flex-col items-center justify-center gap-8 flex-1 px-margin-mobile">
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="index.html" onclick="closeMobileMenu()">Ana Sayfa</a>
+<a class="font-label-caps text-label-caps text-2xl text-primary" href="proje.html" onclick="closeMobileMenu()">Proje</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="teknik-ozellikler.html" onclick="closeMobileMenu()">Teknik Özellikler</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="daire-tipleri.html" onclick="closeMobileMenu()">Daire Tipleri</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="villalar.html" onclick="closeMobileMenu()">Villalar</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="galeri.html" onclick="closeMobileMenu()">Galeri</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="hakkimizda.html" onclick="closeMobileMenu()">Hakkımızda</a>
+<a class="mt-4 bg-primary text-on-primary px-10 py-4 font-label-caps text-label-caps" href="hakkimizda.html#iletisim" onclick="closeMobileMenu()">Randevu Al</a>
+</div>
+</div>
+<script>
+    function openMobileMenu(){var m=document.getElementById('mobile-menu');m.classList.remove('hidden');m.classList.add('flex');document.body.style.overflow='hidden';}
+    function closeMobileMenu(){var m=document.getElementById('mobile-menu');m.classList.add('hidden');m.classList.remove('flex');document.body.style.overflow='';}
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobileMenu();});
+</script>
 <!-- Hero Section -->
-<header class="relative h-[921px] w-full overflow-hidden flex items-start pt-40 pb-32">
-<div class="absolute inset-x-0 top-20 -bottom-20 z-0">
-<img alt="Lusso Vita gece dış cephe render" class="w-full h-full object-cover object-[20%_0%]" src="assets/images/dis/dis-06-gece.jpg">
+<header class="relative h-[1065px] w-full overflow-hidden flex items-start pt-40 pb-32">
+<div class="absolute inset-x-0 top-36 bottom-0 z-0">
+<img alt="Lusso Vita dış cephe render" class="w-full h-full object-cover object-[34%_center]" src="assets/images/dis/proje-hero-ultra-render.jpg">
 <div class="absolute inset-0 bg-gradient-to-b from-primary/50 via-transparent to-transparent"></div>
 </div>
 <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto w-full flex justify-end">
@@ -183,6 +208,7 @@
 <h4 class="font-label-caps text-label-caps text-primary mb-4">İLETİŞİM</h4>
 <p class="font-body-md text-on-surface-variant">Yaşamkent Mah. Park Caddesi No:48 Çankaya/Ankara</p>
 <p class="font-body-md text-on-surface-variant">+90 312 911 88 83</p>
+<a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="mailto:bilgi@lussovita.com.tr">bilgi@lussovita.com.tr</a>
 </div>
 <div class="flex flex-col gap-4"><h4 class="font-label-caps text-label-caps text-primary mb-4">SOSYAL MEDYA</h4>
 <a class="font-body-md text-on-surface-variant hover:text-brushed-bronze transition-colors duration-200" href="#">Instagram</a>
