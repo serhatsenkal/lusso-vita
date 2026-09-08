@@ -183,8 +183,8 @@
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-16">Her daire, seçkin malzemeler ve özenli işçilikle yaşam alanına dönüştürülen bir zemin üzerine kuruludur.</p>
 <div class="flex flex-col md:flex-row gap-gutter">
 <div class="flex-1 space-y-8">
-<div class="aspect-[3500/2188] overflow-hidden">
-<img class="w-full h-full object-cover" alt="Lusso Vita salon" src="assets/images/ic/salon-4-final.webp">
+<div class="aspect-[3500/2188] overflow-hidden group cursor-pointer" onclick="openLightbox('assets/images/ic/salon-4-final.webp', 'Salon')">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita salon" src="assets/images/ic/salon-4-final.webp">
 </div>
 <div>
 <h4 class="font-headline-sm text-headline-sm text-primary mb-2">Salon</h4>
@@ -192,8 +192,8 @@
 </div>
 </div>
 <div class="flex-1 space-y-8 md:mt-24">
-<div class="aspect-[3500/1720] overflow-hidden">
-<img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn yatak odası" src="assets/images/ic/ebeveyn-yatak-odasi-3-final.webp">
+<div class="aspect-[3500/1720] overflow-hidden group cursor-pointer" onclick="openLightbox('assets/images/ic/ebeveyn-yatak-odasi-3-final.webp', 'Ebeveyn Yatak Odası')">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita ebeveyn yatak odası" src="assets/images/ic/ebeveyn-yatak-odasi-3-final.webp">
 </div>
 <div>
 <h4 class="font-headline-sm text-headline-sm text-primary mb-2">Ebeveyn Yatak Odası</h4>
@@ -201,8 +201,8 @@
 </div>
 </div>
 <div class="flex-1 space-y-8">
-<div class="aspect-[3164/2188] overflow-hidden">
-<img class="w-full h-full object-cover" alt="Lusso Vita mutfak" src="assets/images/ic/mutfak-3-final.webp">
+<div class="aspect-[3164/2188] overflow-hidden group cursor-pointer" onclick="openLightbox('assets/images/ic/mutfak-3-final.webp', 'Mutfak')">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lusso Vita mutfak" src="assets/images/ic/mutfak-3-final.webp">
 </div>
 <div>
 <h4 class="font-headline-sm text-headline-sm text-primary mb-2">Mutfak</h4>
@@ -263,5 +263,47 @@
 </div>
 </div>
 </footer>
+<!-- Fullscreen Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-6 opacity-0 transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" onclick="closeLightbox(event)">
+<button class="absolute top-6 right-6 text-white/80 hover:text-white transition-colors" onclick="closeLightbox(event)" aria-label="Kapat">
+<span class="material-symbols-outlined text-4xl">close</span>
+</button>
+<figure id="lightbox-figure" class="max-w-5xl w-full scale-95 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" onclick="event.stopPropagation()">
+<img id="lightbox-img" src="" alt="" class="w-full h-auto max-h-[85vh] object-contain">
+<figcaption id="lightbox-caption" class="text-white/80 font-label-caps text-label-caps text-center mt-4"></figcaption>
+</figure>
+</div>
+<script>
+    function openLightbox(src, caption) {
+        const lightbox = document.getElementById('lightbox');
+        const figure = document.getElementById('lightbox-figure');
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox-caption').textContent = caption || '';
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                lightbox.classList.remove('opacity-0');
+                figure.classList.remove('scale-95');
+            });
+        });
+    }
+    function closeLightbox(event) {
+        if (event) event.stopPropagation();
+        const lightbox = document.getElementById('lightbox');
+        const figure = document.getElementById('lightbox-figure');
+        lightbox.classList.add('opacity-0');
+        figure.classList.add('scale-95');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+        }, 300);
+    }
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>
 </body>
 </html>
