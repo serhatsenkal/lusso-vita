@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Hakkımızda &amp; İletişim | Lusso Vita</title>
+<title>KVKK Aydınlatma Metni | Lusso Vita</title>
+<meta name="robots" content="index,follow">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -56,7 +57,18 @@
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
         body { background-color: #fcf9f1; color: #1c1c17; overflow-x: hidden; }
         [class*="fixed"] a, [class*="fixed"] button { white-space: nowrap; }
-    </style>
+        .legal-prose h2 { font-family:'Playfair Display',serif; font-size:24px; line-height:32px; color:#041627; margin-top:2.75rem; margin-bottom:0.75rem; }
+        .legal-prose h3 { font-weight:600; color:#1c1c17; margin-top:1.75rem; margin-bottom:0.4rem; }
+        .legal-prose p { line-height:1.75; }
+        .legal-prose ul { list-style:disc; padding-left:1.4rem; line-height:1.75; }
+        .legal-prose ol { list-style:decimal; padding-left:1.4rem; line-height:1.75; }
+        .legal-prose li { margin-bottom:0.3rem; }
+        .legal-prose a { color:#8E7966; text-decoration:underline; }
+        .legal-prose strong { color:#1c1c17; }
+        .legal-prose table { width:100%; border-collapse:collapse; margin:1rem 0; }
+        .legal-prose td, .legal-prose th { border:1px solid #c4c6cd; padding:8px 12px; text-align:left; vertical-align:top; }
+        .legal-prose th { background:#f1eee6; font-weight:600; color:#1c1c17; }
+</style>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -87,10 +99,10 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="daire-tipleri.html">Daire Tipleri</a>
 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="villalar.html">Villalar</a>
 <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="galeri.html">Galeri</a>
-<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1 transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-300" href="hakkimizda.html">Hakkımızda</a>
 </div>
 <div class="flex items-center gap-3">
-<a href="#iletisim" class="bg-primary text-on-primary px-6 py-2 font-label-caps text-label-caps hover:opacity-90 transition-opacity">
+<a href="hakkimizda.html#iletisim" class="bg-primary text-on-primary px-6 py-2 font-label-caps text-label-caps hover:opacity-90 transition-opacity">
                 Randevu Al
             </a>
 <button aria-label="Menüyü Aç" class="md:hidden text-primary shrink-0" onclick="openMobileMenu()"><span class="material-symbols-outlined text-4xl">menu</span></button>
@@ -110,8 +122,8 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="daire-tipleri.html" onclick="closeMobileMenu()">Daire Tipleri</a>
 <a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="villalar.html" onclick="closeMobileMenu()">Villalar</a>
 <a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="galeri.html" onclick="closeMobileMenu()">Galeri</a>
-<a class="font-label-caps text-label-caps text-2xl text-primary" href="hakkimizda.html" onclick="closeMobileMenu()">Hakkımızda</a>
-<a class="mt-4 bg-primary text-on-primary px-10 py-4 font-label-caps text-label-caps" href="#iletisim" onclick="closeMobileMenu()">Randevu Al</a>
+<a class="font-label-caps text-label-caps text-2xl text-on-surface-variant" href="hakkimizda.html" onclick="closeMobileMenu()">Hakkımızda</a>
+<a class="mt-4 bg-primary text-on-primary px-10 py-4 font-label-caps text-label-caps" href="hakkimizda.html#iletisim" onclick="closeMobileMenu()">Randevu Al</a>
 </div>
 </div>
 <script>
@@ -119,97 +131,92 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
     function closeMobileMenu(){var m=document.getElementById('mobile-menu');m.classList.add('hidden');m.classList.remove('flex');document.body.style.overflow='';}
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobileMenu();});
 </script>
-<main class="pt-20">
-<!-- Hero Section -->
-<section class="relative h-[614px] flex items-end justify-center overflow-hidden">
-<div class="absolute inset-0 z-0">
-<img class="w-full h-full object-cover opacity-90" alt="Lusso Vita dış cephe akşam görünümü" src="assets/images/dis/dis-02.jpg">
-<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface"></div>
-</div>
-<div class="relative z-10 text-center px-margin-mobile pb-16">
-<h1 class="font-display-lg text-display-lg text-primary max-w-4xl mx-auto leading-tight">Lusso Vita: Ankara'nın Kalbinde Rafine Bir Yaşam</h1>
-</div>
-</section>
-<!-- Brand Story Section -->
-<section class="px-margin-mobile md:px-margin-desktop py-section-padding max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-<div>
-<h2 class="font-headline-lg text-headline-lg text-primary mb-8">Hikayemiz</h2>
-<p class="text-body-lg font-body-lg text-on-surface-variant mb-6 leading-relaxed">LUSSO VITA, Alacaatlı'nın merkezinde modern mimariyi, konforlu yaşam detayları ve güçlü yatırım değeriyle buluşturan nitelikli bir projedir.</p>
-<p class="text-body-md font-body-md text-on-surface-variant mb-6">3 nesil, 46 yıllık tecrübeyle inşaat sektöründe iz bırakan Methaş Mühendislik'in yapı tecrübesiyle hayata geçirilen proje; konut, ticari alan ve sosyal donatıları aynı mimari anlayış içinde bir araya getirerek şehir hayatına seçkin bir yaşam alternatifi sunar.</p>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div>
-<span class="font-label-caps text-label-caps text-brushed-bronze block mb-2">KALİTE</span>
-<p class="text-body-md text-on-surface font-semibold">Seçkin malzeme detayları.</p>
-</div>
-<div>
-<span class="font-label-caps text-label-caps text-brushed-bronze block mb-2">ZARAFET</span>
-<p class="text-body-md text-on-surface font-semibold">Modern ve zamansız tasarım.</p>
-</div>
-<div>
-<span class="font-label-caps text-label-caps text-brushed-bronze block mb-2">GÜVEN</span>
-<p class="text-body-md text-on-surface font-semibold">Köklü mühendislik tecrübesi.</p>
-</div>
-</div>
-</div>
-<div class="relative h-[600px]">
-<div class="absolute inset-0 border border-travertine translate-x-4 translate-y-4 -z-10"></div>
-<img class="w-full h-full object-cover shadow-sm" alt="Lusso Vita dış cephe detay" src="assets/images/dis/dikey/dikey-04.jpg">
-</div>
-</section>
-<!-- Contact Form & Map Section -->
-<section id="iletisim" class="bg-surface-container py-section-padding scroll-mt-20">
-<div class="px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24">
-<div class="lg:col-span-5">
-<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Bizimle İletişime Geçin</h2>
-<p class="text-on-surface-variant mb-12">Projelerimiz hakkında detaylı bilgi almak veya bir randevu oluşturmak için aşağıdaki formu doldurabilirsiniz.</p>
-<form class="space-y-8">
-<div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block">ADINIZ SOYADINIZ</label>
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Örn: Ahmet Yılmaz" type="text">
-</div>
-<div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block">E-POSTA ADRESİ</label>
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="ahmet@email.com" type="email">
-</div>
-<div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block">MESAJINIZ</label>
-<textarea class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Nasıl yardımcı olabiliriz?" rows="4"></textarea>
-</div>
-<button class="w-full bg-primary text-on-primary py-4 font-label-caps text-label-caps tracking-widest hover:bg-walnut transition-colors">GÖNDER</button>
-</form>
-</div>
-<div class="lg:col-span-7 space-y-12">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-<div class="space-y-4">
-<h3 class="font-label-caps text-label-caps text-brushed-bronze">GENEL MERKEZ</h3>
-<p class="text-body-lg text-primary leading-relaxed">Yaşamkent Mah. Park Caddesi No:48<br>Çankaya/Ankara</p>
-<div class="flex items-center gap-2 text-on-surface-variant">
-<span class="material-symbols-outlined">call</span>
-<span class="text-body-md">+90 312 911 88 83</span>
-</div>
-<div class="flex items-center gap-2 text-on-surface-variant">
-<span class="material-symbols-outlined">mail</span>
-<a class="text-body-md hover:text-brushed-bronze transition-colors" href="mailto:bilgi@lussovita.com.tr">bilgi@lussovita.com.tr</a>
-</div>
-<a class="inline-flex items-center gap-2 bg-white/50 border border-outline-variant px-4 py-2 hover:bg-white transition-colors" href="https://wa.me/903129118883">
-<span class="material-symbols-outlined text-green-700">chat</span>
-<span class="font-label-caps text-label-caps">WHATSAPP DESTEK</span>
-</a>
-</div>
-<div class="space-y-4">
-<h3 class="font-label-caps text-label-caps text-brushed-bronze">TAKİP EDİN</h3>
-<div class="flex gap-6 flex-col">
-<a class="text-primary hover:text-brushed-bronze transition-colors flex items-center gap-2" href="https://www.instagram.com/lussovitaankara" target="_blank" rel="noopener"><span class="font-label-caps text-label-caps">INSTAGRAM</span></a>
-<a class="text-primary hover:text-brushed-bronze transition-colors flex items-center gap-2" href="https://www.youtube.com/@lussovitaankara" target="_blank" rel="noopener"><span class="font-label-caps text-label-caps">YOUTUBE</span></a>
-<a class="text-primary hover:text-brushed-bronze transition-colors flex items-center gap-2" href="https://www.tiktok.com/@lussovitaankara" target="_blank" rel="noopener"><span class="font-label-caps text-label-caps">TIKTOK</span></a>
-<a class="text-primary hover:text-brushed-bronze transition-colors flex items-center gap-2" href="https://x.com/LussoVitaAnkara" target="_blank" rel="noopener"><span class="font-label-caps text-label-caps">X</span></a>
-</div>
-</div>
-</div>
-<div class="w-full h-[400px] bg-surface-container-highest shadow-lg relative overflow-hidden">
-<iframe src="https://www.google.com/maps/embed?origin=mfe&pb=!1m12!1m8!1m3!1d6125.38435210888!2d32.6552!3d39.8587289!3m2!1i1024!2i768!4f13.1!2m1!1sLusso+Vita+%7C+Metha%C5%9F+%C4%B0n%C5%9Faat%2C+Ya%C5%9Famkent+Park+Cd+No48+%C3%87ankaya+Ankara!6i16" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lusso Vita konum haritası"></iframe>
-</div>
-</div>
+<main class="pt-36">
+<section class="px-margin-mobile md:px-margin-desktop py-section-padding max-w-[820px] mx-auto">
+<span class="font-label-caps text-label-caps text-brushed-bronze block mb-4">YASAL</span>
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg text-primary mb-4 leading-tight">KVKK Aydınlatma Metni</h1>
+<p class="text-on-surface-variant text-body-md mb-12">Son güncelleme: 10.09.2026</p>
+<div class="legal-prose space-y-5 text-on-surface-variant text-body-md">
+<p><strong>Methaş Mühendislik İnş. Ltd. Şti.</strong> ("Şirket" veya "Methaş Mühendislik") olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, veri sorumlusu sıfatıyla, <a href="https://lussovita.com.tr">lussovita.com.tr</a> web sitesi ("Site") aracılığıyla elde ettiğimiz kişisel verilerinizi aşağıda açıklanan kapsamda işlemekteyiz.</p>
+
+<h2>1. Veri Sorumlusunun Kimliği</h2>
+<table>
+<tr><th>Unvan</th><td>Methaş Mühendislik İnş. Ltd. Şti.</td></tr>
+<tr><th>Adres</th><td>Yaşamkent Mah. Park Caddesi No:48 Çankaya/Ankara</td></tr>
+<tr><th>MERSİS No</th><td>06119052070500016</td></tr>
+<tr><th>Telefon</th><td>+90 312 911 88 83</td></tr>
+<tr><th>E-posta</th><td>bilgi@lussovita.com.tr</td></tr>
+<tr><th>KEP Adresi</th><td>methasmuhendislik@hs01.kep.tr</td></tr>
+</table>
+
+<h2>2. İşlenen Kişisel Veri Kategorileri</h2>
+<ul>
+<li><strong>Kimlik Bilgileri:</strong> ad, soyad</li>
+<li><strong>İletişim Bilgileri:</strong> e-posta adresi, (form aracılığıyla veya iletişim sırasında paylaşmanız halinde) telefon numarası</li>
+<li><strong>Müşteri İşlem / Talep Bilgileri:</strong> iletişim veya randevu formu ile ilettiğiniz mesaj içeriği, talebinizin konusu ve niteliği</li>
+<li><strong>İşlem Güvenliği ve Dijital İz Bilgileri:</strong> IP adresi, çerez kayıtları, tarayıcı ve cihaz bilgileri, Site'de görüntülenen sayfalar, ziyaret tarih/saati, yönlendiren adres ve Site içi etkileşim verileri. Bu veriler Site'de kullanılan zorunlu çerezler ile açık rızanıza bağlı olarak çalışan üçüncü taraf ölçüm/analitik/reklam araçları (Meta Pixel, Google Analytics, Google Ads dönüşüm etiketi vb.) aracılığıyla toplanır.</li>
+</ul>
+
+<h2>3. Kişisel Verilerin İşlenme Amaçları</h2>
+<ul>
+<li>Bilgi talebi, randevu ve satış/pazarlama süreçlerinin yürütülmesi ve sizinle iletişime geçilmesi</li>
+<li>Talep, öneri ve şikayetlerinizin alınması ve sonuçlandırılması</li>
+<li>Site'nin işletilmesi, güvenliğinin sağlanması, hata ve kötüye kullanımların tespiti</li>
+<li>Site kullanım istatistiklerinin ve kullanıcı davranışlarının ölçülmesi ve analiz edilmesi (açık rızaya bağlı)</li>
+<li>Reklam, yeniden pazarlama (retargeting) ve kampanya faaliyetlerinin yürütülmesi ile bu faaliyetlerin etkinliğinin/dönüşümünün ölçülmesi (açık rızaya bağlı)</li>
+<li>Tarafınıza ticari elektronik ileti gönderilmesi (açık rızaya bağlı)</li>
+<li>Hukuki yükümlülüklerin yerine getirilmesi ve yetkili kişi, kurum ve kuruluşların taleplerinin karşılanması</li>
+</ul>
+
+<h2>4. Kişisel Verilerin İşlenmesinin Hukuki Sebepleri (KVKK m.5)</h2>
+<ul>
+<li><strong>İletişim / randevu formu verileri:</strong> bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması (m.5/2-c) ve veri sorumlusunun meşru menfaati (m.5/2-f)</li>
+<li><strong>Zorunlu çerezler ve işlem güvenliği verileri:</strong> veri sorumlusunun hukuki yükümlülüğü (m.5/2-ç) ve meşru menfaati (m.5/2-f)</li>
+<li><strong>Analitik, reklam ve pazarlama çerezleri, üçüncü taraf ölçüm araçları ve ticari elektronik ileti gönderimi:</strong> açık rızanız (m.5/1)</li>
+</ul>
+
+<h2>5. Kişisel Verilerin Aktarılması ve Yurt Dışına Aktarım</h2>
+<p>Kişisel verileriniz, KVKK m.8 ve m.9'da öngörülen şartlara uygun olarak;</p>
+<ul>
+<li>Hukuki yükümlülüklerin yerine getirilmesi amacıyla yetkili kamu kurum ve kuruluşlarına,</li>
+<li>Site barındırma, alan adı/DNS, e-posta ve teknik altyapı hizmeti aldığımız yurt içi/yurt dışı tedarikçilere,</li>
+<li><strong>Açık rızanıza dayalı olarak</strong>, Site'de kullanılan çerezler ve ölçüm/reklam araçları kapsamında yurt dışında yerleşik hizmet sağlayıcılara (özellikle <strong>Meta Platforms, Inc.</strong> ve <strong>Google LLC</strong>)</li>
+</ul>
+<p>aktarılabilir. Meta ve Google başta olmak üzere bu sağlayıcıların sunucuları yurt dışında (başta Amerika Birleşik Devletleri) bulunmaktadır. İlgili analitik/reklam çerezlerine ve araçlarına <strong>açık rıza vermeniz halinde</strong> kişisel verileriniz yurt dışına aktarılmış olur. Bu araçları çerez tercihleri üzerinden reddederek yurt dışı aktarımı engelleyebilirsiniz. Zorunlu (teknik) çerezler bu kapsam dışındadır.</p>
+
+<h2>6. Kişisel Verilerin Toplanma Yöntemi</h2>
+<p>Kişisel verileriniz; Site üzerindeki iletişim ve randevu formları, e-posta, telefon ve WhatsApp yoluyla kurduğunuz iletişim ile Site'de kullanılan çerezler ve üçüncü taraf ölçüm/reklam araçları aracılığıyla tamamen veya kısmen otomatik yollarla elektronik ortamda toplanır.</p>
+
+<h2>7. Kişisel Verilerin Saklanma Süresi</h2>
+<p>Kişisel verileriniz, işlendikleri amaç için gerekli olan süre ve ilgili mevzuatta öngörülen zamanaşımı süreleri boyunca saklanır. Amaç ortadan kalktığında veya azami saklama süresi dolduğunda kişisel verileriniz silinir, yok edilir veya anonim hale getirilir. İletişim ve talep kayıtları ilgili sürecin sona ermesinden itibaren en fazla 3 yıl; ticari elektronik ileti onay kayıtları ise onayın geri alınmasından itibaren 3 yıl saklanır (aksi yönde bir mevzuat hükmü saklıdır).</p>
+
+<h2>8. İlgili Kişi Olarak Haklarınız (KVKK m.11)</h2>
+<p>Veri sorumlusuna başvurarak;</p>
+<ul>
+<li>Kişisel verilerinizin işlenip işlenmediğini öğrenme,</li>
+<li>İşlenmişse buna ilişkin bilgi talep etme,</li>
+<li>İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme,</li>
+<li>Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme,</li>
+<li>Eksik veya yanlış işlenmişse düzeltilmesini isteme,</li>
+<li>Silinmesini veya yok edilmesini isteme,</li>
+<li>Düzeltme, silme ve yok etme işlemlerinin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,</li>
+<li>Münhasıran otomatik sistemler ile analiz edilmesi sonucu aleyhinize bir sonucun ortaya çıkmasına itiraz etme,</li>
+<li>Kanuna aykırı işleme sebebiyle zarara uğramanız halinde zararın giderilmesini talep etme</li>
+</ul>
+<p>haklarına sahipsiniz.</p>
+
+<h2>9. Başvuru Yöntemi</h2>
+<p>Haklarınıza ilişkin taleplerinizi, "Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ" uyarınca aşağıdaki yollarla iletebilirsiniz:</p>
+<ul>
+<li>Islak imzalı ve yazılı olarak <strong>Yaşamkent Mah. Park Caddesi No:48 Çankaya/Ankara</strong> adresine,</li>
+<li>Kayıtlı elektronik posta (KEP) ile <strong>methasmuhendislik@hs01.kep.tr</strong> adresine,</li>
+<li>Sistemimizde kayıtlı e-posta adresinizden <strong>bilgi@lussovita.com.tr</strong> adresine.</li>
+</ul>
+<p>Başvurunuz, talebin niteliğine göre en kısa sürede ve en geç 30 gün içinde ücretsiz olarak sonuçlandırılır. İşlemin ayrıca bir maliyet gerektirmesi halinde Kişisel Verileri Koruma Kurulu tarafından belirlenen tarifedeki ücret alınabilir.</p>
+
+<h2>10. Yürürlük ve Güncelleme</h2>
+<p>Bu Aydınlatma Metni 10.09.2026 tarihinde yürürlüğe girmiştir. Methaş Mühendislik, mevzuat değişiklikleri ve iş süreçlerindeki gelişmeler doğrultusunda metinde değişiklik yapma hakkını saklı tutar. Güncel metin her zaman Site'de yayımlanır.</p>
+
 </div>
 </section>
 </main>
