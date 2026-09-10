@@ -75,6 +75,20 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- Leaflet (konum haritası) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  #lusso-map { z-index: 0; }
+  .leaflet-container { background: #e8e4dd; font-family: 'Manrope', sans-serif; }
+  .lusso-tiles { filter: grayscale(0.92) contrast(0.95) brightness(1.04); }
+  .lusso-pin-img { filter: drop-shadow(0 6px 10px rgba(0,0,0,.28)); }
+  .lusso-pop { font-family: 'Manrope', sans-serif; max-width: 220px; }
+  .lusso-pop strong { display: block; font-size: 13px; letter-spacing: .12em; color: #1c1b1f; margin-bottom: 4px; }
+  .lusso-pop span { display: block; font-size: 12px; line-height: 1.5; color: #5f5b53; margin-bottom: 10px; }
+  .lusso-pop a { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: #1f3453; text-decoration: none; }
+  .lusso-pop a:hover { color: #b0894f; }
+  .leaflet-popup-content-wrapper { border-radius: 3px; }
+</style>
 </head>
 <body class="bg-surface text-on-surface font-body-md selection:bg-brushed-bronze selection:text-white overflow-x-hidden">
 <!-- TopNavBar -->
@@ -210,9 +224,12 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <div class="absolute -top-10 -left-4 bg-primary text-white w-20 h-20 flex items-center justify-center font-headline-md">01</div>
 <h3 class="font-headline-sm text-headline-sm text-primary mb-6">Konum Avantajı</h3>
 <p class="font-body-md text-on-surface-variant mb-8 leading-relaxed">Park Caddesi'nde yer alan LUSSO VITA; Eskişehir Yolu'na 6 dk, Arcadium AVM'ye 8 dk, Başkent Üniversitesi'ne 7 dk ve Koru Metro'ya 10 dk mesafedeki konumuyla şehir yaşamına güçlü bir erişim avantajı sunar.</p>
-<div class="aspect-square bg-travertine relative overflow-hidden flex items-center justify-center">
-<span class="font-label-caps text-label-caps text-on-surface-variant/60 text-center px-6">Konum haritası yakında eklenecek</span>
+<div class="aspect-square bg-travertine relative overflow-hidden">
+<div id="lusso-map" class="absolute inset-0"></div>
 </div>
+<a href="https://www.google.com/maps/dir/?api=1&amp;destination=39.8587289,32.6552" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 font-label-caps text-label-caps text-primary hover:text-brushed-bronze transition-colors">
+<span class="material-symbols-outlined text-lg">directions</span> Yol Tarifi Al
+</a>
 </div>
 </div>
 </div>
@@ -260,5 +277,44 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
             if (window.scrollY > 100) { nav.classList.add('shadow-sm'); } else { nav.classList.remove('shadow-sm'); }
         });
     </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  (function () {
+    var el = document.getElementById('lusso-map');
+    if (!el || typeof L === 'undefined') return;
+    var LAT = 39.8587289, LNG = 32.6552;
+    var map = L.map(el, { scrollWheelZoom: false, zoomControl: true }).setView([LAT, LNG], 15);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19, className: 'lusso-tiles',
+      attribution: '&copy; OpenStreetMap katkıda bulunanlar'
+    }).addTo(map);
+    var RATIO = 0.72; // pin görselinin genişlik / yükseklik oranı (216x300)
+    function pinIcon() {
+      var mobile = window.matchMedia('(max-width: 767px)').matches;
+      var h = mobile ? 90 : 112;
+      var w = Math.round(h * RATIO);
+      return L.icon({
+        iconUrl: 'assets/images/dis/konum-pin-marker.png',
+        iconSize: [w, h],
+        iconAnchor: [Math.round(w * 0.492), h],
+        popupAnchor: [0, -h + 8],
+        className: 'lusso-pin-img'
+      });
+    }
+    var marker = L.marker([LAT, LNG], { icon: pinIcon(), keyboard: false, title: 'Lusso Vita', alt: 'Lusso Vita konumu' }).addTo(map);
+    marker.bindPopup(
+      '<div class="lusso-pop"><strong>LUSSO VITA</strong>' +
+      '<span>Yaşamkent Mah. Park Caddesi No:48, 06810 Çankaya / Ankara</span>' +
+      '<a href="https://www.google.com/maps/dir/?api=1&destination=39.8587289,32.6552" target="_blank" rel="noopener">Yol Tarifi Al</a></div>'
+    );
+    var rt;
+    window.addEventListener('resize', function () {
+      clearTimeout(rt);
+      rt = setTimeout(function () { marker.setIcon(pinIcon()); }, 200);
+    });
+    var fix = function () { map.invalidateSize(); };
+    setTimeout(fix, 300); setTimeout(fix, 1200); window.addEventListener('load', fix);
+  })();
+</script>
 </body>
 </html>
