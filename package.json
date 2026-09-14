@@ -1,0 +1,12 @@
+{
+  "name": "lusso-vita-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lusso Vita static marketing site with a Vercel serverless contact-form endpoint.",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}

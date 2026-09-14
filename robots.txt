@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lussovita.com.tr/sitemap.xml

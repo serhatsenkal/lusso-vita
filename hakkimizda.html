@@ -4,6 +4,19 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Hakkımızda &amp; İletişim | Lusso Vita</title>
+<meta name="description" content="LUSSO VITA hakkında, Methaş Mühendislik güvencesi ve iletişim bilgileri.">
+<link rel="canonical" href="https://lussovita.com.tr/hakkimizda.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lusso Vita">
+<meta property="og:title" content="Hakkımızda & İletişim | Lusso Vita">
+<meta property="og:description" content="LUSSO VITA hakkında, Methaş Mühendislik güvencesi ve iletişim bilgileri.">
+<meta property="og:url" content="https://lussovita.com.tr/hakkimizda.html">
+<meta property="og:image" content="https://lussovita.com.tr/assets/images/dis/dis-01-gece.jpg">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hakkımızda & İletişim | Lusso Vita">
+<meta name="twitter:description" content="LUSSO VITA hakkında, Methaş Mühendislik güvencesi ve iletişim bilgileri.">
+<meta name="twitter:image" content="https://lussovita.com.tr/assets/images/dis/dis-01-gece.jpg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -176,21 +189,115 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <div class="lg:col-span-5">
 <h2 class="font-headline-lg text-headline-lg text-primary mb-4">Bizimle İletişime Geçin</h2>
 <p class="text-on-surface-variant mb-12">Projelerimiz hakkında detaylı bilgi almak veya bir randevu oluşturmak için aşağıdaki formu doldurabilirsiniz.</p>
-<form class="space-y-8">
+<form class="space-y-8" id="contact-form" novalidate>
 <div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block">ADINIZ SOYADINIZ</label>
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Örn: Ahmet Yılmaz" type="text">
+<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-name">ADINIZ SOYADINIZ</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Örn: Ahmet Yılmaz" type="text" id="contact-name" name="name" autocomplete="name" required maxlength="100">
 </div>
 <div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block">E-POSTA ADRESİ</label>
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="ahmet@email.com" type="email">
+<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-email">E-POSTA ADRESİ</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="ahmet@email.com" type="email" id="contact-email" name="email" autocomplete="email" required maxlength="150">
 </div>
 <div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block">MESAJINIZ</label>
-<textarea class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Nasıl yardımcı olabiliriz?" rows="4"></textarea>
+<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-message">MESAJINIZ</label>
+<textarea class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Nasıl yardımcı olabiliriz?" rows="4" id="contact-message" name="message" required minlength="10" maxlength="2000"></textarea>
 </div>
-<button class="w-full bg-primary text-on-primary py-4 font-label-caps text-label-caps tracking-widest hover:bg-walnut transition-colors">GÖNDER</button>
+<div class="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+<label for="contact-company">Şirket</label>
+<input type="text" id="contact-company" name="company" tabindex="-1" autocomplete="off">
+</div>
+<input type="hidden" id="contact-loaded-at" name="loadedAt" value="">
+<div class="flex items-start gap-3">
+<input type="checkbox" id="contact-kvkk" name="kvkkConsent" required class="mt-1 h-4 w-4 shrink-0 accent-primary">
+<label for="contact-kvkk" class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+Kişisel verileriniz <a href="kvkk.html" target="_blank" rel="noopener" class="text-brushed-bronze underline hover:text-primary transition-colors">KVKK Aydınlatma Metni</a> kapsamında işlenmektedir. *
+</label>
+</div>
+<div class="flex items-start gap-3">
+<input type="checkbox" id="contact-marketing" name="marketingConsent" class="mt-1 h-4 w-4 shrink-0 accent-primary">
+<label for="contact-marketing" class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+Kampanya ve tanıtımlarla ilgili tarafıma e-posta/SMS/telefon yoluyla ticari elektronik ileti gönderilmesini istiyorum. (İsteğe bağlıdır)
+</label>
+</div>
+<div id="contact-status" class="hidden font-body-md text-body-md rounded-md px-4 py-3" role="status" aria-live="polite"></div>
+<button type="submit" id="contact-submit" class="w-full bg-primary text-on-primary py-4 font-label-caps text-label-caps tracking-widest hover:bg-walnut transition-colors disabled:opacity-60 disabled:cursor-not-allowed">GÖNDER</button>
 </form>
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var statusBox = document.getElementById('contact-status');
+  var submitBtn = document.getElementById('contact-submit');
+  var loadedAtField = document.getElementById('contact-loaded-at');
+  var submitting = false;
+  if (loadedAtField) loadedAtField.value = String(Date.now());
+
+  function showStatus(kind, text) {
+    statusBox.textContent = text;
+    statusBox.classList.remove('hidden', 'bg-green-50', 'text-green-800', 'bg-red-50', 'text-red-800');
+    if (kind === 'success') {
+      statusBox.classList.add('bg-green-50', 'text-green-800');
+    } else {
+      statusBox.classList.add('bg-red-50', 'text-red-800');
+    }
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (submitting) return;
+
+    var name = document.getElementById('contact-name').value.trim();
+    var email = document.getElementById('contact-email').value.trim();
+    var message = document.getElementById('contact-message').value.trim();
+    var kvkkConsent = document.getElementById('contact-kvkk').checked;
+    var marketingConsent = document.getElementById('contact-marketing').checked;
+    var company = document.getElementById('contact-company').value;
+    var loadedAt = document.getElementById('contact-loaded-at').value;
+
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (name.length < 2 || name.length > 100) {
+      showStatus('error', 'Lütfen geçerli bir ad soyad girin.'); return;
+    }
+    if (!emailRe.test(email) || email.length > 150) {
+      showStatus('error', 'Lütfen geçerli bir e-posta adresi girin.'); return;
+    }
+    if (message.length < 10 || message.length > 2000) {
+      showStatus('error', 'Mesajınız en az 10, en fazla 2000 karakter olmalıdır.'); return;
+    }
+    if (!kvkkConsent) {
+      showStatus('error', 'Devam etmek için KVKK Aydınlatma Metni onayı gereklidir.'); return;
+    }
+
+    submitting = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'GÖNDERİLİYOR...';
+    statusBox.classList.add('hidden');
+
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, message: message, kvkkConsent: kvkkConsent, marketingConsent: marketingConsent, company: company, loadedAt: loadedAt })
+    })
+      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+      .then(function (result) {
+        if (result.ok && result.data && result.data.ok) {
+          showStatus('success', 'Talebiniz alınmıştır. Ekibimiz en kısa sürede sizinle iletişime geçecektir.');
+          form.reset();
+        } else {
+          showStatus('error', 'Mesajınız şu anda gönderilemedi. Lütfen tekrar deneyin veya bilgi@lussovita.com.tr adresinden bizimle iletişime geçin.');
+        }
+      })
+      .catch(function () {
+        showStatus('error', 'Mesajınız şu anda gönderilemedi. Lütfen tekrar deneyin veya bilgi@lussovita.com.tr adresinden bizimle iletişime geçin.');
+      })
+      .finally(function () {
+        submitting = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'GÖNDER';
+      });
+  });
+})();
+</script>
 </div>
 <div class="lg:col-span-7 space-y-12">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
