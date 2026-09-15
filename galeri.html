@@ -6,6 +6,10 @@
 <title>Galeri &amp; Malzemeler | Lusso Vita</title>
 <meta name="description" content="LUSSO VITA daire ve villa iç mekan render galerisi, malzeme ve detay görselleri.">
 <link rel="canonical" href="https://lussovita.com.tr/galeri.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lusso Vita">
 <meta property="og:title" content="Galeri & Malzemeler | Lusso Vita">
@@ -497,13 +501,14 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 </div>
 <div class="mt-20 border-t border-outline-variant/30 pt-8 px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
 <p class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">© 2026 Methaş Mühendislik İnş. Ltd. Şti. Bütün hakları saklıdır.</p>
-<a href="https://serhatsenkal.com" target="_blank" rel="noopener" class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest hover:text-brushed-bronze transition-colors">Web tasarım: serhatsenkal.com</a>
+<a href="https://serhatsenkal.com" target="_blank" rel="noopener noreferrer" class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest hover:text-brushed-bronze transition-colors">Web tasarım: serhatsenkal.com</a>
 </div>
 </footer>
 <script>
         function openLightbox(src, caption) {
             const lightbox = document.getElementById('lightbox');
             document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-img').alt = caption || 'Lusso Vita galeri görseli';
             document.getElementById('lightbox-caption').textContent = caption || '';
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
@@ -518,6 +523,20 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
         }
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Keyboard access for gallery thumbnails (Tab to focus, Enter/Space to open)
+        document.querySelectorAll('.gallery-item').forEach((item) => {
+            item.setAttribute('role', 'button');
+            item.setAttribute('tabindex', '0');
+            const label = item.querySelector('img')?.alt || 'Görseli büyüt';
+            item.setAttribute('aria-label', label);
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    item.click();
+                }
+            });
         });
 
         function filterGallery(category) {
