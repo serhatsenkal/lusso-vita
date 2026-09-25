@@ -141,17 +141,20 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
             <button class="tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-active" data-tab="1+1" onclick="switchFloorPlan('1+1')">
                 1+1 DAİRE
             </button>
-            <button class="tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-inactive hover:opacity-100" data-tab="2+1 B1" onclick="switchFloorPlan('2+1 B1')">
-                2+1 DAİRE B1
-            </button>
-            <button class="tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-inactive hover:opacity-100" data-tab="2+1 B2" onclick="switchFloorPlan('2+1 B2')">
-                2+1 DAİRE B2
-            </button>
             <button class="tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-inactive hover:opacity-100" data-tab="2+1 K1" onclick="switchFloorPlan('2+1 K1')">
                 2+1 DAİRE K1
             </button>
             <button class="tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-inactive hover:opacity-100" data-tab="2+1 K2" onclick="switchFloorPlan('2+1 K2')">
                 2+1 DAİRE K2
+            </button>
+            <button class="tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-inactive hover:opacity-100" data-tab="2+1 K3" onclick="switchFloorPlan('2+1 K3')">
+                2+1 DAİRE K3
+            </button>
+            <button class="tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-inactive hover:opacity-100" data-tab="2+1 B1" onclick="switchFloorPlan('2+1 B1')">
+                2+1 DAİRE B1
+            </button>
+            <button class="tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-inactive hover:opacity-100" data-tab="2+1 B2" onclick="switchFloorPlan('2+1 B2')">
+                2+1 DAİRE B2
             </button>
         </div>
 
@@ -201,6 +204,26 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
                             KATALOĞU İNDİR (PDF)
                         </a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blok Kat Planları Section -->
+    <section class="pb-section-padding px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+        <h2 class="font-headline-md text-headline-md text-primary mb-10">Blok Kat Planları</h2>
+        <div class="flex border-b border-outline-variant/30 mb-10 overflow-x-auto no-scrollbar scroll-smooth">
+            <button class="blok-tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-active" data-blok-tab="zemin-6" onclick="switchBlokKatPlani('zemin-6')">
+                ZEMİN–6. KAT ARASI KAT PLANI
+            </button>
+            <button class="blok-tab-btn px-10 py-5 font-label-caps text-label-caps transition-all duration-300 tab-inactive hover:opacity-100" data-blok-tab="6-8" onclick="switchBlokKatPlani('6-8')">
+                6. KAT–8. KAT ARASI KAT PLANI
+            </button>
+        </div>
+        <div class="bg-surface-container-lowest/50 rounded-2xl p-6 md:p-12 border border-outline-variant/10 shadow-sm overflow-hidden">
+            <div class="floor-plan-transition opacity-100 transform scale-100 flex justify-center" id="blok-kat-viewport">
+                <div class="relative inline-block cursor-zoom-in" onclick="openLightbox(document.getElementById('blok-kat-img').src, document.getElementById('blok-kat-img').alt, true)">
+                    <img alt="Zemin–6. Kat Arası Kat Planı" class="w-full h-auto max-w-full hover:scale-[1.03] transition-transform duration-700" id="blok-kat-img" src="assets/images/blok-kat-planlari/zemin-6-kat-plani.webp">
                 </div>
             </div>
         </div>
@@ -260,9 +283,15 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
     </div>
 
     <script>
-        function openLightbox(src, caption) {
+        function openLightbox(src, caption, lightBg) {
             const lightbox = document.getElementById('lightbox');
-            document.getElementById('lightbox-img').src = src;
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = src;
+            // blok kat planları: transparent PNG with dark unit labels ("2+1 B1"...)
+            // -> show it on the site's ivory so the labels stay readable on the dark overlay
+            lbImg.style.background = lightBg ? '#FCF9F1' : '';
+            lbImg.style.padding = lightBg ? '2.5%' : '';
+            lbImg.style.borderRadius = lightBg ? '12px' : '';
             document.getElementById('lightbox-caption').textContent = caption || '';
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
@@ -285,6 +314,24 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
                     { name: "Giriş Holü", area: "4.47 m²", x: "65.6%", y: "72.2%" }, { name: "Yaşam Alanı", area: "16.19 m²", x: "40.6%", y: "72.2%" },
                     { name: "Yatak Odası", area: "11.58 m²", x: "31.3%", y: "37%" }, { name: "Banyo", area: "3.30 m²", x: "59.9%", y: "24.1%" }, { name: "Balkon", area: "2.63 m²", x: "22.4%", y: "64.8%" }
                 ] },
+            "2+1 K1": { title: "2+1 Tip K1", net: "71.78 m²", brut: "86.57 m²", image: "assets/images/kat-planlari/2-plus-1-k1-final.webp",
+                rooms: [
+                    { name: "Giriş Holü", area: "6.17 m²", x: "53.1%", y: "27.8%" }, { name: "Yaşam Alanı", area: "23.84 m²", x: "59.4%", y: "61.1%" }, { name: "Yatak Odası", area: "10.62 m²", x: "48.8%", y: "83.3%" },
+                    { name: "Ebeveyn Yatak Odası", area: "12.90 m²", x: "31.3%", y: "83.3%" }, { name: "Ebeveyn Banyosu", area: "4.05 m²", x: "21.3%", y: "38.9%" }, { name: "Banyo", area: "3.97 m²", x: "39.4%", y: "35.6%" },
+                    { name: "Koridor", area: "3.51 m²", x: "40.6%", y: "51.1%" }, { name: "Balkon", area: "6.72 m²", x: "68.1%", y: "86.3%" }
+                ] },
+            "2+1 K2": { title: "2+1 Tip K2", net: "73.37 m²", brut: "85.92 m²", image: "assets/images/kat-planlari/2-plus-1-k2-final.webp",
+                rooms: [
+                    { name: "Giriş Holü", area: "4.36 m²", x: "52.1%", y: "32.5%" }, { name: "Yaşam Alanı", area: "27.92 m²", x: "58.9%", y: "53.9%" }, { name: "Yatak Odası", area: "10.62 m²", x: "43.8%", y: "70%" },
+                    { name: "Ebeveyn Yatak Odası", area: "12.58 m²", x: "26.7%", y: "52.5%" }, { name: "Ebeveyn Banyosu", area: "4.05 m²", x: "22.5%", y: "30.4%" }, { name: "Banyo", area: "3.97 m²", x: "37.3%", y: "30.4%" },
+                    { name: "Koridor", area: "3.57 m²", x: "39.1%", y: "45.4%" }, { name: "Balkon", area: "6.30 m²", x: "66.7%", y: "83.4%" }
+                ] },
+            "2+1 K3": { title: "2+1 Tip K3", net: "77.07 m²", brut: "90.31 m²", image: "assets/images/kat-planlari/2-plus-1-k3-final.webp",
+                rooms: [
+                    { name: "Yaşam Alanı", area: "32.45 m²", x: "57%", y: "47%" }, { name: "Yatak Odası", area: "9.99 m²", x: "40%", y: "20%" }, { name: "Ebeveyn Yatak Odası", area: "12.56 m²", x: "20%", y: "27%" },
+                    { name: "Ebeveyn Banyosu", area: "4.44 m²", x: "16%", y: "63%" }, { name: "Banyo", area: "4.44 m²", x: "29%", y: "63%" }, { name: "Koridor", area: "3.08 m²", x: "30%", y: "50%" },
+                    { name: "Balkon", area: "7.18 m²", x: "50%", y: "10%" }, { name: "Balkon", area: "2.93 m²", x: "95%", y: "90%" }
+                ] },
             "2+1 B1": { title: "2+1 Tip B1", net: "103.11 m²", brut: "122.16 m²", image: "assets/images/kat-planlari/2-plus-1-b1-final.webp",
                 rooms: [
                     { name: "Giriş Holü", area: "9.06 m²", x: "46.9%", y: "22.2%" }, { name: "Salon", area: "31.55 m²", x: "56.3%", y: "44.4%" }, { name: "Mutfak", area: "14.23 m²", x: "55%", y: "25.6%" },
@@ -296,18 +343,6 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
                     { name: "Giriş Holü", area: "8.32 m²", x: "40%", y: "20%" }, { name: "Salon", area: "28.89 m²", x: "17%", y: "46%" }, { name: "Mutfak", area: "12.54 m²", x: "44%", y: "69%" },
                     { name: "Yatak Odası", area: "11.22 m²", x: "67.5%", y: "75.6%" }, { name: "Ebeveyn Yatak Odası", area: "17.83 m²", x: "85%", y: "75.6%" }, { name: "Ebeveyn Giyinme Odası", area: "5.57 m²", x: "87%", y: "18%" },
                     { name: "Ebeveyn Banyosu", area: "4.02 m²", x: "71%", y: "20%" }, { name: "Banyo", area: "3.78 m²", x: "58%", y: "17%" }, { name: "Koridor", area: "3.66 m²", x: "54%", y: "39%" }, { name: "Balkon", area: "8.07 m²", x: "20.6%", y: "85.6%" }
-                ] },
-            "2+1 K1": { title: "2+1 Tip K1", net: "71.78 m²", brut: "86.57 m²", image: "assets/images/kat-planlari/2-plus-1-k1-final.webp",
-                rooms: [
-                    { name: "Giriş Holü", area: "6.17 m²", x: "53.1%", y: "27.8%" }, { name: "Yaşam Alanı", area: "23.84 m²", x: "59.4%", y: "61.1%" }, { name: "Yatak Odası", area: "10.62 m²", x: "48.8%", y: "83.3%" },
-                    { name: "Ebeveyn Yatak Odası", area: "12.90 m²", x: "31.3%", y: "83.3%" }, { name: "Ebeveyn Banyosu", area: "4.05 m²", x: "21.3%", y: "38.9%" }, { name: "Banyo", area: "3.97 m²", x: "39.4%", y: "35.6%" },
-                    { name: "Koridor", area: "3.51 m²", x: "40.6%", y: "51.1%" }, { name: "Balkon", area: "6.72 m²", x: "68.1%", y: "86.3%" }
-                ] },
-            "2+1 K2": { title: "2+1 Tip K2", net: "73.37 m²", brut: "85.92 m²", image: "assets/images/kat-planlari/2-plus-1-k2-final.webp",
-                rooms: [
-                    { name: "Giriş Holü", area: "4.36 m²", x: "56.3%", y: "77.8%" }, { name: "Yaşam Alanı", area: "27.92 m²", x: "65.6%", y: "50%" }, { name: "Yatak Odası", area: "10.62 m²", x: "51.9%", y: "27.8%" },
-                    { name: "Ebeveyn Yatak Odası", area: "12.58 m²", x: "32.5%", y: "34.4%" }, { name: "Ebeveyn Banyosu", area: "4.05 m²", x: "21.2%", y: "86.7%" }, { name: "Banyo", area: "3.97 m²", x: "37.5%", y: "75.6%" },
-                    { name: "Koridor", area: "3.57 m²", x: "40.6%", y: "64.4%" }, { name: "Balkon", area: "6.30 m²", x: "65.6%", y: "8.9%" }
                 ] }
         };
 
@@ -361,6 +396,36 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
         }
 
         document.addEventListener('DOMContentLoaded', () => { switchFloorPlan('1+1'); });
+
+        const blokKatPlanlari = {
+            'zemin-6': { image: 'assets/images/blok-kat-planlari/zemin-6-kat-plani.webp', alt: 'Zemin–6. Kat Arası Kat Planı' },
+            '6-8': { image: 'assets/images/blok-kat-planlari/6-8-kat-plani.webp', alt: '6. Kat–8. Kat Arası Kat Planı' }
+        };
+        function switchBlokKatPlani(key) {
+            const data = blokKatPlanlari[key];
+            if (!data) return;
+            const viewport = document.getElementById('blok-kat-viewport');
+            const img = document.getElementById('blok-kat-img');
+            document.querySelectorAll('.blok-tab-btn').forEach((btn) => {
+                const active = btn.getAttribute('data-blok-tab') === key;
+                btn.classList.toggle('tab-active', active);
+                btn.classList.toggle('tab-inactive', !active);
+            });
+            if (img.getAttribute('src') === data.image) return;
+            // same soft fade/scale swap as the daire plans above
+            viewport.classList.remove('opacity-100', 'scale-100');
+            viewport.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                const reveal = () => {
+                    viewport.classList.remove('opacity-0', 'scale-95');
+                    viewport.classList.add('opacity-100', 'scale-100');
+                };
+                const preloader = new Image();
+                preloader.onload = () => { img.src = data.image; img.alt = data.alt; reveal(); };
+                preloader.onerror = () => { img.src = data.image; img.alt = data.alt; reveal(); };
+                preloader.src = data.image;
+            }, 250);
+        }
     </script>
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }

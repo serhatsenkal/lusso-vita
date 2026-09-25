@@ -75,6 +75,14 @@
         .gallery-item { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .gallery-item:hover { transform: scale(1.02); }
         .filter-btn.active { color: #041627; border-bottom: 1px solid #041627; }
+        .pano-scroll { scrollbar-width: none; } .pano-scroll::-webkit-scrollbar { display: none; }
+        /* lightbox, panorama mode: use (almost) the full viewport width; on phones keep
+           a readable height and let the image scroll sideways instead of shrinking it */
+        #lightbox-img { transition: opacity 0.3s ease, transform 0.3s ease; }
+        #lightbox-img.lb-fade { opacity: 0; transform: scale(0.985); }
+        #lightbox figure.lb-wide { max-width: 96vw; overflow-x: auto; }
+        #lightbox figure.lb-wide img { width: 100%; height: auto; max-height: none; }
+        @media (max-width: 767px) { #lightbox figure.lb-wide img { width: auto; height: 45vh; max-width: none; } }
         [class*="fixed"] a, [class*="fixed"] button { white-space: nowrap; }
     </style>
 <!-- Meta Pixel Code -->
@@ -151,16 +159,85 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
                     </p>
 </div>
 <div class="flex flex-wrap gap-6 mt-8 md:mt-0">
-<button class="filter-btn active font-label-caps text-label-caps pb-1 transition-all" onclick="filterGallery('all')">Tümü</button>
-<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('salon')">Salon</button>
-<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('mutfak')">Mutfak</button>
-<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('yatak')">Yatak Odası</button>
-<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('cocuk')">Çocuk Odası</button>
-<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('banyo')">Banyo</button>
-<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" onclick="filterGallery('villa')">Villa İç Mekan</button>
+<button class="filter-btn active font-label-caps text-label-caps pb-1 transition-all" data-filter="all" onclick="filterGallery('all')">Tümü</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" data-filter="lobi" onclick="filterGallery('lobi')">Lobi ve Hol</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" data-filter="salon" onclick="filterGallery('salon')">Salon</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" data-filter="mutfak" onclick="filterGallery('mutfak')">Mutfak</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" data-filter="yatak" onclick="filterGallery('yatak')">Yatak Odası</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" data-filter="cocuk" onclick="filterGallery('cocuk')">Çocuk Odası</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" data-filter="banyo" onclick="filterGallery('banyo')">Banyo</button>
+<button class="filter-btn font-label-caps text-label-caps text-on-surface-variant pb-1 transition-all" data-filter="villa" onclick="filterGallery('villa')">Villa İç Mekan</button>
 </div>
 </div>
-<h3 class="font-headline-sm text-headline-sm text-primary mb-6">1+1, 2+1 Daire Görselleri</h3>
+<!-- Lobi ve Kat Holü (ortak alanlar) - görseller kırpmasız, satır içi eşit yükseklik -->
+<div class="gallery-group mb-20" data-category="lobi">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6">Lobi ve Kat Holü</h3>
+<div class="grid grid-cols-1 md:grid-cols-[1.6000fr_1.6835fr] gap-6 ">
+<div class="lb-tile aspect-[2000/1250] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/lobi/lobi-1.jpg', 'Lobi')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita lobi, Lusso Vita duvar yazısı" src="assets/images/lobi/lobi-1.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Lobi</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[2000/1188] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/lobi/lobi-2.jpg', 'Lobi')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita lobi posta kutuları" src="assets/images/lobi/lobi-2.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Lobi</span></div>
+</div>
+</div>
+</div>
+<!-- Kat holü panoramaları: lacivert bant içinde, iki duvar cephesi alt alta -->
+<div class="bg-primary px-5 py-8 md:px-12 md:py-12 my-6">
+<div class="flex items-baseline justify-between mb-6">
+<span class="font-label-caps text-label-caps text-brushed-bronze">Kat Holü · Panoramik Görünüm</span>
+<span class="font-label-caps text-[10px] text-white/40 hidden md:inline">Büyütmek için tıklayın</span>
+</div>
+<div class="flex flex-col gap-4 md:gap-6">
+<div class="lb-tile pano-scroll overflow-x-auto md:overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/lobi/kat-holu-2-panorama.jpg', 'Kat Holü Panorama', true)">
+<img class="block h-[150px] w-auto max-w-none md:h-auto md:w-full md:max-w-full transition duration-700 group-hover:brightness-110" alt="Lusso Vita kat holü panoramik görünüm" src="assets/images/lobi/kat-holu-2-panorama.jpg" loading="lazy">
+</div>
+<div class="lb-tile pano-scroll overflow-x-auto md:overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/lobi/kat-holu-3-panorama.jpg', 'Kat Holü Panorama', true)">
+<img class="block h-[150px] w-auto max-w-none md:h-auto md:w-full md:max-w-full transition duration-700 group-hover:brightness-110" alt="Lusso Vita kat holü asansör ve daire girişleri panoramik görünüm" src="assets/images/lobi/kat-holu-3-panorama.jpg" loading="lazy">
+</div>
+</div>
+<p class="md:hidden mt-4 text-white/50 font-label-caps text-[10px] flex items-center gap-2"><span class="material-symbols-outlined text-base">swipe</span>Kaydırarak inceleyin</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-[1.6000fr_1.6000fr_1.6000fr] gap-6 ">
+<div class="lb-tile aspect-[2000/1250] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/lobi/lobi-3.jpg', 'Lobi')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita lobi oturma alanı ve asansörler" src="assets/images/lobi/lobi-3.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Lobi</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[2000/1250] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/lobi/kat-holu-1.jpg', 'Kat Holü')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita kat holü koridor" src="assets/images/lobi/kat-holu-1.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Kat Holü</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[2000/1250] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/lobi/kat-holu-5.jpg', 'Kat Holü')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita kat holü sanat eserleri" src="assets/images/lobi/kat-holu-5.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Kat Holü</span></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-[1.6978fr_2.3613fr] gap-6 mt-6">
+<div class="lb-tile aspect-[2000/1178] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/lobi/kat-holu-4.jpg', 'Kat Holü')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita kat holü daire girişi" src="assets/images/lobi/kat-holu-4.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Kat Holü</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[2000/847] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/lobi/kat-holu-6.jpg', 'Kat Holü')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita kat holü asansör holü" src="assets/images/lobi/kat-holu-6.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Kat Holü</span></div>
+</div>
+</div>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6" id="daire-grid-title">1+1, 2+1 Daire Görselleri</h3>
 <!-- Bento Grid Style Gallery -->
 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:auto-rows-[300px]" id="gallery-grid">
 <div class="md:col-span-8 md:row-span-2 overflow-hidden gallery-item cursor-pointer" data-category="salon" onclick="openLightbox('assets/images/ic/salon-1.jpg', 'Geniş Salon ve Sosyal Alan')">
@@ -173,12 +250,6 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <div class="w-full h-full relative group">
 <img class="w-full h-full object-cover" alt="Lusso Vita mutfak" src="assets/images/ic/mutfak-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Mutfak Detayları</span></div>
-</div>
-</div>
-<div class="md:col-span-4 md:row-span-2 overflow-hidden gallery-item cursor-pointer" data-category="banyo" onclick="openLightbox('assets/images/ic/misafir-banyo-1.jpg', '2+1 Misafir Banyo')">
-<div class="w-full h-full relative group">
-<img class="w-full h-full object-cover" alt="Lusso Vita misafir banyosu" src="assets/images/ic/misafir-banyo-1.jpg">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">2+1 Misafir Banyo</span></div>
 </div>
 </div>
 <div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="yatak" onclick="openLightbox('assets/images/ic/ebeveyn-yatak-odasi-1.jpg', 'Ebeveyn Yatak Odası')">
@@ -223,24 +294,6 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Çocuk Odası</span></div>
 </div>
 </div>
-<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="banyo" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-1.jpg', '2+1 Ebeveyn Banyo')">
-<div class="w-full h-full relative group">
-<img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn banyosu" src="assets/images/ic/ebeveyn-banyo-1.jpg">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">2+1 Ebeveyn Banyo</span></div>
-</div>
-</div>
-<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="banyo" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-2.jpg', '2+1 Ebeveyn Banyo')">
-<div class="w-full h-full relative group">
-<img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn banyosu" src="assets/images/ic/ebeveyn-banyo-2.jpg">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">2+1 Ebeveyn Banyo</span></div>
-</div>
-</div>
-<div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="banyo" onclick="openLightbox('assets/images/ic/misafir-banyo-2.jpg', '2+1 Misafir Banyo')">
-<div class="w-full h-full relative group">
-<img class="w-full h-full object-cover" alt="Lusso Vita misafir banyosu" src="assets/images/ic/misafir-banyo-2.jpg">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">2+1 Misafir Banyo</span></div>
-</div>
-</div>
 <div class="md:col-span-4 md:row-span-1 overflow-hidden gallery-item cursor-pointer" data-category="yatak" onclick="openLightbox('assets/images/ic/ebeveyn-yatak-odasi-3.jpg', 'Ebeveyn Yatak Odası')">
 <div class="w-full h-full relative group">
 <img class="w-full h-full object-cover" alt="Lusso Vita ebeveyn yatak odası" src="assets/images/ic/ebeveyn-yatak-odasi-3.jpg">
@@ -261,40 +314,89 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 </div>
 </div>
 
+<!-- Banyolar - tüm banyo görselleri kırpmasız -->
+<div class="gallery-group mt-16" data-category="banyo">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6">Banyolar</h3>
+<div class="grid grid-cols-1 md:grid-cols-[0.9817fr_1.0441fr_0.7478fr_0.6833fr] gap-6 ">
+<div class="lb-tile aspect-[1767/1800] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/ic/misafir-banyo-1.jpg', '2+1 Misafir Banyo')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita misafir banyosu" src="assets/images/ic/misafir-banyo-1.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">2+1 Misafir Banyo</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[1800/1724] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-1.jpg', '2+1 Ebeveyn Banyo')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita ebeveyn banyosu" src="assets/images/ic/ebeveyn-banyo-1.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">2+1 Ebeveyn Banyo</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[1346/1800] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-2.jpg', '2+1 Ebeveyn Banyo')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita ebeveyn banyosu ikinci görsel" src="assets/images/ic/ebeveyn-banyo-2.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">2+1 Ebeveyn Banyo</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[1230/1800] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/ic/misafir-banyo-2.jpg', '2+1 Misafir Banyo')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita misafir banyosu ikinci görsel" src="assets/images/ic/misafir-banyo-2.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">2+1 Misafir Banyo</span></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-[0.6539fr_0.6500fr_1.0922fr] gap-6 mt-6">
+<div class="lb-tile aspect-[1177/1800] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-3.jpg', 'Ebeveyn Banyo')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita ebeveyn banyosu" src="assets/images/ic/ebeveyn-banyo-3.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Ebeveyn Banyo</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[1170/1800] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-4.jpg', 'Ebeveyn Banyo')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita ebeveyn banyosu duş alanı" src="assets/images/ic/ebeveyn-banyo-4.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Ebeveyn Banyo</span></div>
+</div>
+</div>
+<div class="lb-tile aspect-[1800/1648] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/ic/ebeveyn-banyo-5.jpg', 'Ebeveyn Banyo')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita ebeveyn banyosu lavabo ve duş" src="assets/images/ic/ebeveyn-banyo-5.jpg" loading="lazy">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Ebeveyn Banyo</span></div>
+</div>
+</div>
+</div>
+</div>
+
 <!-- Villa İç Mekan (kat başlıklı, boşluksuz düzen) -->
 <div class="gallery-item mt-16" data-category="villa">
 <div class="mb-14">
 <h3 class="font-headline-sm text-headline-sm text-primary mb-6">Villa Bodrum Kat</h3>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="md:col-span-2 aspect-[16/10] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-1.jpg', 'Villa Bodrum Kat Oturma Odası')">
+<div class="grid grid-cols-1 md:grid-cols-[1.6000fr_1.6000fr] gap-6">
+<div class="aspect-[1600/1000] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-1.jpg', 'Villa Bodrum Kat Oturma Odası')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa bodrum kat oturma odası" src="assets/images/villa/ic/oturma-odasi-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Bodrum Kat Oturma Odası</span></div>
 </div>
 </div>
-<div class="flex flex-col gap-6">
-<div class="aspect-[16/10] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/calisma-odasi-1.jpg', 'Villa Çalışma Odası')">
+<div class="aspect-[1600/1000] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/calisma-odasi-1.jpg', 'Villa Çalışma Odası')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa çalışma odası" src="assets/images/villa/ic/calisma-odasi-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Çalışma Odası</span></div>
 </div>
 </div>
-<div class="aspect-[16/10] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/calisma-odasi-2.jpg', 'Villa Çalışma Odası')">
-<div class="w-full h-full relative">
-<img class="w-full h-full object-cover" alt="Lusso Vita villa çalışma odası ikinci görsel" src="assets/images/villa/ic/calisma-odasi-2.jpg">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Çalışma Odası</span></div>
 </div>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-<div class="aspect-[16/10] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-2.jpg', 'Villa Bodrum Kat Oturma Odası')">
+<div class="grid grid-cols-1 md:grid-cols-[1.6000fr_1.0417fr_3.2129fr] gap-6 mt-6">
+<div class="aspect-[1600/1000] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-2.jpg', 'Villa Bodrum Kat Oturma Odası')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa bodrum kat oturma odası ikinci görsel" src="assets/images/villa/ic/oturma-odasi-2.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Bodrum Kat Oturma Odası</span></div>
 </div>
 </div>
-<div class="md:col-span-2 aspect-[1600/498] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-3.jpg', 'Villa Bodrum Kat Oturma Odası')">
+<div class="aspect-[1600/1536] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/calisma-odasi-2.jpg', 'Villa Çalışma Odası')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover" alt="Lusso Vita villa çalışma odası ikinci görsel" src="assets/images/villa/ic/calisma-odasi-2.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Çalışma Odası</span></div>
+</div>
+</div>
+<div class="aspect-[1600/498] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/oturma-odasi-3.jpg', 'Villa Bodrum Kat Oturma Odası')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa bodrum kat oturma odası panoramik görsel" src="assets/images/villa/ic/oturma-odasi-3.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Bodrum Kat Oturma Odası</span></div>
@@ -305,26 +407,28 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 
 <div class="mb-14">
 <h3 class="font-headline-sm text-headline-sm text-primary mb-6">Villa Zemin Kat</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="aspect-[16/10] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/salon-1.jpg', 'Villa Zemin Kat Salonu')">
+<div class="grid grid-cols-1 md:grid-cols-[2.3599fr_1.6000fr] gap-6">
+<div class="aspect-[1600/678] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/salon-1.jpg', 'Villa Zemin Kat Salonu')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa zemin kat salonu" src="assets/images/villa/ic/salon-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Zemin Kat Salonu</span></div>
 </div>
 </div>
-<div class="aspect-[16/10] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/mutfak-1.jpg', 'Villa Zemin Kat Mutfağı')">
+<div class="aspect-[1600/1000] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/mutfak-1.jpg', 'Villa Zemin Kat Mutfağı')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa zemin kat mutfağı" src="assets/images/villa/ic/mutfak-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Zemin Kat Mutfağı</span></div>
 </div>
 </div>
-<div class="aspect-[16/10] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/salon-3.jpg', 'Villa Zemin Kat Salonu')">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-[1.6000fr_1.6000fr] gap-6 mt-6">
+<div class="aspect-[1600/1000] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/salon-3.jpg', 'Villa Zemin Kat Salonu')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa zemin kat salon detayı" src="assets/images/villa/ic/salon-3.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Zemin Kat Salonu</span></div>
 </div>
 </div>
-<div class="aspect-[16/10] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/mutfak-2.jpg', 'Villa Zemin Kat Mutfağı')">
+<div class="aspect-[1600/1000] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/mutfak-2.jpg', 'Villa Zemin Kat Mutfağı')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa zemin kat mutfak detayı" src="assets/images/villa/ic/mutfak-2.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Zemin Kat Mutfağı</span></div>
@@ -351,7 +455,7 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Zemin Kat Salonu</span></div>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 items-start">
+<div class="grid grid-cols-1 md:grid-cols-[0.7381fr_0.7419fr_0.8137fr] gap-6 mt-6">
 <div class="aspect-[1181/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/zemin-banyo-1.jpg', 'Villa Zemin Kat Banyo')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa zemin kat banyo" src="assets/images/villa/ic/zemin-banyo-1.jpg">
@@ -364,7 +468,7 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Zemin Kat Banyo</span></div>
 </div>
 </div>
-<div class="aspect-[1184/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/zemin-banyo-3.jpg', 'Villa Zemin Kat Banyo')">
+<div class="aspect-[1302/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/zemin-banyo-3.jpg', 'Villa Zemin Kat Banyo')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa zemin kat banyo üçüncü görsel" src="assets/images/villa/ic/zemin-banyo-3.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Zemin Kat Banyo</span></div>
@@ -375,28 +479,20 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 
 <div>
 <h3 class="font-headline-sm text-headline-sm text-primary mb-6">Villa 1. Kat</h3>
-<div class="grid grid-cols-2 gap-6 mb-6 items-start">
+<div class="grid grid-cols-1 md:grid-cols-[0.6538fr_0.6538fr_1.0929fr] gap-6 mb-6">
 <div class="aspect-[1046/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-1.jpg', 'Villa Ebeveyn Banyo')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa ebeveyn banyo" src="assets/images/villa/ic/ebeveyn-banyo-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Ebeveyn Banyo</span></div>
 </div>
 </div>
-<div class="aspect-[1046/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/1kat-banyo-1.jpg', 'Villa Banyo')">
-<div class="w-full h-full relative">
-<img class="w-full h-full object-cover" alt="Lusso Vita villa banyo" src="assets/images/villa/ic/1kat-banyo-1.jpg">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Banyo</span></div>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-6 mb-6 items-start">
 <div class="aspect-[1046/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-2.jpg', 'Villa Ebeveyn Banyo')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa ebeveyn banyo ikinci görsel" src="assets/images/villa/ic/ebeveyn-banyo-2.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Ebeveyn Banyo</span></div>
 </div>
 </div>
-<div class="aspect-[1046/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-3.jpg', 'Villa Ebeveyn Banyo')">
+<div class="aspect-[1600/1464] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-3.jpg', 'Villa Ebeveyn Banyo')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa ebeveyn banyo üçüncü görsel" src="assets/images/villa/ic/ebeveyn-banyo-3.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Ebeveyn Banyo</span></div>
@@ -429,23 +525,29 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 </div>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="aspect-[3/2] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-yatak-odasi-1.jpg', 'Villa Ebeveyn Yatak Odası')">
+<div class="grid grid-cols-1 md:grid-cols-[1.7837fr_1.3008fr_1.6000fr_0.7456fr] gap-6">
+<div class="aspect-[1600/897] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-yatak-odasi-1.jpg', 'Villa Ebeveyn Yatak Odası')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa ebeveyn yatak odası" src="assets/images/villa/ic/ebeveyn-yatak-odasi-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Ebeveyn Yatak Odası</span></div>
 </div>
 </div>
-<div class="aspect-[3/2] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/yatak-odasi-1.jpg', 'Villa Yatak Odası')">
+<div class="aspect-[1600/1230] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/yatak-odasi-1.jpg', 'Villa Yatak Odası')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa yatak odası" src="assets/images/villa/ic/yatak-odasi-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Yatak Odası</span></div>
 </div>
 </div>
-<div class="aspect-[3/2] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-giyinme-1.jpg', 'Villa Ebeveyn Giyinme Odası')">
+<div class="aspect-[1600/1000] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-giyinme-1.jpg', 'Villa Ebeveyn Giyinme Odası')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa ebeveyn giyinme odası" src="assets/images/villa/ic/ebeveyn-giyinme-1.jpg">
 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Villa Ebeveyn Giyinme Odası</span></div>
+</div>
+</div>
+<div class="aspect-[1193/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/1kat-banyo-1.jpg', 'Villa Banyo')">
+<div class="w-full h-full relative">
+<img class="w-full h-full object-cover" alt="Lusso Vita villa banyo" src="assets/images/villa/ic/1kat-banyo-1.jpg">
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8"><span class="text-white font-label-caps text-label-caps">Villa Banyo</span></div>
 </div>
 </div>
 </div>
@@ -457,9 +559,15 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <button class="absolute top-6 right-6 text-white/80 hover:text-white transition-colors" onclick="closeLightbox(event)" aria-label="Kapat">
 <span class="material-symbols-outlined text-4xl">close</span>
 </button>
-<figure class="max-w-5xl w-full" onclick="event.stopPropagation()">
+<button id="lb-prev" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors" onclick="event.stopPropagation(); lbStep(-1)" aria-label="Önceki görsel">
+<span class="material-symbols-outlined text-3xl md:text-4xl">chevron_left</span>
+</button>
+<button id="lb-next" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors" onclick="event.stopPropagation(); lbStep(1)" aria-label="Sonraki görsel">
+<span class="material-symbols-outlined text-3xl md:text-4xl">chevron_right</span>
+</button>
+<figure class="max-w-5xl w-full md:px-16" onclick="event.stopPropagation()">
 <img id="lightbox-img" src="" alt="" class="w-full h-auto max-h-[85vh] object-contain">
-<figcaption id="lightbox-caption" class="text-white/80 font-label-caps text-label-caps text-center mt-4"></figcaption>
+<figcaption class="text-white/80 font-label-caps text-label-caps text-center mt-4"><span id="lightbox-caption"></span><span id="lightbox-count" class="text-white/40 ml-3"></span></figcaption>
 </figure>
 </div>
 <!-- CTA Section -->
@@ -508,14 +616,57 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 </div>
 </footer>
 <script>
-        function openLightbox(src, caption) {
+        // Lightbox with prev/next: the sequence is every image currently visible
+        // on the page (i.e. the active filter's images, in page order), so the
+        // arrows always stay inside the category the visitor is looking at.
+        let lbList = [], lbIndex = 0, lbBusy = false;
+        function lbCollect() {
+            const seen = new Set();
+            return [...document.querySelectorAll('[onclick^="openLightbox"]')]
+                .filter(el => el.offsetParent !== null && !el.closest('#lightbox'))
+                .map(el => {
+                    const m = el.getAttribute('onclick').match(/openLightbox\('([^']+)',\s*'([^']*)'(?:,\s*(true))?\)/);
+                    return m && { src: m[1], caption: m[2], wide: !!m[3] };
+                })
+                .filter(it => it && !seen.has(it.src) && seen.add(it.src));
+        }
+        function lbRender(item) {
+            const img = document.getElementById('lightbox-img');
+            document.querySelector('#lightbox figure').classList.toggle('lb-wide', item.wide);
+            img.src = item.src;
+            img.alt = item.caption || 'Lusso Vita galeri görseli';
+            document.getElementById('lightbox-caption').textContent = item.caption || '';
+            document.getElementById('lightbox-count').textContent = lbList.length > 1 ? `${lbIndex + 1} / ${lbList.length}` : '';
+            const multi = lbList.length > 1;
+            document.getElementById('lb-prev').style.display = multi ? '' : 'none';
+            document.getElementById('lb-next').style.display = multi ? '' : 'none';
+        }
+        function openLightbox(src, caption, wide) {
             const lightbox = document.getElementById('lightbox');
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox-img').alt = caption || 'Lusso Vita galeri görseli';
-            document.getElementById('lightbox-caption').textContent = caption || '';
+            lbList = lbCollect();
+            lbIndex = lbList.findIndex(it => it.src === src);
+            if (lbIndex < 0) { lbList = [{ src, caption, wide: !!wide }]; lbIndex = 0; }
+            const img = document.getElementById('lightbox-img');
+            img.classList.remove('lb-fade');
+            lbRender(lbList[lbIndex]);
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
             document.body.style.overflow = 'hidden';
+        }
+        function lbStep(dir) {
+            if (lbList.length < 2 || lbBusy) return;
+            lbBusy = true;
+            lbIndex = (lbIndex + dir + lbList.length) % lbList.length;
+            const item = lbList[lbIndex];
+            const img = document.getElementById('lightbox-img');
+            img.classList.add('lb-fade');                     // soft fade-out
+            const pre = new Image();
+            const swap = () => setTimeout(() => {              // swap once faded AND loaded
+                lbRender(item);
+                requestAnimationFrame(() => { img.classList.remove('lb-fade'); lbBusy = false; });
+            }, 300);
+            pre.onload = swap; pre.onerror = swap;
+            pre.src = item.src;
         }
         function closeLightbox(event) {
             if (event) event.stopPropagation();
@@ -526,7 +677,22 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
         }
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeLightbox();
+            if (document.getElementById('lightbox').classList.contains('hidden')) return;
+            if (e.key === 'ArrowRight') lbStep(1);
+            if (e.key === 'ArrowLeft') lbStep(-1);
         });
+        // swipe on touch screens (not on panoramas, which scroll sideways themselves)
+        (() => {
+            const lb = document.getElementById('lightbox');
+            let x0 = null;
+            lb.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+            lb.addEventListener('touchend', (e) => {
+                if (x0 === null) return;
+                const dx = e.changedTouches[0].clientX - x0; x0 = null;
+                if (lbList[lbIndex]?.wide || Math.abs(dx) < 50) return;
+                lbStep(dx < 0 ? 1 : -1);
+            });
+        })();
 
         // Keyboard access for gallery thumbnails (Tab to focus, Enter/Space to open)
         document.querySelectorAll('.gallery-item').forEach((item) => {
@@ -542,17 +708,34 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
             });
         });
 
+        document.querySelectorAll('.lb-tile').forEach((tile) => {
+            tile.setAttribute('role', 'button');
+            tile.setAttribute('tabindex', '0');
+            tile.setAttribute('aria-label', tile.querySelector('img')?.alt || 'Görseli büyüt');
+            tile.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tile.click(); }
+            });
+        });
+
         function filterGallery(category) {
             const items = document.querySelectorAll('.gallery-item');
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => {
-                btn.classList.remove('active', 'text-primary');
-                btn.classList.add('text-on-surface-variant');
-                if (btn.innerText.toLowerCase() === category || (category === 'all' && btn.innerText === 'Tümü')) {
-                    btn.classList.add('active', 'text-primary');
-                    btn.classList.remove('text-on-surface-variant');
-                }
+                const on = btn.dataset.filter === category;
+                btn.classList.toggle('active', on);
+                btn.classList.toggle('text-primary', on);
+                btn.classList.toggle('text-on-surface-variant', !on);
             });
+            // section groups (Lobi ve Kat Holü, Banyolar) filter as a whole
+            document.querySelectorAll('.gallery-group').forEach(group => {
+                const show = category === 'all' || group.dataset.category === category;
+                group.style.display = show ? 'block' : 'none';
+            });
+            // villa ebeveyn banyosu: shown inside Banyolar only under the "Banyo" filter
+            // the daire bento has no lobi/banyo/villa tiles - hide its title for those filters
+            const bentoCats = ['all', 'salon', 'mutfak', 'yatak', 'cocuk'];
+            document.getElementById('daire-grid-title').style.display = bentoCats.includes(category) ? '' : 'none';
+            document.getElementById('gallery-grid').style.display = bentoCats.includes(category) ? '' : 'none';
             items.forEach(item => {
                 item.style.transition = 'all 0.5s ease-in-out';
                 if (category === 'all' || item.dataset.category === category) {
