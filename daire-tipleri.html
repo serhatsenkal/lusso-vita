@@ -283,6 +283,14 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
     </div>
 
     <script>
+        // popup navigation (assets/js/lightbox-nav.js): daire plans step through all
+        // six daire types in tab order, blok plans through the two blok plans
+        window.lightboxFlag = 'lightBg';
+        window.lightboxItems = (src) => {
+            if (/blok-kat-planlari\//.test(src)) return Object.values(blokKatPlanlari).map(d => ({ src: d.image, caption: d.alt, flag: true }));
+            if (/kat-planlari\//.test(src)) return Object.values(floorPlanData).map(d => ({ src: d.image, caption: d.title, flag: false }));
+            return null;
+        };
         function openLightbox(src, caption, lightBg) {
             const lightbox = document.getElementById('lightbox');
             const lbImg = document.getElementById('lightbox-img');
@@ -449,4 +457,5 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 <a href="https://wa.me/905331587419?text=Merhaba%2C%20Projeniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ile iletişime geç" class="fixed bottom-24 right-5 md:bottom-8 md:right-8 z-40 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
 <span class="material-symbols-outlined text-white text-2xl md:text-3xl">chat</span>
 </a>
+<script src="assets/js/lightbox-nav.js"></script>
 </body></html>
