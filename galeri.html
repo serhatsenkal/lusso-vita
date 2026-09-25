@@ -341,26 +341,6 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 </div>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-[0.6538fr_0.6500fr_1.0919fr] gap-6 mt-6">
-<div class="lb-tile aspect-[1046/1600] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-1-rev.jpg', 'Ebeveyn Banyo')">
-<div class="w-full h-full relative">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita ebeveyn banyosu" src="assets/images/villa/ic/ebeveyn-banyo-1-rev.jpg" loading="lazy">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Ebeveyn Banyo</span></div>
-</div>
-</div>
-<div class="lb-tile aspect-[1040/1600] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-2-rev.jpg', 'Ebeveyn Banyo')">
-<div class="w-full h-full relative">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita ebeveyn banyosu duş alanı" src="assets/images/villa/ic/ebeveyn-banyo-2-rev.jpg" loading="lazy">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Ebeveyn Banyo</span></div>
-</div>
-</div>
-<div class="lb-tile aspect-[1747/1600] overflow-hidden cursor-pointer group bg-surface-variant" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-3-rev.jpg', 'Ebeveyn Banyo')">
-<div class="w-full h-full relative">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" alt="Lusso Vita ebeveyn banyosu lavabo ve duş" src="assets/images/villa/ic/ebeveyn-banyo-3-rev.jpg" loading="lazy">
-<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6"><span class="text-white font-label-caps text-label-caps">Ebeveyn Banyo</span></div>
-</div>
-</div>
-</div>
 </div>
 
 <!-- Villa İç Mekan (kat başlıklı, boşluksuz düzen) -->
@@ -477,7 +457,7 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
 
 <div>
 <h3 class="font-headline-sm text-headline-sm text-primary mb-6">Villa 1. Kat</h3>
-<div class="villa-eb-banyo hidden grid grid-cols-1 md:grid-cols-[0.6538fr_0.6500fr_1.0919fr] gap-6 mb-6">
+<div class="grid grid-cols-1 md:grid-cols-[0.6538fr_0.6500fr_1.0919fr] gap-6 mb-6">
 <div class="aspect-[1046/1600] overflow-hidden cursor-pointer group" onclick="openLightbox('assets/images/villa/ic/ebeveyn-banyo-1-rev.jpg', 'Villa Ebeveyn Banyo')">
 <div class="w-full h-full relative">
 <img class="w-full h-full object-cover" alt="Lusso Vita villa ebeveyn banyo" src="assets/images/villa/ic/ebeveyn-banyo-1-rev.jpg">
@@ -669,8 +649,6 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
                 group.style.display = show ? 'block' : 'none';
             });
             // villa ebeveyn banyosu: shown inside Banyolar only under the "Banyo" filter
-            // Villa 1. Kat's ebeveyn banyo row = the same images as Banyolar: show it only under the Villa filter
-            document.querySelectorAll('.villa-eb-banyo').forEach(el => el.classList.toggle('hidden', category !== 'villa'));
             // the daire bento has no lobi/banyo/villa tiles - hide its title for those filters
             const bentoCats = ['all', 'salon', 'mutfak', 'yatak', 'cocuk'];
             document.getElementById('daire-grid-title').style.display = bentoCats.includes(category) ? '' : 'none';

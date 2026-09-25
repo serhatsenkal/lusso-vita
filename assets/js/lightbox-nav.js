@@ -8,6 +8,9 @@
  * elements with onclick="openLightbox('src', 'caption'[, flag])", in page
  * order), so on filtered pages the arrows stay inside the active category.
  * A page can override it with window.lightboxItems(src) -> [{src, caption, flag}].
+ * Pages whose lightbox has no open/close animation of its own (everything but
+ * the home page, which animates #lightbox-figure itself) also get a soft
+ * fade/scale in on open and out on close.
  * window.lightboxFlag names what the optional 3rd argument means on that page:
  *   'wide'    - panorama: use (almost) the full viewport width
  *   'lightBg' - transparent plan: show it on the site's ivory
@@ -102,9 +105,32 @@
         pre.src = it.src;
     }
 
+    const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const ownAnim = !!document.getElementById('lightbox-figure');   // home page animates itself
+    let closeAnims = [];
+    if (!ownAnim && typeof window.closeLightbox === 'function') {
+        const originalClose = window.closeLightbox;
+        let closing = false;
+        window.closeLightbox = function (event) {
+            if (event && event.stopPropagation) event.stopPropagation();
+            if (lb.classList.contains('hidden') || closing) return;
+            closing = true;
+            closeAnims = [
+                lb.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, easing: 'ease', fill: 'forwards' }),
+                figure.animate([{ transform: 'scale(1)' }, { transform: 'scale(0.97)' }], { duration: 250, easing: 'ease', fill: 'forwards' }),
+            ];
+            setTimeout(() => { originalClose(null); closing = false; }, 250);
+        };
+    }
+
     const original = window.openLightbox;
     window.openLightbox = function (src, caption, flag) {
         original.apply(this, arguments);
+        if (!ownAnim) {
+            closeAnims.forEach(a => a.cancel()); closeAnims = [];
+            lb.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: EASE });
+            figure.animate([{ transform: 'scale(0.97)' }, { transform: 'scale(1)' }], { duration: 300, easing: EASE });
+        }
         list = collect(src);
         idx = list.findIndex(it => abs(it.src) === abs(src));
         if (idx < 0) { list = [{ src, caption, flag: !!flag }]; idx = 0; }

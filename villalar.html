@@ -451,6 +451,12 @@ src="https://www.facebook.com/tr?id=28939791892284691&ev=PageView&noscript=1"
             }
         };
 
+        // popup navigation (assets/js/lightbox-nav.js): a villa floor plan steps
+        // through the villa floor plans in tab order; photos use the page order
+        window.lightboxItems = (src) => /villa\/kat-planlari\//.test(src)
+            ? Object.values(katPlanData).map(d => ({ src: d.image, caption: d.title }))
+            : null;
+
         function renderKatPlan(kat, onReady) {
             const data = katPlanData[kat];
             const img = document.getElementById('kat-plan-img');
