@@ -1,0 +1,214 @@
+/*
+ * Lusso Vita - çerez tercih aracı (KVKK / Kurul'un Çerez Uygulamaları Rehberi).
+ *
+ *  - Nothing that needs consent runs before the visitor chooses: the Meta Pixel
+ *    is NOT in the pages any more, it is loaded from here only after an explicit
+ *    "pazarlama" consent.
+ *  - The action buttons stay pinned to the bottom of the dialog (sticky), so on
+ *    small phones Reddet / Kabul Et are visible without scrolling the text.
+ *  - First layer: "Reddet" and "Tümünü Kabul Et" have the same size and style;
+ *    "Tercihleri Yönet" opens the per-category layer (off by default).
+ *  - The choice is kept in localStorage (no cookie is written for it), with its
+ *    date and the consent-text version; it is asked again after 6 months or
+ *    when VERSION changes (bump VERSION whenever a tool/category is added).
+ *  - Every element with [data-cerez-ayarlari] (footer link, policy page button)
+ *    reopens the dialog, so withdrawing consent is as easy as giving it.
+ *
+ * To add Google Analytics / Google Ads later: add the category/tool below,
+ * load its script inside applyConsent(), bump VERSION, update cerez-politikasi.html.
+ */
+(function () {
+    'use strict';
+
+    var VERSION = 1;                         // consent text / tool list version
+    var KEY = 'lv_cerez_tercihi';
+    var MAX_AGE_MS = 1000 * 60 * 60 * 24 * 182;   // ~6 ay
+    var META_PIXEL_ID = '28939791892284691';
+
+    /* ---------- storage ---------- */
+    function read() {
+        try {
+            var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+            if (!c || c.v !== VERSION || !c.ts || Date.now() - c.ts > MAX_AGE_MS) return null;
+            return c;
+        } catch (e) { return null; }
+    }
+    function write(marketing) {
+        var c = { v: VERSION, ts: Date.now(), zorunlu: true, pazarlama: !!marketing };
+        try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
+        return c;
+    }
+
+    /* ---------- tools that need consent ---------- */
+    var pixelLoaded = false;
+    function loadMetaPixel() {
+        if (pixelLoaded) return;
+        pixelLoaded = true;
+        /* Meta Pixel base code - only ever executed after "pazarlama" consent */
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        window.fbq('init', META_PIXEL_ID);
+        window.fbq('track', 'PageView');
+    }
+    function removeMarketingCookies() {
+        var host = location.hostname, parts = host.split('.');
+        var domains = ['', host];
+        for (var i = 1; i < parts.length - 1; i++) domains.push('.' + parts.slice(i).join('.'));
+        ['_fbp', '_fbc'].forEach(function (name) {
+            domains.forEach(function (d) {
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + (d ? '; domain=' + d : '');
+            });
+        });
+    }
+    function applyConsent(c, wasMarketing) {
+        if (c.pazarlama) {
+            loadMetaPixel();
+        } else {
+            removeMarketingCookies();
+            // consent withdrawn while the pixel is already running on this page:
+            // a reload is the only way to actually stop it
+            if (wasMarketing && pixelLoaded) location.reload();
+        }
+    }
+
+    /* ---------- UI ---------- */
+    var CSS = '\
+#lv-cerez{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;padding:16px;\
+background:rgba(4,22,39,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s ease}\
+#lv-cerez.lv-open{display:flex}#lv-cerez.lv-in{opacity:1}\
+#lv-cerez .lv-box{background:#fcf9f1;color:#1c1c17;width:100%;max-width:560px;max-height:calc(100vh - 32px);overflow:auto;\
+padding:36px 36px 28px;border:1px solid rgba(142,121,102,.35);box-shadow:0 30px 80px rgba(4,22,39,.35);\
+transform:translateY(12px) scale(.98);transition:transform .35s cubic-bezier(.16,1,.3,1);font-family:Manrope,system-ui,sans-serif}\
+#lv-cerez.lv-in .lv-box{transform:none}\
+#lv-cerez .lv-eyebrow{font-size:11px;letter-spacing:.2em;font-weight:700;color:#8E7966;text-transform:uppercase;margin:0 0 10px}\
+#lv-cerez h2{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:28px;line-height:1.2;color:#041627;margin:0 0 14px}\
+#lv-cerez p{font-size:14px;line-height:1.65;color:#44474c;margin:0 0 12px}\
+#lv-cerez a{color:#041627;text-decoration:underline;text-underline-offset:3px}\
+#lv-cerez a:hover{color:#8E7966}\
+#lv-cerez .lv-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;\
+position:sticky;bottom:-28px;background:#fcf9f1;padding:12px 0 28px;margin-bottom:-28px}\
+#lv-cerez button{font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;\
+padding:15px 12px;cursor:pointer;border:1px solid #041627;transition:opacity .2s ease,background-color .2s ease,color .2s ease}\
+#lv-cerez .lv-solid{background:#041627;color:#fcf9f1}#lv-cerez .lv-solid:hover{opacity:.88}\
+#lv-cerez .lv-ghost{grid-column:1/-1;background:transparent;color:#041627;border-color:rgba(4,22,39,.3)}\
+#lv-cerez .lv-ghost:hover{border-color:#041627}\
+#lv-cerez button:focus-visible,#lv-cerez a:focus-visible,#lv-cerez input:focus-visible+.lv-sw{outline:2px solid #8E7966;outline-offset:3px}\
+#lv-cerez .lv-cat{border-top:1px solid rgba(4,22,39,.12);padding:16px 0;display:flex;gap:16px;align-items:flex-start;justify-content:space-between}\
+#lv-cerez .lv-cat:last-of-type{border-bottom:1px solid rgba(4,22,39,.12)}\
+#lv-cerez .lv-cat h3{font-family:inherit;font-size:14px;font-weight:700;color:#041627;margin:0 0 4px}\
+#lv-cerez .lv-cat p{font-size:13px;margin:0}\
+#lv-cerez .lv-always{font-size:11px;font-weight:700;letter-spacing:.1em;color:#8E7966;text-transform:uppercase;white-space:nowrap;padding-top:2px}\
+#lv-cerez .lv-toggle{position:relative;flex:none;width:46px;height:26px;cursor:pointer}\
+#lv-cerez .lv-toggle input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}\
+#lv-cerez .lv-sw{position:absolute;inset:0;border-radius:26px;background:#c9c6be;transition:background-color .2s ease}\
+#lv-cerez .lv-sw:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s ease}\
+#lv-cerez input:checked+.lv-sw{background:#041627}#lv-cerez input:checked+.lv-sw:after{transform:translateX(20px)}\
+#lv-cerez [hidden]{display:none!important}\
+@media (max-width:520px){#lv-cerez .lv-box{padding:24px 20px 20px}#lv-cerez h2{font-size:22px;margin-bottom:10px}\
+#lv-cerez p{font-size:13.5px;line-height:1.6}#lv-cerez .lv-actions{gap:10px;bottom:-20px;padding-bottom:20px;margin-bottom:-20px}\
+#lv-cerez button{font-size:11px;letter-spacing:.08em;padding:14px 6px}}';
+
+    var HTML = '\
+<div class="lv-box" role="dialog" aria-modal="true" aria-labelledby="lv-cerez-title">\
+  <div data-layer="1">\
+    <p class="lv-eyebrow">Çerez Tercihleri</p>\
+    <h2 id="lv-cerez-title" tabindex="-1">Gizliliğinize önem veriyoruz</h2>\
+    <p>Methaş Mühendislik İnş. Ltd. Şti. olarak lussovita.com.tr\'de, sitenin çalışması için zorunlu olan teknolojileri kullanıyoruz.</p>\
+    <p>Açık rızanızı vermeniz halinde ayrıca, reklam ve kampanyalarımızın etkinliğini ölçmek ve size uygun reklamlar gösterebilmek amacıyla pazarlama çerezleri (Meta Pixel) kullanılır; bu durumda verileriniz yurt dışında yerleşik Meta Platforms, Inc.\'e aktarılır. Reddetmeniz halinde siteyi aynı şekilde kullanmaya devam edebilirsiniz.</p>\
+    <p>Tercihinizi sayfa altındaki “Çerez Ayarları” bağlantısından dilediğiniz zaman değiştirebilirsiniz. Ayrıntılı bilgi: <a href="/cerez-politikasi.html">Çerez Politikası</a> · <a href="/kvkk.html">KVKK Aydınlatma Metni</a></p>\
+    <div class="lv-actions">\
+      <button type="button" class="lv-solid" data-act="reject">Reddet</button>\
+      <button type="button" class="lv-solid" data-act="accept">Tümünü Kabul Et</button>\
+      <button type="button" class="lv-ghost" data-act="manage">Tercihleri Yönet</button>\
+    </div>\
+  </div>\
+  <div data-layer="2" hidden>\
+    <p class="lv-eyebrow">Çerez Tercihleri</p>\
+    <h2>Tercihlerinizi yönetin</h2>\
+    <p>Aşağıdaki kategorilerden dilediğinizi açıp kapatabilirsiniz. Açık rızaya tabi kategoriler varsayılan olarak kapalıdır.</p>\
+    <div class="lv-cat">\
+      <div><h3>Zorunlu</h3><p>Sitenin çalışması, güvenliği ve çerez tercihinizin hatırlanması için gereklidir. Kişiyi takip etmez, reklam amacıyla kullanılmaz ve kapatılamaz.</p></div>\
+      <span class="lv-always">Her zaman açık</span>\
+    </div>\
+    <div class="lv-cat">\
+      <div><h3 id="lv-cat-paz">Pazarlama / Hedefleme</h3><p>Meta Pixel (Meta Platforms, Inc.): reklamlarımızın etkinliğini ve dönüşümleri ölçmek, Facebook ve Instagram\'da size uygun reklamlar göstermek için kullanılır. Verileriniz yurt dışına (başta ABD) aktarılır. Açık rızanıza tabidir.</p></div>\
+      <label class="lv-toggle"><input type="checkbox" id="lv-paz" aria-labelledby="lv-cat-paz"><span class="lv-sw"></span></label>\
+    </div>\
+    <div class="lv-actions">\
+      <button type="button" class="lv-solid" data-act="reject">Reddet</button>\
+      <button type="button" class="lv-solid" data-act="accept">Tümünü Kabul Et</button>\
+      <button type="button" class="lv-ghost" data-act="save">Seçimimi Kaydet</button>\
+    </div>\
+  </div>\
+</div>';
+
+    var root, lastFocus;
+    function build() {
+        if (root) return;
+        var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+        root = document.createElement('div'); root.id = 'lv-cerez'; root.innerHTML = HTML;
+        document.body.appendChild(root);
+        root.addEventListener('click', function (e) {
+            var b = e.target.closest('button[data-act]'); if (!b) return;
+            var act = b.getAttribute('data-act');
+            if (act === 'manage') return layer(2);
+            if (act === 'accept') return decide(true);
+            if (act === 'reject') return decide(false);
+            if (act === 'save') return decide(root.querySelector('#lv-paz').checked);
+        });
+        // keep keyboard focus inside the dialog; Esc only closes it when a choice already exists
+        root.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && read()) return close();
+            if (e.key !== 'Tab') return;
+            var f = [].filter.call(root.querySelectorAll('a,button,input'), function (el) { return el.offsetParent !== null; });
+            if (!f.length) return;
+            if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+            else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+        });
+    }
+    function layer(n) {
+        [].forEach.call(root.querySelectorAll('[data-layer]'), function (el) { el.hidden = el.getAttribute('data-layer') !== String(n); });
+        var h = root.querySelector('[data-layer="' + n + '"] h2'); h.setAttribute('tabindex', '-1'); h.focus();
+        root.querySelector('.lv-box').scrollTop = 0;
+    }
+    function open(startLayer) {
+        build();
+        var c = read();
+        root.querySelector('#lv-paz').checked = !!(c && c.pazarlama);   // off unless previously accepted
+        lastFocus = document.activeElement;
+        root.classList.add('lv-open');
+        document.documentElement.style.overflow = 'hidden';
+        setTimeout(function () { root.classList.add('lv-in'); layer(startLayer || 1); }, 20);
+    }
+    function close() {
+        root.classList.remove('lv-in');
+        document.documentElement.style.overflow = '';
+        setTimeout(function () { root.classList.remove('lv-open'); }, 300);
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    function decide(marketing) {
+        var before = read();
+        var c = write(marketing);
+        close();
+        applyConsent(c, !!(before && before.pazarlama));
+    }
+
+    /* ---------- boot ---------- */
+    function boot() {
+        document.addEventListener('click', function (e) {
+            var t = e.target.closest('[data-cerez-ayarlari]'); if (!t) return;
+            e.preventDefault(); open(read() ? 2 : 1);
+        });
+        var c = read();
+        if (c) applyConsent(c, false); else open(1);
+    }
+    window.LVCerez = { open: function () { open(read() ? 2 : 1); }, get: read };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
