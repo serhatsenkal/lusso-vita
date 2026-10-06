@@ -14,16 +14,19 @@
  *  - Every element with [data-cerez-ayarlari] (footer link, policy page button)
  *    reopens the dialog, so withdrawing consent is as easy as giving it.
  *
- * To add Google Analytics / Google Ads later: add the category/tool below,
- * load its script inside applyConsent(), bump VERSION, update cerez-politikasi.html.
+ * Categories: zorunlu (always), analitik (Google Analytics 4), pazarlama (Meta Pixel).
+ * Google Analytics is loaded from here only after an explicit "analitik" consent.
+ * To add Google Ads later: add the tool below, load its script inside
+ * applyConsent(), bump VERSION, update cerez-politikasi.html.
  */
 (function () {
     'use strict';
 
-    var VERSION = 1;                         // consent text / tool list version
+    var VERSION = 2;                         // consent text / tool list version
     var KEY = 'lv_cerez_tercihi';
     var MAX_AGE_MS = 1000 * 60 * 60 * 24 * 182;   // ~6 ay
     var META_PIXEL_ID = '28939791892284691';
+    var GA_ID = 'G-2JW4Q4KGH4';
 
     /* ---------- storage ---------- */
     function read() {
@@ -33,8 +36,8 @@
             return c;
         } catch (e) { return null; }
     }
-    function write(marketing) {
-        var c = { v: VERSION, ts: Date.now(), zorunlu: true, pazarlama: !!marketing };
+    function write(analytics, marketing) {
+        var c = { v: VERSION, ts: Date.now(), zorunlu: true, analitik: !!analytics, pazarlama: !!marketing };
         try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
         return c;
     }
@@ -67,15 +70,38 @@
             });
         });
     }
-    function applyConsent(c, wasMarketing) {
-        if (c.pazarlama) {
-            loadMetaPixel();
-        } else {
-            removeMarketingCookies();
-            // consent withdrawn while the pixel is already running on this page:
-            // a reload is the only way to actually stop it
-            if (wasMarketing && pixelLoaded) location.reload();
-        }
+    var gaLoaded = false;
+    function loadGoogleAnalytics() {
+        if (gaLoaded) return;
+        gaLoaded = true;
+        /* Google tag (gtag.js) - only ever executed after "analitik" consent */
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        document.head.appendChild(s);
+        window.gtag('js', new Date());
+        window.gtag('config', GA_ID);
+    }
+    function removeAnalyticsCookies() {
+        var host = location.hostname, parts = host.split('.');
+        var domains = ['', host];
+        for (var i = 1; i < parts.length - 1; i++) domains.push('.' + parts.slice(i).join('.'));
+        document.cookie.split(';').forEach(function (pair) {
+            var name = pair.split('=')[0].trim();
+            if (name !== '_ga' && name.indexOf('_ga_') !== 0) return;
+            domains.forEach(function (d) {
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + (d ? '; domain=' + d : '');
+            });
+        });
+    }
+    function applyConsent(c, wasMarketing, wasAnalytics) {
+        if (c.pazarlama) loadMetaPixel(); else removeMarketingCookies();
+        if (c.analitik) loadGoogleAnalytics(); else removeAnalyticsCookies();
+        // consent withdrawn while the tool is already running on this page:
+        // a reload is the only way to actually stop it
+        if ((!c.pazarlama && wasMarketing && pixelLoaded) || (!c.analitik && wasAnalytics && gaLoaded)) location.reload();
     }
 
     /* ---------- UI ---------- */
@@ -115,7 +141,7 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
 <div class="lv-box" role="dialog" aria-modal="false" aria-labelledby="lv-cerez-title" tabindex="-1">\
   <div data-layer="1">\
     <h2 id="lv-cerez-title">Çerez Tercihleri</h2>\
-    <p>Sitemizin çalışması için zorunlu teknolojileri kullanıyoruz. Açık rızanızı verirseniz reklam ölçümü için pazarlama çerezleri (Meta Pixel) de kullanılır ve verileriniz yurt dışına (Meta Platforms, Inc.) aktarılır. <a href="/cerez-politikasi.html">Çerez Politikası</a> · <a href="/kvkk.html">KVKK Aydınlatma Metni</a></p>\
+    <p>Sitemizin çalışması için zorunlu teknolojileri kullanıyoruz. Açık rızanızı verirseniz site kullanımını ölçmek için analitik çerezler (Google Analytics) ve reklam ölçümü için pazarlama çerezleri (Meta Pixel) de kullanılır; verileriniz yurt dışına (Google LLC, Meta Platforms, Inc.) aktarılır. <a href="/cerez-politikasi.html">Çerez Politikası</a> · <a href="/kvkk.html">KVKK Aydınlatma Metni</a></p>\
     <div class="lv-actions">\
       <button type="button" class="lv-solid" data-act="reject">Reddet</button>\
       <button type="button" class="lv-solid" data-act="accept">Kabul Et</button>\
@@ -128,6 +154,10 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
     <div class="lv-cat">\
       <div><h3>Zorunlu</h3><p>Sitenin çalışması, güvenliği ve çerez tercihinizin hatırlanması için gereklidir. Kişiyi takip etmez, kapatılamaz.</p></div>\
       <span class="lv-always">Her zaman açık</span>\
+    </div>\
+    <div class="lv-cat">\
+      <div><h3 id="lv-cat-ana">Analitik / Performans</h3><p>Google Analytics (Google LLC): sitenin nasıl kullanıldığını (ziyaret edilen sayfalar, ziyaret süresi, cihaz türü) anonim istatistiklerle ölçmek ve siteyi iyileştirmek için kullanılır. Verileriniz yurt dışına (başta ABD) aktarılır. Açık rızanıza tabidir.</p></div>\
+      <label class="lv-toggle"><input type="checkbox" id="lv-ana" aria-labelledby="lv-cat-ana"><span class="lv-sw"></span></label>\
     </div>\
     <div class="lv-cat">\
       <div><h3 id="lv-cat-paz">Pazarlama / Hedefleme</h3><p>Meta Pixel (Meta Platforms, Inc.): reklamlarımızın etkinliğini ve dönüşümleri ölçmek, Facebook ve Instagram\'da size uygun reklamlar göstermek için kullanılır. Verileriniz yurt dışına (başta ABD) aktarılır. Açık rızanıza tabidir.</p></div>\
@@ -151,9 +181,9 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
             var b = e.target.closest('button[data-act]'); if (!b) return;
             var act = b.getAttribute('data-act');
             if (act === 'manage') return layer(2);
-            if (act === 'accept') return decide(true);
-            if (act === 'reject') return decide(false);
-            if (act === 'save') return decide(root.querySelector('#lv-paz').checked);
+            if (act === 'accept') return decide(true, true);
+            if (act === 'reject') return decide(false, false);
+            if (act === 'save') return decide(root.querySelector('#lv-ana').checked, root.querySelector('#lv-paz').checked);
         });
         // non-modal notice: the page behind stays fully usable; Esc closes it only when a choice already exists
         root.addEventListener('keydown', function (e) {
@@ -167,7 +197,8 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
     function open(startLayer, byUser) {
         build();
         var c = read();
-        root.querySelector('#lv-paz').checked = !!(c && c.pazarlama);   // off unless previously accepted
+        root.querySelector('#lv-ana').checked = !!(c && c.analitik);    // off unless previously accepted
+        root.querySelector('#lv-paz').checked = !!(c && c.pazarlama);
         lastFocus = byUser ? document.activeElement : null;
         layer(startLayer || 1);
         root.classList.add('lv-open');
@@ -181,11 +212,11 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
         setTimeout(function () { root.classList.remove('lv-open'); }, 350);
         if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
-    function decide(marketing) {
+    function decide(analytics, marketing) {
         var before = read();
-        var c = write(marketing);
+        var c = write(analytics, marketing);
         close();
-        applyConsent(c, !!(before && before.pazarlama));
+        applyConsent(c, !!(before && before.pazarlama), !!(before && before.analitik));
     }
 
     /* ---------- boot ---------- */
@@ -195,7 +226,7 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
             e.preventDefault(); open(read() ? 2 : 1, true);
         });
         var c = read();
-        if (c) applyConsent(c, false); else open(1);
+        if (c) applyConsent(c, false, false); else open(1);
     }
     window.LVCerez = { open: function () { open(read() ? 2 : 1, true); }, get: read };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
