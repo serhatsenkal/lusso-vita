@@ -104,6 +104,37 @@
         if ((!c.pazarlama && wasMarketing && pixelLoaded) || (!c.analitik && wasAnalytics && gaLoaded)) location.reload();
     }
 
+    /* ---------- conversion events ----------
+     * Fired only when the tool is already running, i.e. after the visitor consented.
+     * No personal data is sent: just the event name. The contact form code is not
+     * touched; its success box turning green is observed instead.
+     */
+    function track(gaEvent, fbEvent) {
+        try {
+            if (gaLoaded && typeof window.gtag === 'function') window.gtag('event', gaEvent);
+            if (pixelLoaded && typeof window.fbq === 'function') window.fbq('track', fbEvent);
+        } catch (e) {}
+    }
+    function setupEvents() {
+        document.addEventListener('click', function (e) {
+            var a = e.target.closest && e.target.closest('a[href]');
+            if (!a) return;
+            var h = (a.getAttribute('href') || '').toLowerCase();
+            if (h.indexOf('wa.me/') > -1 || h.indexOf('api.whatsapp.com') > -1 || h.indexOf('whatsapp:') === 0) track('whatsapp_click', 'Contact');
+            else if (h.indexOf('tel:') === 0) track('phone_click', 'Contact');
+            else if (h.indexOf('mailto:') === 0) track('email_click', 'Contact');
+        }, true);
+        var box = document.getElementById('contact-status');
+        if (box && window.MutationObserver) {
+            var sent = false;
+            new MutationObserver(function () {
+                var hidden = box.classList.contains('hidden');
+                if (hidden) { sent = false; return; }
+                if (box.classList.contains('bg-green-50') && !sent) { sent = true; track('generate_lead', 'Lead'); }
+            }).observe(box, { attributes: true, attributeFilter: ['class'] });
+        }
+    }
+
     /* ---------- UI ---------- */
     var CSS = '\
 #lv-cerez{position:fixed;left:50%;bottom:20px;z-index:2147483000;display:none;width:calc(100% - 24px);max-width:460px;\
@@ -221,6 +252,7 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
 
     /* ---------- boot ---------- */
     function boot() {
+        setupEvents();
         document.addEventListener('click', function (e) {
             var t = e.target.closest('[data-cerez-ayarlari]'); if (!t) return;
             e.preventDefault(); open(read() ? 2 : 1, true);
