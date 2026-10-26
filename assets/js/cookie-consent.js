@@ -26,7 +26,7 @@
     var KEY = 'lv_cerez_tercihi';
     var MAX_AGE_MS = 1000 * 60 * 60 * 24 * 182;   // ~6 ay
     var META_PIXEL_ID = '28939791892284691';
-    var GA_ID = 'G-2JW4Q4KGH4';
+    var GA_ID = 'G-M58H258ZFH';
 
     /* ---------- storage ---------- */
     function read() {
