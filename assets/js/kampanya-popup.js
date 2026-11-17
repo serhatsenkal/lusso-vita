@@ -1,7 +1,7 @@
 /*
  * Lusso Vita - kampanya pop-up'ı ("İlk taksit Şubat 2027", Meta form reklamındaki görsel).
  *
- *  - Sayfa açıldıktan DELAY_MS sonra bir kez gösterilir; aynı oturumda tekrar çıkmaz
+ *  - Sayfa açıldıktan DELAY_MS (1,5 sn) sonra bir kez gösterilir; aynı oturumda tekrar çıkmaz
  *    (sessionStorage, takip/çerez yok).
  *  - Çerez kartı açıksa onun kapanmasını bekler, üst üste binmez.
  *  - END tarihinden sonra kendiliğinden devre dışı kalır.
@@ -14,7 +14,7 @@
     'use strict';
 
     var END = new Date('2027-02-01T00:00:00+03:00');   // kampanya bitişi
-    var DELAY_MS = 5000;
+    var DELAY_MS = 1500;
     var KEY = 'lv_kampanya_ilk_taksit_gosterildi';
     var IMG = 'assets/images/kampanya/ilk-taksit-subat-2027.jpg';
     var WA = 'https://wa.me/905331587419?text=' + encodeURIComponent('Merhaba, "İlk taksit Şubat 2027" kampanyası hakkında bilgi almak istiyorum.');
@@ -116,18 +116,25 @@ font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:700;letter-s
         if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
     }
 
-    function cookieCardOpen() {
-        var c = document.getElementById('lv-cerez');
-        return !!(c && c.classList.contains('lv-open'));
-    }
     function menuOpen() {
         var m = document.getElementById('mobile-menu');
         return !!(m && !m.classList.contains('hidden'));
     }
 
-    // Çerez kartı veya mobil menü açıkken bekle, kapanınca kısa bir aradan sonra göster.
+    // Çerez kartı açıksa ziyaretçinin seçimini bekle: karar verildiği an (kart "lv-in"i bırakır)
+    // kartın kapanma animasyonu kadar bekleyip aç. Mobil menü açıksa kapanmasını bekle.
     function tryOpen() {
-        if (cookieCardOpen() || menuOpen()) { setTimeout(tryOpen, 1500); return; }
+        var c = document.getElementById('lv-cerez');
+        if (c && c.classList.contains('lv-open')) {
+            var mo = new MutationObserver(function () {
+                if (c.classList.contains('lv-in')) return;
+                mo.disconnect();
+                setTimeout(tryOpen, 400);
+            });
+            mo.observe(c, { attributes: true, attributeFilter: ['class'] });
+            return;
+        }
+        if (menuOpen()) { setTimeout(tryOpen, 250); return; }
         open();
     }
 
