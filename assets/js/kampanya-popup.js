@@ -19,6 +19,10 @@
     var IMG = 'assets/images/kampanya/ilk-taksit-subat-2027.jpg';
     var WA = 'https://wa.me/905331587419?text=' + encodeURIComponent('Merhaba, "İlk taksit Şubat 2027" kampanyası hakkında bilgi almak istiyorum.');
     var TEL = 'tel:+903129118883';
+    var FORM = 'hakkimizda.html#iletisim';
+    // Telefon/tablette WhatsApp uygulaması açılır; bilgisayarda WhatsApp'a geçiş zor,
+    // orada iletişim formuna yönlendirilir ve numara düğmede yazılı gösterilir.
+    var MOBILE = window.matchMedia('(pointer: coarse), (max-width: 767px)').matches;
 
     var force = /[?&]kampanya=goster\b/.test(location.search);
     if (!force && Date.now() > END.getTime()) return;
@@ -58,14 +62,22 @@ font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:700;letter-s
         root.innerHTML =
             '<div class="lv-kp-card" role="dialog" aria-modal="true" aria-label="Kampanya: İlk taksit Şubat 2027, yüzde 50 peşinat, 18 ay sıfır faiz">' +
             '<button type="button" class="lv-kp-x" aria-label="Kapat">&times;</button>' +
-            '<img src="' + IMG + '" width="1000" height="1250" alt="İlk taksit Şubat 2027. %50 peşinat, kalanı 18 ay sıfır faiz. Lusso Vita.">' +
+            '<img src="' + IMG + '" width="800" height="1000" alt="İlk taksit Şubat 2027. %50 peşinat, kalanı 18 ay sıfır faiz. Lusso Vita.">' +
             '<div class="lv-kp-actions">' +
-            '<a class="lv-kp-wa" href="' + WA + '" target="_blank" rel="noopener noreferrer">WhatsApp ile bilgi al</a>' +
-            '<a class="lv-kp-tel" href="' + TEL + '">Hemen ara</a>' +
+            (MOBILE
+                ? '<a class="lv-kp-wa" href="' + WA + '" target="_blank" rel="noopener noreferrer">WhatsApp ile bilgi al</a>' +
+                  '<a class="lv-kp-tel" href="' + TEL + '">Hemen ara</a>'
+                : '<a class="lv-kp-wa lv-kp-form" href="' + FORM + '">Formu doldurun</a>' +
+                  '<a class="lv-kp-tel" href="' + TEL + '">0312 911 88 83</a>') +
             '</div></div>';
         document.body.appendChild(root);
         root.addEventListener('click', function (e) {
             if (e.target === root || e.target.closest('.lv-kp-x')) close();
+            // Form zaten bu sayfadaysa (Hakkımızda) bağlantı sadece kaydırır: pop-up'ı da kapat.
+            else if (e.target.closest('.lv-kp-form') && document.getElementById('iletisim')) {
+                e.preventDefault();
+                close(true);
+            }
         });
         root.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') { e.stopPropagation(); close(); return; }
@@ -87,10 +99,20 @@ font-family:Manrope,system-ui,sans-serif;font-size:11px;font-weight:700;letter-s
         root.querySelector('.lv-kp-x').focus({ preventScroll: true });
     }
 
-    function close() {
+    function close(toForm) {
         root.classList.remove('lv-in');
         document.body.style.overflow = '';
         setTimeout(function () { root.classList.remove('lv-open'); }, 300);
+        if (toForm) {
+            // Kaydırma kilidi kalktıktan sonra forma kaydır, ilk alana odaklan.
+            setTimeout(function () {
+                document.getElementById('iletisim').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                try { history.replaceState(null, '', '#iletisim'); } catch (e) {}
+                var f = document.getElementById('contact-name');
+                if (f) setTimeout(function () { f.focus({ preventScroll: true }); }, 700);
+            }, 50);
+            return;
+        }
         if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
     }
 
