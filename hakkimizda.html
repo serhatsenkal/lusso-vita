@@ -176,18 +176,31 @@
 <div class="lg:col-span-5">
 <h2 class="font-headline-lg text-headline-lg text-primary mb-4">Bizimle İletişime Geçin</h2>
 <p class="text-on-surface-variant mb-12">Projelerimiz hakkında detaylı bilgi almak veya bir randevu oluşturmak için aşağıdaki formu doldurabilirsiniz.</p>
-<form class="space-y-8" id="contact-form" novalidate>
+<form class="space-y-8" id="contact-form" data-lead-form="iletisim" novalidate>
 <div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-name">ADINIZ SOYADINIZ</label>
+<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-name">ADINIZ SOYADINIZ *</label>
 <input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Örn: Ahmet Yılmaz" type="text" id="contact-name" name="name" autocomplete="name" required maxlength="100">
 </div>
 <div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-email">E-POSTA ADRESİ</label>
-<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="ahmet@email.com" type="email" id="contact-email" name="email" autocomplete="email" required maxlength="150">
+<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-phone">TELEFON *</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="05XX XXX XX XX" type="tel" id="contact-phone" name="phone" autocomplete="tel" inputmode="tel" required maxlength="20">
 </div>
 <div>
-<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-message">MESAJINIZ</label>
-<textarea class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Nasıl yardımcı olabiliriz?" rows="4" id="contact-message" name="message" required minlength="10" maxlength="2000"></textarea>
+<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-unit">İLGİLENDİĞİNİZ ÜNİTE</label>
+<select class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30 cursor-pointer" id="contact-unit" name="interestedUnit">
+<option value="2+1">2+1 Daire</option>
+<option value="villa">Villa</option>
+<option value="1+1">1+1 Daire</option>
+<option value="belirsiz" selected>Henüz karar vermedim</option>
+</select>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-email">E-POSTA ADRESİ (İSTEĞE BAĞLI)</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="ahmet@email.com" type="email" id="contact-email" name="email" autocomplete="email" maxlength="150">
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-brushed-bronze mb-2 block" for="contact-message">MESAJINIZ (İSTEĞE BAĞLI)</label>
+<textarea class="w-full bg-transparent border-t-0 border-x-0 border-b border-brushed-bronze/40 focus:border-primary focus:ring-0 px-0 py-3 transition-colors placeholder:text-on-surface-variant/30" placeholder="Nasıl yardımcı olabiliriz?" rows="3" id="contact-message" name="message" maxlength="2000"></textarea>
 </div>
 <div class="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
 <label for="contact-company">Şirket</label>
@@ -206,85 +219,9 @@ Kişisel verileriniz <a href="kvkk.html" target="_blank" rel="noopener noreferre
 Kampanya ve tanıtımlarla ilgili tarafıma e-posta/SMS/telefon yoluyla ticari elektronik ileti gönderilmesini istiyorum. (İsteğe bağlıdır)
 </label>
 </div>
-<div id="contact-status" class="hidden font-body-md text-body-md rounded-md px-4 py-3" role="status" aria-live="polite"></div>
+<div id="contact-status" data-lead-status class="hidden font-body-md text-body-md rounded-md px-4 py-3" role="status" aria-live="polite"></div>
 <button type="submit" id="contact-submit" class="w-full bg-primary text-on-primary py-4 font-label-caps text-label-caps tracking-widest hover:bg-walnut transition-colors disabled:opacity-60 disabled:cursor-not-allowed">GÖNDER</button>
 </form>
-<script>
-(function () {
-  var form = document.getElementById('contact-form');
-  if (!form) return;
-  var statusBox = document.getElementById('contact-status');
-  var submitBtn = document.getElementById('contact-submit');
-  var loadedAtField = document.getElementById('contact-loaded-at');
-  var submitting = false;
-  if (loadedAtField) loadedAtField.value = String(Date.now());
-
-  function showStatus(kind, text) {
-    statusBox.textContent = text;
-    statusBox.classList.remove('hidden', 'bg-green-50', 'text-green-800', 'bg-red-50', 'text-red-800');
-    if (kind === 'success') {
-      statusBox.classList.add('bg-green-50', 'text-green-800');
-    } else {
-      statusBox.classList.add('bg-red-50', 'text-red-800');
-    }
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (submitting) return;
-
-    var name = document.getElementById('contact-name').value.trim();
-    var email = document.getElementById('contact-email').value.trim();
-    var message = document.getElementById('contact-message').value.trim();
-    var kvkkConsent = document.getElementById('contact-kvkk').checked;
-    var marketingConsent = document.getElementById('contact-marketing').checked;
-    var company = document.getElementById('contact-company').value;
-    var loadedAt = document.getElementById('contact-loaded-at').value;
-
-    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (name.length < 2 || name.length > 100) {
-      showStatus('error', 'Lütfen geçerli bir ad soyad girin.'); return;
-    }
-    if (!emailRe.test(email) || email.length > 150) {
-      showStatus('error', 'Lütfen geçerli bir e-posta adresi girin.'); return;
-    }
-    if (message.length < 10 || message.length > 2000) {
-      showStatus('error', 'Mesajınız en az 10, en fazla 2000 karakter olmalıdır.'); return;
-    }
-    if (!kvkkConsent) {
-      showStatus('error', 'Devam etmek için KVKK Aydınlatma Metni onayı gereklidir.'); return;
-    }
-
-    submitting = true;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'GÖNDERİLİYOR...';
-    statusBox.classList.add('hidden');
-
-    fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, message: message, kvkkConsent: kvkkConsent, marketingConsent: marketingConsent, company: company, loadedAt: loadedAt })
-    })
-      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
-      .then(function (result) {
-        if (result.ok && result.data && result.data.ok) {
-          showStatus('success', 'Talebiniz alınmıştır. Ekibimiz en kısa sürede sizinle iletişime geçecektir.');
-          form.reset();
-        } else {
-          showStatus('error', 'Mesajınız şu anda gönderilemedi. Lütfen tekrar deneyin veya bilgi@lussovita.com.tr adresinden bizimle iletişime geçin.');
-        }
-      })
-      .catch(function () {
-        showStatus('error', 'Mesajınız şu anda gönderilemedi. Lütfen tekrar deneyin veya bilgi@lussovita.com.tr adresinden bizimle iletişime geçin.');
-      })
-      .finally(function () {
-        submitting = false;
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'GÖNDER';
-      });
-  });
-})();
-</script>
 </div>
 <div class="lg:col-span-7 space-y-12">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -415,6 +352,7 @@ Kampanya ve tanıtımlarla ilgili tarafıma e-posta/SMS/telefon yoluyla ticari e
 <a href="https://wa.me/905331587419?text=Merhaba%2C%20Projeniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ile iletişime geç" class="fixed bottom-24 right-5 md:bottom-8 md:right-8 z-40 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
 <span class="material-symbols-outlined text-white text-2xl md:text-3xl">chat</span>
 </a>
+<script src="assets/js/lead-form.js"></script>
 <script src="assets/js/cookie-consent.js"></script>
 <script src="assets/js/kampanya-popup.js" defer></script>
 </body>

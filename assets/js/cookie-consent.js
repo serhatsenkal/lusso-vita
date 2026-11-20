@@ -14,19 +14,27 @@
  *  - Every element with [data-cerez-ayarlari] (footer link, policy page button)
  *    reopens the dialog, so withdrawing consent is as easy as giving it.
  *
- * Categories: zorunlu (always), analitik (Google Analytics 4), pazarlama (Meta Pixel).
- * Google Analytics is loaded from here only after an explicit "analitik" consent.
- * To add Google Ads later: add the tool below, load its script inside
- * applyConsent(), bump VERSION, update cerez-politikasi.html.
+ * Categories: zorunlu (always), analitik (Google Analytics 4), pazarlama
+ * (Google Ads, Meta Pixel). Google tags are loaded from here only after an
+ * explicit consent: with GTM_ID set, Google Tag Manager is loaded once the
+ * visitor accepts analytics or marketing, and Consent Mode v2 tells each tag
+ * what it may do; without it, GA4 is loaded directly after "analitik" consent.
+ * Adding a tool: load it inside applyConsent(), bump VERSION, update
+ * cerez-politikasi.html and the texts below.
  */
 (function () {
     'use strict';
 
-    var VERSION = 2;                         // consent text / tool list version
+    var VERSION = 3;                         // consent text / tool list version (3: Google Ads + GTM added)
     var KEY = 'lv_cerez_tercihi';
     var MAX_AGE_MS = 1000 * 60 * 60 * 24 * 182;   // ~6 ay
     var META_PIXEL_ID = '28939791892284691';
     var GA_ID = 'G-M58H258ZFH';
+    // Google Tag Manager container. Empty: GA4 is loaded directly as before (no
+    // Google Ads tags). Set it (e.g. 'GTM-XXXXXXX') when the container is
+    // published: GA4, Conversion Linker and the Google Ads conversion tags then
+    // run from GTM, under the Consent Mode states set below.
+    var GTM_ID = '';
 
     /* ---------- storage ---------- */
     function read() {
@@ -40,6 +48,26 @@
         var c = { v: VERSION, ts: Date.now(), zorunlu: true, analitik: !!analytics, pazarlama: !!marketing };
         try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
         return c;
+    }
+
+    /* ---------- Google Consent Mode v2 ----------
+     * Everything is "denied" until the visitor decides. This only queues a
+     * command in the page's own dataLayer; nothing is sent anywhere, and no
+     * Google script is loaded before an explicit consent (basic consent mode).
+     */
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+        ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+        analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted',
+        wait_for_update: 500
+    });
+    function consentUpdate(c) {
+        var m = c.pazarlama ? 'granted' : 'denied';
+        gtag('consent', 'update', {
+            ad_storage: m, ad_user_data: m, ad_personalization: m,
+            analytics_storage: c.analitik ? 'granted' : 'denied'
+        });
     }
 
     /* ---------- tools that need consent ---------- */
@@ -60,79 +88,101 @@
         window.fbq('init', META_PIXEL_ID);
         window.fbq('track', 'PageView');
     }
-    function removeMarketingCookies() {
-        var host = location.hostname, parts = host.split('.');
-        var domains = ['', host];
-        for (var i = 1; i < parts.length - 1; i++) domains.push('.' + parts.slice(i).join('.'));
-        ['_fbp', '_fbc'].forEach(function (name) {
-            domains.forEach(function (d) {
-                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + (d ? '; domain=' + d : '');
-            });
-        });
-    }
-    var gaLoaded = false;
-    function loadGoogleAnalytics() {
-        if (gaLoaded) return;
-        gaLoaded = true;
-        /* Google tag (gtag.js) - only ever executed after "analitik" consent */
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function () { window.dataLayer.push(arguments); };
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-        document.head.appendChild(s);
-        window.gtag('js', new Date());
-        window.gtag('config', GA_ID);
-    }
-    function removeAnalyticsCookies() {
+    function clearCookies(test) {
         var host = location.hostname, parts = host.split('.');
         var domains = ['', host];
         for (var i = 1; i < parts.length - 1; i++) domains.push('.' + parts.slice(i).join('.'));
         document.cookie.split(';').forEach(function (pair) {
             var name = pair.split('=')[0].trim();
-            if (name !== '_ga' && name.indexOf('_ga_') !== 0) return;
+            if (!test(name)) return;
             domains.forEach(function (d) {
                 document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + (d ? '; domain=' + d : '');
             });
         });
     }
+    function removeMarketingCookies() {
+        clearCookies(function (n) { return n === '_fbp' || n === '_fbc' || n.indexOf('_gcl_') === 0; });
+    }
+    function removeAnalyticsCookies() {
+        clearCookies(function (n) { return n === '_ga' || n.indexOf('_ga_') === 0; });
+    }
+
+    var gaLoaded = false;      // legacy path: GA4 straight from gtag.js
+    function loadGoogleAnalytics() {
+        if (gaLoaded) return;
+        gaLoaded = true;
+        /* Google tag (gtag.js) - only ever executed after "analitik" consent */
+        window.gtag = gtag;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+    }
+    var gtmLoaded = false;     // GTM path: GA4 + Google Ads tags from the container
+    function loadGTM() {
+        if (gtmLoaded || !GTM_ID) return;
+        gtmLoaded = true;
+        window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+        document.head.appendChild(s);
+    }
+
     function applyConsent(c, wasMarketing, wasAnalytics) {
+        consentUpdate(c);
         if (c.pazarlama) loadMetaPixel(); else removeMarketingCookies();
-        if (c.analitik) loadGoogleAnalytics(); else removeAnalyticsCookies();
-        // consent withdrawn while the tool is already running on this page:
+        if (!c.analitik) removeAnalyticsCookies();
+        if (GTM_ID) {
+            if (c.analitik || c.pazarlama) loadGTM();
+        } else if (c.analitik) {
+            loadGoogleAnalytics();
+        }
+        // consent withdrawn while a tool is already running on this page:
         // a reload is the only way to actually stop it
-        if ((!c.pazarlama && wasMarketing && pixelLoaded) || (!c.analitik && wasAnalytics && gaLoaded)) location.reload();
+        var googleRunning = gaLoaded || gtmLoaded;
+        if ((!c.pazarlama && wasMarketing && (pixelLoaded || gtmLoaded)) || (!c.analitik && wasAnalytics && googleRunning)) location.reload();
     }
 
     /* ---------- conversion events ----------
-     * Fired only when the tool is already running, i.e. after the visitor consented.
-     * No personal data is sent: just the event name. The contact form code is not
-     * touched; its success box turning green is observed instead.
+     * Fired only when a tool is already running, i.e. after the visitor consented.
+     * No personal data is sent: just the event name and non-personal details
+     * (form name, unit type, file name).
+     *   generate_lead     lead form sent (assets/js/lead-form.js -> "lv:lead")
+     *   phone_click       tel: link
+     *   whatsapp_click    wa.me / WhatsApp link
+     *   email_click       mailto: link
+     *   catalog_download  link to a .pdf (the catalogue)
      */
-    function track(gaEvent, fbEvent) {
+    function track(name, params, fbEvent) {
+        params = params || {};
         try {
-            if (gaLoaded && typeof window.gtag === 'function') window.gtag('event', gaEvent);
-            if (pixelLoaded && typeof window.fbq === 'function') window.fbq('track', fbEvent);
+            if (gtmLoaded) {
+                var ev = { event: name };
+                for (var k in params) if (Object.prototype.hasOwnProperty.call(params, k)) ev[k] = params[k];
+                window.dataLayer.push(ev);
+            } else if (gaLoaded) {
+                gtag('event', name, params);
+            }
+            if (fbEvent && pixelLoaded && typeof window.fbq === 'function') window.fbq('track', fbEvent);
         } catch (e) {}
     }
     function setupEvents() {
         document.addEventListener('click', function (e) {
             var a = e.target.closest && e.target.closest('a[href]');
             if (!a) return;
-            var h = (a.getAttribute('href') || '').toLowerCase();
-            if (h.indexOf('wa.me/') > -1 || h.indexOf('api.whatsapp.com') > -1 || h.indexOf('whatsapp:') === 0) track('whatsapp_click', 'Contact');
-            else if (h.indexOf('tel:') === 0) track('phone_click', 'Contact');
-            else if (h.indexOf('mailto:') === 0) track('email_click', 'Contact');
+            var raw = a.getAttribute('href') || '', h = raw.toLowerCase();
+            if (h.indexOf('wa.me/') > -1 || h.indexOf('api.whatsapp.com') > -1 || h.indexOf('whatsapp:') === 0) track('whatsapp_click', {}, 'Contact');
+            else if (h.indexOf('tel:') === 0) track('phone_click', {}, 'Contact');
+            else if (h.indexOf('mailto:') === 0) track('email_click', {}, 'Contact');
+            else if (/\.pdf(\?|#|$)/.test(h)) track('catalog_download', { file_name: raw.split('/').pop().split(/[?#]/)[0] });
         }, true);
-        var box = document.getElementById('contact-status');
-        if (box && window.MutationObserver) {
-            var sent = false;
-            new MutationObserver(function () {
-                var hidden = box.classList.contains('hidden');
-                if (hidden) { sent = false; return; }
-                if (box.classList.contains('bg-green-50') && !sent) { sent = true; track('generate_lead', 'Lead'); }
-            }).observe(box, { attributes: true, attributeFilter: ['class'] });
-        }
+        document.addEventListener('lv:lead', function (e) {
+            var d = (e && e.detail) || {};
+            track('generate_lead', { form_name: d.form_name || 'iletisim', interested_unit: d.interested_unit || 'belirsiz' }, 'Lead');
+        });
     }
 
     /* ---------- UI ---------- */
@@ -172,7 +222,7 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
 <div class="lv-box" role="dialog" aria-modal="false" aria-labelledby="lv-cerez-title" tabindex="-1">\
   <div data-layer="1">\
     <h2 id="lv-cerez-title">Çerez Tercihleri</h2>\
-    <p>Sitemizin çalışması için zorunlu teknolojileri kullanıyoruz. Açık rızanızı verirseniz site kullanımını ölçmek için analitik çerezler (Google Analytics) ve reklam ölçümü için pazarlama çerezleri (Meta Pixel) de kullanılır; verileriniz yurt dışına (Google LLC, Meta Platforms, Inc.) aktarılır. <a href="/cerez-politikasi.html">Çerez Politikası</a> · <a href="/kvkk.html">KVKK Aydınlatma Metni</a></p>\
+    <p>Sitemizin çalışması için zorunlu teknolojileri kullanıyoruz. Açık rızanızı verirseniz site kullanımını ölçmek için analitik çerezler (Google Analytics) ve reklam ölçümü için pazarlama çerezleri (Google Ads, Meta Pixel) de kullanılır; verileriniz yurt dışına (Google LLC, Meta Platforms, Inc.) aktarılır. <a href="/cerez-politikasi.html">Çerez Politikası</a> · <a href="/kvkk.html">KVKK Aydınlatma Metni</a></p>\
     <div class="lv-actions">\
       <button type="button" class="lv-solid" data-act="reject">Reddet</button>\
       <button type="button" class="lv-solid" data-act="accept">Kabul Et</button>\
@@ -191,7 +241,7 @@ padding:11px 10px;cursor:pointer;border:1px solid #041627;transition:opacity .2s
       <label class="lv-toggle"><input type="checkbox" id="lv-ana" aria-labelledby="lv-cat-ana"><span class="lv-sw"></span></label>\
     </div>\
     <div class="lv-cat">\
-      <div><h3 id="lv-cat-paz">Pazarlama / Hedefleme</h3><p>Meta Pixel (Meta Platforms, Inc.): reklamlarımızın etkinliğini ve dönüşümleri ölçmek, Facebook ve Instagram\'da size uygun reklamlar göstermek için kullanılır. Verileriniz yurt dışına (başta ABD) aktarılır. Açık rızanıza tabidir.</p></div>\
+      <div><h3 id="lv-cat-paz">Pazarlama / Hedefleme</h3><p>Google Ads (Google LLC) ve Meta Pixel (Meta Platforms, Inc.): reklamlarımızın etkinliğini ve dönüşümleri (form, arama, WhatsApp, katalog indirme) ölçmek, Google, Facebook ve Instagram\'da size uygun reklamlar göstermek için kullanılır. Verileriniz yurt dışına (başta ABD) aktarılır. Açık rızanıza tabidir.</p></div>\
       <label class="lv-toggle"><input type="checkbox" id="lv-paz" aria-labelledby="lv-cat-paz"><span class="lv-sw"></span></label>\
     </div>\
     <div class="lv-actions">\
